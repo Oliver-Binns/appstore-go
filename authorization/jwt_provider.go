@@ -10,9 +10,9 @@ import (
 )
 
 type Account struct {
-	keyID      string
-	issuerID   string
-	privateKey string
+	KeyID      string
+	IssuerID   string
+	PrivateKey string
 }
 
 type TokenSource interface {
@@ -20,7 +20,7 @@ type TokenSource interface {
 }
 
 func NewTokenSource(account Account) (TokenSource, error) {
-	pk, err := jwt.ParseECPrivateKeyFromPEM([]byte(account.privateKey))
+	pk, err := jwt.ParseECPrivateKeyFromPEM([]byte(account.PrivateKey))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse private key: %w", err)
 	}
@@ -63,7 +63,7 @@ func (ts *tokenSource) refresh() (string, error) {
 	exp := iat.Add(ts.expiresIn)
 
 	token := jwt.NewWithClaims(jwt.SigningMethodES256, jwt.MapClaims{
-		"iss":   ts.account.issuerID,
+		"iss":   ts.account.IssuerID,
 		"sub":   "user",
 		"scope": "",
 		"aud":   "appstoreconnect-v1",
@@ -72,7 +72,7 @@ func (ts *tokenSource) refresh() (string, error) {
 	})
 	token.Header["alg"] = "ES256"
 	token.Header["typ"] = "JWT"
-	token.Header["kid"] = ts.account.keyID
+	token.Header["kid"] = ts.account.KeyID
 
 	bearer, err := token.SignedString(ts.pk)
 	if err != nil {

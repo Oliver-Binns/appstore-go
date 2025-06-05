@@ -40,13 +40,13 @@ func TestTokenSource_Token(t *testing.T) {
 	// The correct key was used:
 	// Signed with EC
 	assert.Equal(t, jwt.SigningMethodES256.Alg(), parsed.Method.Alg())
-	assert.Equal(t, acc.keyID, parsed.Header["kid"])
+	assert.Equal(t, acc.KeyID, parsed.Header["kid"])
 
 	claims, ok := parsed.Claims.(jwt.MapClaims)
 	require.True(t, ok)
 
 	// Contains the correct issuer and subject:
-	assert.Equal(t, acc.issuerID, claims["iss"])
+	assert.Equal(t, acc.IssuerID, claims["iss"])
 	assert.Equal(t, "user", claims["sub"])
 
 	// Contains the correct audience and scope:
@@ -90,9 +90,9 @@ func TestTokenSource_TokenRefresh(t *testing.T) {
 
 func mockAccount(key string) Account {
 	return Account{
-		keyID:      "2X9R4HXF34",
-		issuerID:   "57246542-96fe-1a63-e053-0824d011072a",
-		privateKey: key,
+		KeyID:      "2X9R4HXF34",
+		IssuerID:   "57246542-96fe-1a63-e053-0824d011072a",
+		PrivateKey: key,
 	}
 }
 
@@ -116,7 +116,7 @@ func generatePrivateKey() (*ecdsa.PrivateKey, []byte, error) {
 }
 
 func ShortlivedTokenSource(account Account) (TokenSource, error) {
-	pk, err := jwt.ParseECPrivateKeyFromPEM([]byte(account.privateKey))
+	pk, err := jwt.ParseECPrivateKeyFromPEM([]byte(account.PrivateKey))
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse private key: %w", err)
 	}
