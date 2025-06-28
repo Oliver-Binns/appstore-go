@@ -47,6 +47,7 @@ type connectAPIResponse struct {
 }
 
 type connectObjectResponse struct {
-	ID   string `json:"id"`
+	ID   string `json:"id,omitempty"`
+	Type string `json:"type,omitempty"`
 	Data User   `json:"attributes"`
 }

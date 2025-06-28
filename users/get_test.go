@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestListUsers_MakesRequest(t *testing.T) {
+func TestGetUser_MakesRequest(t *testing.T) {
 	httpClient := &mockHTTPClient{
 		response: `{
 			"users": [
@@ -29,7 +29,7 @@ func TestListUsers_MakesRequest(t *testing.T) {
 	assert.Equal(t, httpClient.requests[0].URL.String(), "https://example.com/users/abcd1234-5678-90ab-cdef-1234567890ab")
 }
 
-func TestListUsers_DecodesResponse(t *testing.T) {
+func TestGetUser_DecodesResponse(t *testing.T) {
 	httpClient := &mockHTTPClient{
 		response: `{
   "data" : {
