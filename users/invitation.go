@@ -1,6 +1,6 @@
 package users
 
-type UserInvitation struct {
+type userInvitation struct {
 	ID                  string     `json:"id,omitempty"`
 	FirstName           string     `json:"firstName"`
 	LastName            string     `json:"lastName"`
