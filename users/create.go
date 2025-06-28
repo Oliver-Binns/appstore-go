@@ -13,7 +13,7 @@ import (
 	"github.com/oliver-binns/googleplay-go/networking"
 )
 
-func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user UserInvitation) (*UserInvitation, error) {
+func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user User) (*User, error) {
 	// Parse the raw URL
 	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
@@ -21,12 +21,21 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 	}
 	parsedURL.Path = path.Join(parsedURL.Path, "userInvitations")
 
+	invitation := userInvitation{
+		FirstName:           user.FirstName,
+		LastName:            user.LastName,
+		Email:               user.Username,
+		Roles:               user.Roles,
+		AllAppsVisible:      user.AllAppsVisible,
+		ProvisioningAllowed: user.ProvisioningAllowed,
+	}
+
 	// Create the request body
 	body := bytes.NewBuffer(nil)
-	requestObject := connectapi.Request[UserInvitation]{
-		Data: connectapi.RequestData[UserInvitation]{
+	requestObject := connectapi.Request[userInvitation]{
+		Data: connectapi.RequestData[userInvitation]{
 			Type: "userInvitations",
-			Data: user,
+			Data: invitation,
 		},
 	}
 	err = json.NewEncoder(body).Encode(requestObject)
@@ -46,7 +55,7 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		return nil, err
 	}
 
-	userResponse := new(connectapi.Response[UserInvitation])
+	userResponse := new(connectapi.Response[userInvitation])
 	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
@@ -55,6 +64,13 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
-	userResponse.Data.Data.ID = userResponse.Data.ID
-	return &userResponse.Data.Data, nil
+	return &User{
+		ID:                  userResponse.Data.ID,
+		FirstName:           userResponse.Data.Data.FirstName,
+		LastName:            userResponse.Data.Data.LastName,
+		Username:            userResponse.Data.Data.Email,
+		Roles:               userResponse.Data.Data.Roles,
+		AllAppsVisible:      userResponse.Data.Data.AllAppsVisible,
+		ProvisioningAllowed: userResponse.Data.Data.ProvisioningAllowed,
+	}, nil
 }
