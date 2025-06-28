@@ -40,7 +40,7 @@ func (c *Client) GetUser(ctx context.Context, id string) (*users.User, error) {
 	return users.Get(*c.client, ctx, c.baseURL, id)
 }
 
-func (c *Client) CreateUser(ctx context.Context, user users.User) (*users.User, error) {
+func (c *Client) CreateUser(ctx context.Context, user users.UserInvitation) (*users.UserInvitation, error) {
 	return users.Create(*c.client, ctx, c.baseURL, user)
 }
 

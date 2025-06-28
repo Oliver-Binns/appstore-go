@@ -9,10 +9,10 @@ import (
 )
 
 func TestCreateUser_MakesRequest(t *testing.T) {
-	user := User{
+	user := UserInvitation{
 		FirstName: "Joseph",
 		LastName:  "Bloggs",
-		Username:  "joe.bloggs@example.com",
+		Email:     "joe.bloggs@example.com",
 		Roles:     []UserRole{Marketing},
 	}
 	httpClient := &mockHTTPClient{
@@ -31,7 +31,7 @@ func TestCreateUser_MakesRequest(t *testing.T) {
 	bodyBytes, err := io.ReadAll(httpClient.requests[0].Body)
 	assert.NoError(t, err)
 	bodyString := string(bodyBytes)
-	assert.Equal(t, `{"data":{"type":"userInvitations","attributes":{"firstName":"Joseph","lastName":"Bloggs","username":"joe.bloggs@example.com","roles":["MARKETING"]}}}
+	assert.Equal(t, `{"data":{"type":"userInvitations","attributes":{"firstName":"Joseph","lastName":"Bloggs","email":"joe.bloggs@example.com","roles":["MARKETING"]}}}
 `, bodyString)
 }
 
@@ -47,31 +47,17 @@ func TestCreateUser_DecodesResponse(t *testing.T) {
 					"firstName": "Oliver",
 					"provisioningAllowed": true,
 					"roles": ["ACCOUNT_HOLDER", "ADMIN"],
-					"username": "mail@oliverbinns.co.uk"
-				},
-				"relationships": {
-					"visibleApps": {
-						"links": {
-							"self": "https://api.appstoreconnect.apple.com/v1/users/69a495c9-7dbc-5733-e053-5b8c7c1155b0/relationships/visibleApps",
-							"related": "https://api.appstoreconnect.apple.com/v1/users/69a495c9-7dbc-5733-e053-5b8c7c1155b0/visibleApps"
-						}
-					}
-				},
-				"links": {
-					"self": "https://api.appstoreconnect.apple.com/v1/users/69a495c9-7dbc-5733-e053-5b8c7c1155b0"
+					"email": "mail@oliverbinns.co.uk"
 				}
-			},
-			"links": {
-				"self": "https://api.appstoreconnect.apple.com/v1/users/69a495c9-7dbc-5733-e053-5b8c7c1155b0"
 			}
 		}`,
 	}
 
 	user, _ := Create(
-		httpClient, context.Background(), "https://example.com", User{},
+		httpClient, context.Background(), "https://example.com", UserInvitation{},
 	)
 
 	assert.Equal(t, user.FirstName, "Oliver")
 	assert.Equal(t, user.LastName, "Binns")
-	assert.Equal(t, user.Username, "mail@oliverbinns.co.uk")
+	assert.Equal(t, user.Email, "mail@oliverbinns.co.uk")
 }
