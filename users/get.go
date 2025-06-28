@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"path"
 
+	"github.com/oliver-binns/appstore-go/connectapi"
 	"github.com/oliver-binns/googleplay-go/networking"
 )
 
@@ -30,8 +31,8 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, err
 	}
 
-	userListResponse := new(connectAPIResponse)
-	if err := json.NewDecoder(resp.Body).Decode(userListResponse); err != nil {
+	userResponse := new(connectapi.Response[User])
+	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
 
@@ -39,14 +40,5 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
-	return &userListResponse.Data.Data, nil
-}
-
-type connectAPIResponse struct {
-	Data connectObjectResponse `json:"data"`
-}
-
-type connectObjectResponse struct {
-	ID   string `json:"id"`
-	Data User   `json:"attributes"`
+	return &userResponse.Data.Data, nil
 }
