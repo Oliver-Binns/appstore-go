@@ -65,6 +65,7 @@ func TestGetUser_DecodesResponse(t *testing.T) {
 		httpClient, context.Background(), "https://example.com", "abc",
 	)
 
+	assert.Equal(t, user.ID, "69a495c9-7dbc-5733-e053-5b8c7c1155b0")
 	assert.Equal(t, user.FirstName, "Oliver")
 	assert.Equal(t, user.LastName, "Binns")
 	assert.Equal(t, user.Username, "mail@oliverbinns.co.uk")

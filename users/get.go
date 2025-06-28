@@ -40,5 +40,6 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
+	userResponse.Data.Data.ID = userResponse.Data.ID
 	return &userResponse.Data.Data, nil
 }

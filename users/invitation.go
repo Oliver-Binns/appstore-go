@@ -1,10 +1,10 @@
 package users
 
-type User struct {
+type UserInvitation struct {
 	ID                  string     `json:"id,omitempty"`
 	FirstName           string     `json:"firstName"`
 	LastName            string     `json:"lastName"`
-	Username            string     `json:"username"`
+	Email               string     `json:"email"`
 	Roles               []UserRole `json:"roles"`
 	AllAppsVisible      bool       `json:"allAppsVisible,omitempty"`
 	ProvisioningAllowed bool       `json:"provisioningAllowed,omitempty"`

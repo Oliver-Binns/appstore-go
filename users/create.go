@@ -55,14 +55,6 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
+	userResponse.Data.Data.ID = userResponse.Data.ID
 	return &userResponse.Data.Data, nil
-}
-
-type UserInvitation struct {
-	FirstName           string     `json:"firstName"`
-	LastName            string     `json:"lastName"`
-	Email               string     `json:"email"`
-	Roles               []UserRole `json:"roles"`
-	AllAppsVisible      bool       `json:"allAppsVisible,omitempty"`
-	ProvisioningAllowed bool       `json:"provisioningAllowed,omitempty"`
 }
