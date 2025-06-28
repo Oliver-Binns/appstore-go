@@ -44,6 +44,10 @@ func (c *Client) CreateUser(ctx context.Context, user users.User) (*users.User, 
 	return users.Create(*c.client, ctx, c.baseURL, user)
 }
 
+func (c *Client) DeleteUser(ctx context.Context, id string) error {
+	return users.Delete(*c.client, ctx, c.baseURL, id)
+}
+
 func check(e error) {
 	if e != nil {
 		panic(e)
