@@ -8,4 +8,5 @@ type User struct {
 	Roles               []UserRole `json:"roles,omitempty"`
 	AllAppsVisible      bool       `json:"allAppsVisible,omitempty"`
 	ProvisioningAllowed bool       `json:"provisioningAllowed,omitempty"`
+	HasAcceptedInvite   bool       `json:"userHasAcceptedInvitation,omitempty"`
 }

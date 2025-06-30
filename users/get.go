@@ -47,6 +47,7 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 	}
 
 	userResponse.Data.Data.ID = userResponse.Data.ID
+	userResponse.Data.Data.HasAcceptedInvite = true
 	return &userResponse.Data.Data, nil
 }
 
@@ -80,5 +81,6 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 		Roles:               userResponse.Data.Data.Roles,
 		AllAppsVisible:      userResponse.Data.Data.AllAppsVisible,
 		ProvisioningAllowed: userResponse.Data.Data.ProvisioningAllowed,
+		HasAcceptedInvite:   false,
 	}, nil
 }

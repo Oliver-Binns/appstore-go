@@ -85,6 +85,8 @@ func TestGetUser_DecodesResponse(t *testing.T) {
 
 	assert.Nil(t, err)
 
+	assert.True(t, user.HasAcceptedInvite)
+
 	assert.Equal(t, user.ID, "69a495c9-7dbc-5733-e053-5b8c7c1155b0")
 	assert.Equal(t, user.FirstName, "Oliver")
 	assert.Equal(t, user.LastName, "Binns")
@@ -125,6 +127,8 @@ func TestGetUser_DecodesInvitationResponse_When404ReturnedFromUsers(t *testing.T
 	)
 
 	assert.Nil(t, err)
+
+	assert.False(t, user.HasAcceptedInvite)
 
 	assert.Equal(t, user.ID, "69a495c9-7dbc-5733-e053-5b8c7c1155b0")
 	assert.Equal(t, user.FirstName, "Oliver")
