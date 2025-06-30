@@ -15,8 +15,8 @@ func TestModifyUser_MakesRequest(t *testing.T) {
 	_, _ = Modify(
 		httpClient, context.Background(), "https://example.com", "abcd1234-5678-90ab-cdef-1234567890ab",
 		User{
-			FirstName: "Joseph",
-			Username:  "joseph.bloggs@example.com",
+			AllAppsVisible:      true,
+			ProvisioningAllowed: true,
 		},
 	)
 
@@ -28,7 +28,7 @@ func TestModifyUser_MakesRequest(t *testing.T) {
 	bodyBytes, err := io.ReadAll(httpClient.Requests[0].Body)
 	assert.NoError(t, err)
 	bodyString := string(bodyBytes)
-	assert.Equal(t, `{"data":{"type":"users","attributes":{"firstName":"Joseph","username":"joseph.bloggs@example.com"}}}
+	assert.Equal(t, `{"data":{"id":"abcd1234-5678-90ab-cdef-1234567890ab","type":"users","attributes":{"allAppsVisible":true,"provisioningAllowed":true}}}
 `, bodyString)
 }
 
@@ -52,8 +52,8 @@ func TestModifyUser_DecodesResponse(t *testing.T) {
 	user, _ := Modify(
 		httpClient, context.Background(), "https://example.com", "dummy-id",
 		User{
-			FirstName: "Oliver",
-			Username:  "mail@oliverbinns.co.uk",
+			AllAppsVisible:      true,
+			ProvisioningAllowed: true,
 		},
 	)
 
