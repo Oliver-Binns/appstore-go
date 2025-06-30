@@ -44,6 +44,10 @@ func (c *Client) CreateUser(ctx context.Context, user users.User) (*users.User, 
 	return users.Create(*c.client, ctx, c.baseURL, user)
 }
 
+func (c *Client) ModifyUser(ctx context.Context, id string, user users.User) (*users.User, error) {
+	return users.Modify(*c.client, ctx, c.baseURL, id, user)
+}
+
 func (c *Client) DeleteUser(ctx context.Context, id string) error {
 	return users.Delete(*c.client, ctx, c.baseURL, id)
 }
