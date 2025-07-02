@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"net/url"
 	"path"
@@ -24,11 +23,12 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 
 	// Create the request body
 	body := bytes.NewBuffer(nil)
-	requestObject := connectapi.Request[User]{
-		Data: connectapi.RequestData[User]{
-			ID:   id,
-			Type: "users",
-			Data: user,
+	requestObject := connectapi.Request[User, *userRelationships]{
+		Data: connectapi.RequestData[User, *userRelationships]{
+			ID:            id,
+			Type:          "users",
+			Data:          user,
+			Relationships: user.relationships(),
 		},
 	}
 	err = json.NewEncoder(body).Encode(requestObject)
@@ -45,21 +45,11 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 
 	resp, err := c.Do(req)
 
-	if resp.StatusCode != http.StatusOK {
-		fmt.Printf("Response: %+v\n", resp)
-
-		bodyBytes, _ := io.ReadAll(resp.Body)
-		bodyString := string(bodyBytes)
-		fmt.Printf("Body: %s\n", bodyString)
-
-		return nil, fmt.Errorf("unexpected response code: %d", resp.StatusCode)
-	}
-
 	if err != nil {
 		return nil, err
 	}
 
-	userResponse := new(connectapi.Response[User])
+	userResponse := new(connectapi.Response[User, userRelationships])
 	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
@@ -76,5 +66,7 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		Roles:               userResponse.Data.Data.Roles,
 		AllAppsVisible:      userResponse.Data.Data.AllAppsVisible,
 		ProvisioningAllowed: userResponse.Data.Data.ProvisioningAllowed,
+		// Visible App IDs are returned from the input as these are not available in the API response:
+		VisibleAppIDs: user.relationships().ids(),
 	}, nil
 }
