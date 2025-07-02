@@ -18,7 +18,7 @@ func TestGetUser_MakesRequest(t *testing.T) {
 
 	assert.Equal(t, len(httpClient.Requests), 1)
 	assert.Equal(t, httpClient.Requests[0].Method, "GET")
-	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/users/abcd1234-5678-90ab-cdef-1234567890ab")
+	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/users/abcd1234-5678-90ab-cdef-1234567890ab?include=visibleApps")
 }
 
 func TestGetUser_MakesSecondRequestToInvitations_When404Returned(t *testing.T) {
@@ -42,10 +42,10 @@ func TestGetUser_MakesSecondRequestToInvitations_When404Returned(t *testing.T) {
 
 	assert.Equal(t, len(httpClient.Requests), 2)
 	assert.Equal(t, httpClient.Requests[0].Method, "GET")
-	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/users/abcd1234-5678-90ab-cdef-1234567890ab")
+	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/users/abcd1234-5678-90ab-cdef-1234567890ab?include=visibleApps")
 
 	assert.Equal(t, httpClient.Requests[1].Method, "GET")
-	assert.Equal(t, httpClient.Requests[1].URL.String(), "https://example.com/userInvitations/abcd1234-5678-90ab-cdef-1234567890ab")
+	assert.Equal(t, httpClient.Requests[1].URL.String(), "https://example.com/userInvitations/abcd1234-5678-90ab-cdef-1234567890ab?include=visibleApps")
 }
 
 func TestGetUser_DecodesResponse(t *testing.T) {

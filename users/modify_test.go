@@ -52,12 +52,18 @@ func TestModifyUser_DecodesResponse(t *testing.T) {
 	user, _ := Modify(
 		httpClient, context.Background(), "https://example.com", "dummy-id",
 		User{
-			AllAppsVisible:      true,
-			ProvisioningAllowed: true,
+			AllAppsVisible:      false,
+			ProvisioningAllowed: false,
+			VisibleAppIDs:       []string{"123456", "567890"},
 		},
 	)
 
-	assert.Equal(t, user.FirstName, "Oliver")
-	assert.Equal(t, user.LastName, "Binns")
-	assert.Equal(t, user.Username, "mail@oliverbinns.co.uk")
+	assert.Equal(t, "Oliver", user.FirstName)
+	assert.Equal(t, "Binns", user.LastName)
+	assert.Equal(t, "mail@oliverbinns.co.uk", user.Username)
+	assert.True(t, user.ProvisioningAllowed)
+	assert.True(t, user.AllAppsVisible)
+
+	// Visible App IDs are returned from the input as these are not available in the API response:
+	assert.Equal(t, []string{"123456", "567890"}, user.VisibleAppIDs)
 }

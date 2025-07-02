@@ -32,10 +32,11 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 
 	// Create the request body
 	body := bytes.NewBuffer(nil)
-	requestObject := connectapi.Request[userInvitation]{
-		Data: connectapi.RequestData[userInvitation]{
-			Type: "userInvitations",
-			Data: invitation,
+	requestObject := connectapi.Request[userInvitation, *userRelationships]{
+		Data: connectapi.RequestData[userInvitation, *userRelationships]{
+			Type:          "userInvitations",
+			Data:          invitation,
+			Relationships: user.relationships(),
 		},
 	}
 	err = json.NewEncoder(body).Encode(requestObject)
@@ -53,9 +54,11 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 	resp, err := c.Do(req)
 	if err != nil {
 		return nil, err
+	} else if resp.StatusCode != http.StatusCreated {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	userResponse := new(connectapi.Response[userInvitation])
+	userResponse := new(connectapi.Response[userInvitation, *userRelationships])
 	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
@@ -72,5 +75,7 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		Roles:               userResponse.Data.Data.Roles,
 		AllAppsVisible:      userResponse.Data.Data.AllAppsVisible,
 		ProvisioningAllowed: userResponse.Data.Data.ProvisioningAllowed,
+		// Visible App IDs are returned from the input as these are not available in the API response:
+		VisibleAppIDs: user.relationships().ids(),
 	}, nil
 }
