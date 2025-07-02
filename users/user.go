@@ -14,7 +14,7 @@ type User struct {
 }
 
 func (u *User) relationships() *userRelationships {
-	if len(u.VisibleAppIDs) == 0 {
+	if len(u.VisibleAppIDs) == 0 && u.AllAppsVisible {
 		return nil
 	}
 
@@ -36,7 +36,7 @@ type userRelationships struct {
 
 func (r *userRelationships) ids() []string {
 	if r == nil || len(r.VisibleApps.AppReferences) == 0 {
-		return nil
+		return []string{}
 	}
 	ids := make([]string, len(r.VisibleApps.AppReferences))
 	for index, app := range r.VisibleApps.AppReferences {
