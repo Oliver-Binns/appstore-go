@@ -9,15 +9,11 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/oliver-binns/appstore-go/connectapi"
-	"github.com/oliver-binns/appstore-go/networking"
+	"github.com/oliver-binns/appstore-go/openapi"
+	"github.com/oliver-binns/googleplay-go/networking"
 )
 
 func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id string, user User) (*User, error) {
-	if id == "" {
-		return nil, fmt.Errorf("user ID cannot be empty")
-	}
-
 	// Parse the raw URL
 	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
@@ -25,18 +21,25 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 	}
 	parsedURL.Path = path.Join(parsedURL.Path, "users", id)
 
-	// Create the request body
-	body := bytes.NewBuffer(nil)
-	requestObject := connectapi.Request[User, *userRelationships]{
-		Data: connectapi.RequestData[User, *userRelationships]{
-			ID:            id,
-			Type:          "users",
-			Data:          user,
-			Relationships: user.relationships(),
+	requestData := openapi.UserUpdateRequestData{
+		Id:   id,
+		Type: "users",
+		Attributes: openapi.UserUpdateRequestAttributes{
+			Roles:               rolesOrNil(user.Roles),
+			AllAppsVisible:      boolPtrOrNil(user.AllAppsVisible),
+			ProvisioningAllowed: boolPtrOrNil(user.ProvisioningAllowed),
 		},
 	}
-	err = json.NewEncoder(body).Encode(requestObject)
-	if err != nil {
+
+	if linkages := user.visibleAppsLinkages(); linkages != nil {
+		requestData.Relationships = &openapi.UserUpdateRequestRelationships{
+			VisibleApps: linkages,
+		}
+	}
+
+	// Create the request body
+	body := bytes.NewBuffer(nil)
+	if err = json.NewEncoder(body).Encode(openapi.UserUpdateRequest{Data: requestData}); err != nil {
 		return nil, fmt.Errorf("failed to encode request body: %w", err)
 	}
 
@@ -53,13 +56,8 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		return nil, err
 	}
 
-	if resp.StatusCode != http.StatusOK {
-		_ = resp.Body.Close()
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
-	}
-
-	userResponse := new(connectapi.Response[User, userRelationships])
-	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
+	var userResponse openapi.UserResponse
+	if err := json.NewDecoder(resp.Body).Decode(&userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
 
@@ -67,15 +65,16 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
+	u := userResponse.Data
 	return &User{
-		ID:                  userResponse.Data.ID,
-		FirstName:           userResponse.Data.Data.FirstName,
-		LastName:            userResponse.Data.Data.LastName,
-		Username:            userResponse.Data.Data.Username,
-		Roles:               userResponse.Data.Data.Roles,
-		AllAppsVisible:      userResponse.Data.Data.AllAppsVisible,
-		ProvisioningAllowed: userResponse.Data.Data.ProvisioningAllowed,
+		ID:                  u.Id,
+		FirstName:           derefString(u.Attributes.FirstName),
+		LastName:            derefString(u.Attributes.LastName),
+		Username:            derefString(u.Attributes.Username),
+		Roles:               derefRoles(u.Attributes.Roles),
+		AllAppsVisible:      derefBool(u.Attributes.AllAppsVisible),
+		ProvisioningAllowed: derefBool(u.Attributes.ProvisioningAllowed),
 		// Visible App IDs are returned from the input as these are not available in the API response:
-		VisibleAppIDs: user.relationships().ids(),
+		VisibleAppIDs: user.VisibleAppIDs,
 	}, nil
 }
