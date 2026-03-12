@@ -3,8 +3,8 @@ info:
   title: App Store Connect API
   description: |
     A subset of Apple's App Store Connect API OpenAPI specification covering
-    user management endpoints. The full specification is available at
-    https://developer.apple.com/documentation/appstoreconnectapi
+    user management and device management endpoints. The full specification is
+    available at https://developer.apple.com/documentation/appstoreconnectapi
   version: "3.7.1"
 
 paths:
@@ -99,6 +99,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserInvitationResponse'
+
+  /v1/devices/{id}:
+    get:
+      operationId: getDevice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceResponse'
+    patch:
+      operationId: updateDevice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceUpdateRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceResponse'
+  /v1/devices:
+    post:
+      operationId: registerDevice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceCreateRequest'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceResponse'
 
 components:
   schemas:
@@ -330,3 +384,126 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/UserInvitationCreateRequestData'
+
+    # Device enums
+
+    DeviceClass:
+      type: string
+      enum:
+        - APPLE_WATCH
+        - IPAD
+        - IPHONE
+        - IPOD
+        - APPLE_TV
+        - APPLE_VISION_PRO
+        - MAC
+
+    BundleIdPlatform:
+      type: string
+      enum:
+        - IOS
+        - MAC_OS
+
+    DeviceStatus:
+      type: string
+      enum:
+        - ENABLED
+        - DISABLED
+
+    # Device response types
+
+    DeviceAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+        udid:
+          type: string
+        deviceClass:
+          $ref: '#/components/schemas/DeviceClass'
+        model:
+          type: string
+        os:
+          type: string
+        platform:
+          $ref: '#/components/schemas/BundleIdPlatform'
+        status:
+          $ref: '#/components/schemas/DeviceStatus'
+        addedDate:
+          type: string
+          format: date-time
+
+    Device:
+      type: object
+      required: [id, attributes]
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          $ref: '#/components/schemas/DeviceAttributes'
+
+    DeviceResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          $ref: '#/components/schemas/Device'
+
+    # Device create request types
+
+    DeviceCreateRequestAttributes:
+      type: object
+      required: [name, udid, platform]
+      properties:
+        name:
+          type: string
+        udid:
+          type: string
+        platform:
+          $ref: '#/components/schemas/BundleIdPlatform'
+
+    DeviceCreateRequestData:
+      type: object
+      required: [type, attributes]
+      properties:
+        type:
+          type: string
+        attributes:
+          $ref: '#/components/schemas/DeviceCreateRequestAttributes'
+
+    DeviceCreateRequest:
+      type: object
+      required: [data]
+      properties:
+        data:
+          $ref: '#/components/schemas/DeviceCreateRequestData'
+
+    # Device update request types
+
+    DeviceUpdateRequestAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/DeviceStatus'
+
+    DeviceUpdateRequestData:
+      type: object
+      required: [id, type, attributes]
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          $ref: '#/components/schemas/DeviceUpdateRequestAttributes'
+
+    DeviceUpdateRequest:
+      type: object
+      required: [data]
+      properties:
+        data:
+          $ref: '#/components/schemas/DeviceUpdateRequestData'
