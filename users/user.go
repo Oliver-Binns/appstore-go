@@ -1,5 +1,7 @@
 package users
 
+import "github.com/oliver-binns/appstore-go/openapi"
+
 type User struct {
 	ID                  string     `json:"-"`
 	FirstName           string     `json:"firstName,omitempty"`
@@ -13,51 +15,83 @@ type User struct {
 	VisibleAppIDs []string `json:"-"`
 }
 
-func (u *User) relationships() *userRelationships {
+// visibleAppsLinkages returns the visible-apps relationship payload used in
+// write requests. It returns nil when all apps are visible and no explicit
+// list is required.
+func (u *User) visibleAppsLinkages() *openapi.UserVisibleAppsLinkages {
 	if len(u.VisibleAppIDs) == 0 && u.AllAppsVisible {
 		return nil
 	}
 
-	apps := make([]relationshipObject, len(u.VisibleAppIDs))
-	for index, id := range u.VisibleAppIDs {
-		apps[index] = appReference(id)
+	data := make([]openapi.AppRelationship, len(u.VisibleAppIDs))
+	for i, id := range u.VisibleAppIDs {
+		data[i] = openapi.AppRelationship{Id: id, Type: "apps"}
 	}
-
-	return &userRelationships{
-		VisibleApps: visibleApps{
-			AppReferences: apps,
-		},
-	}
+	return &openapi.UserVisibleAppsLinkages{Data: data}
 }
 
-type userRelationships struct {
-	VisibleApps visibleApps `json:"visibleApps"`
-}
-
-func (r *userRelationships) ids() []string {
-	if r == nil || len(r.VisibleApps.AppReferences) == 0 {
+// visibleAppIDs extracts the slice of app IDs from a UserRelationships
+// response object, returning an empty slice when no data is present.
+func visibleAppIDs(r *openapi.UserRelationships) []string {
+	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
 		return []string{}
 	}
-	ids := make([]string, len(r.VisibleApps.AppReferences))
-	for index, app := range r.VisibleApps.AppReferences {
-		ids[index] = app.ID
+	ids := make([]string, len(*r.VisibleApps.Data))
+	for i, app := range *r.VisibleApps.Data {
+		ids[i] = app.Id
 	}
 	return ids
-
 }
 
-type visibleApps struct {
-	AppReferences []relationshipObject `json:"data"`
+// invitationVisibleAppIDs extracts app IDs from UserInvitationRelationships.
+func invitationVisibleAppIDs(r *openapi.UserInvitationRelationships) []string {
+	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
+		return []string{}
+	}
+	ids := make([]string, len(*r.VisibleApps.Data))
+	for i, app := range *r.VisibleApps.Data {
+		ids[i] = app.Id
+	}
+	return ids
 }
 
-type relationshipObject struct {
-	ID   string `json:"id,omitempty"`
-	Type string `json:"type,omitempty"` // must be "apps"
+func derefString(s *string) string {
+	if s == nil {
+		return ""
+	}
+	return *s
 }
 
-func appReference(id string) relationshipObject {
-	data := relationshipObject{}
-	data.ID = id
-	data.Type = "apps"
-	return data
+func derefBool(b *bool) bool {
+	if b == nil {
+		return false
+	}
+	return *b
+}
+
+func derefRoles(r *[]UserRole) []UserRole {
+	if r == nil {
+		return nil
+	}
+	return *r
+}
+
+// boolPtrOrNil returns a pointer to b when b is true and nil when b is false.
+// This mirrors the previous behaviour of `bool` fields with `omitempty` JSON tags,
+// where zero (false) values were omitted from requests. A nil pointer on a
+// `*bool, omitempty` field is also omitted, so false values are not sent.
+// If explicit false values need to be included in future, this helper should
+// return &b unconditionally.
+func boolPtrOrNil(b bool) *bool {
+	if b {
+		return &b
+	}
+	return nil
+}
+
+func rolesOrNil(roles []UserRole) *[]UserRole {
+	if len(roles) == 0 {
+		return nil
+	}
+	return &roles
 }
