@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/oliver-binns/appstore-go/authorization"
+	"github.com/oliver-binns/appstore-go/devices"
 	"github.com/oliver-binns/appstore-go/users"
 	"github.com/oliver-binns/googleplay-go/networking"
 )
@@ -50,6 +51,18 @@ func (c *Client) ModifyUser(ctx context.Context, id string, user users.User) (*u
 
 func (c *Client) DeleteUser(ctx context.Context, id string) error {
 	return users.Delete(*c.client, ctx, c.baseURL, id)
+}
+
+func (c *Client) GetDevice(ctx context.Context, id string) (*devices.Device, error) {
+	return devices.Get(*c.client, ctx, c.baseURL, id)
+}
+
+func (c *Client) RegisterDevice(ctx context.Context, device devices.Device) (*devices.Device, error) {
+	return devices.Register(*c.client, ctx, c.baseURL, device)
+}
+
+func (c *Client) ModifyDevice(ctx context.Context, id string, device devices.Device) (*devices.Device, error) {
+	return devices.Modify(*c.client, ctx, c.baseURL, id, device)
 }
 
 func check(e error) {
