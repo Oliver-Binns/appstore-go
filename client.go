@@ -32,7 +32,7 @@ func AppStoreClient(
 
 	return &Client{
 		client:  &client,
-		baseURL: "https://api.appstoreconnect.apple.com/v1/",
+		baseURL: "https://api.appstoreconnect.apple.com",
 	}
 }
 

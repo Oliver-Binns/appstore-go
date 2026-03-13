@@ -1,6 +1,6 @@
 package users
 
-import "github.com/oliver-binns/appstore-go/openapi"
+import openapi_types "github.com/oapi-codegen/runtime/types"
 
 type User struct {
 	ID                  string     `json:"-"`
@@ -15,51 +15,18 @@ type User struct {
 	VisibleAppIDs []string `json:"-"`
 }
 
-// visibleAppsLinkages returns the visible-apps relationship payload used in
-// write requests. It returns nil when all apps are visible and no explicit
-// list is required.
-func (u *User) visibleAppsLinkages() *openapi.UserVisibleAppsLinkages {
-	if len(u.VisibleAppIDs) == 0 && u.AllAppsVisible {
-		return nil
-	}
-
-	data := make([]openapi.AppRelationship, len(u.VisibleAppIDs))
-	for i, id := range u.VisibleAppIDs {
-		data[i] = openapi.AppRelationship{Id: id, Type: "apps"}
-	}
-	return &openapi.UserVisibleAppsLinkages{Data: data}
-}
-
-// visibleAppIDs extracts the slice of app IDs from a UserRelationships
-// response object, returning an empty slice when no data is present.
-func visibleAppIDs(r *openapi.UserRelationships) []string {
-	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
-		return []string{}
-	}
-	ids := make([]string, len(*r.VisibleApps.Data))
-	for i, app := range *r.VisibleApps.Data {
-		ids[i] = app.Id
-	}
-	return ids
-}
-
-// invitationVisibleAppIDs extracts app IDs from UserInvitationRelationships.
-func invitationVisibleAppIDs(r *openapi.UserInvitationRelationships) []string {
-	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
-		return []string{}
-	}
-	ids := make([]string, len(*r.VisibleApps.Data))
-	for i, app := range *r.VisibleApps.Data {
-		ids[i] = app.Id
-	}
-	return ids
-}
-
 func derefString(s *string) string {
 	if s == nil {
 		return ""
 	}
 	return *s
+}
+
+func derefEmail(e *openapi_types.Email) string {
+	if e == nil {
+		return ""
+	}
+	return string(*e)
 }
 
 func derefBool(b *bool) bool {

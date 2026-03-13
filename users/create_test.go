@@ -27,7 +27,7 @@ func TestCreateUser_MakesRequest(t *testing.T) {
 	assert.Equal(t, len(httpClient.Requests), 1)
 	assert.Equal(t, httpClient.Requests[0].Method, "POST")
 	assert.Equal(t, httpClient.Requests[0].Header.Get("Content-Type"), "application/json")
-	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/userInvitations")
+	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/v1/userInvitations")
 
 	bodyBytes, err := io.ReadAll(httpClient.Requests[0].Body)
 	assert.NoError(t, err)
@@ -84,6 +84,7 @@ func TestCreateUser_DecodesResponse(t *testing.T) {
 
 	user, err := Create(
 		httpClient, context.Background(), "https://example.com", User{
+			Username:      "test@example.com",
 			VisibleAppIDs: []string{"test"},
 		},
 	)

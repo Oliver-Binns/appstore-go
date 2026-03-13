@@ -1,61 +1,64 @@
 package users
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
-	"path"
 
 	"github.com/oliver-binns/appstore-go/openapi"
+	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/oliver-binns/googleplay-go/networking"
 )
 
 func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user User) (*User, error) {
-	// Parse the raw URL
-	parsedURL, err := url.Parse(rawURL)
+	apiClient, err := openapi.NewClient(rawURL, openapi.WithHTTPClient(c))
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse URL: %w", err)
-	}
-	parsedURL.Path = path.Join(parsedURL.Path, "userInvitations")
-
-	requestData := openapi.UserInvitationCreateRequestData{
-		Type: "userInvitations",
-		Attributes: openapi.UserInvitationCreateRequestAttributes{
-			FirstName:           user.FirstName,
-			LastName:            user.LastName,
-			Email:               user.Username,
-			Roles:               user.Roles,
-			AllAppsVisible:      boolPtrOrNil(user.AllAppsVisible),
-			ProvisioningAllowed: boolPtrOrNil(user.ProvisioningAllowed),
-		},
+		return nil, fmt.Errorf("failed to create API client: %w", err)
 	}
 
-	if linkages := user.visibleAppsLinkages(); linkages != nil {
-		requestData.Relationships = &openapi.UserInvitationCreateRequestRelationships{
-			VisibleApps: linkages,
+	var req openapi.UserInvitationCreateRequest
+	req.Data.Type = openapi.UserInvitationCreateRequestDataTypeUserInvitations
+	req.Data.Attributes.Email = openapi_types.Email(user.Username)
+	req.Data.Attributes.FirstName = user.FirstName
+	req.Data.Attributes.LastName = user.LastName
+	req.Data.Attributes.Roles = user.Roles
+	req.Data.Attributes.AllAppsVisible = boolPtrOrNil(user.AllAppsVisible)
+	req.Data.Attributes.ProvisioningAllowed = boolPtrOrNil(user.ProvisioningAllowed)
+
+	if len(user.VisibleAppIDs) > 0 && !user.AllAppsVisible {
+		apps := make([]struct {
+			Id   string                                                                   `json:"id"`
+			Type openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
+		}, len(user.VisibleAppIDs))
+		for i, id := range user.VisibleAppIDs {
+			apps[i].Id = id
+			apps[i].Type = openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataTypeApps
 		}
+		visibleApps := struct {
+			Data *[]struct {
+				Id   string                                                                   `json:"id"`
+				Type openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
+			} `json:"data,omitempty"`
+		}{Data: &apps}
+		rels := struct {
+			VisibleApps *struct {
+				Data *[]struct {
+					Id   string                                                                   `json:"id"`
+					Type openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
+				} `json:"data,omitempty"`
+			} `json:"visibleApps,omitempty"`
+		}{VisibleApps: &visibleApps}
+		req.Data.Relationships = &rels
 	}
 
-	// Create the request body
-	body := bytes.NewBuffer(nil)
-	if err = json.NewEncoder(body).Encode(openapi.UserInvitationCreateRequest{Data: requestData}); err != nil {
-		return nil, fmt.Errorf("failed to encode request body: %w", err)
-	}
-
-	// Create the HTTP request
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, parsedURL.String(), body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
-	}
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := c.Do(req)
+	resp, err := apiClient.UserInvitationsCreateInstance(ctx, req)
 	if err != nil {
 		return nil, err
-	} else if resp.StatusCode != http.StatusCreated {
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusCreated {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
@@ -64,20 +67,18 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
 
-	if err := resp.Body.Close(); err != nil {
-		return nil, fmt.Errorf("failed to close response body: %w", err)
-	}
-
 	inv := invResponse.Data
-	return &User{
-		ID:                  inv.Id,
-		FirstName:           derefString(inv.Attributes.FirstName),
-		LastName:            derefString(inv.Attributes.LastName),
-		Username:            derefString(inv.Attributes.Email),
-		Roles:               derefRoles(inv.Attributes.Roles),
-		AllAppsVisible:      derefBool(inv.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(inv.Attributes.ProvisioningAllowed),
-		// Visible App IDs are returned from the input as these are not available in the API response:
+	result := &User{
+		ID:            inv.Id,
 		VisibleAppIDs: user.VisibleAppIDs,
-	}, nil
+	}
+	if inv.Attributes != nil {
+		result.FirstName = derefString(inv.Attributes.FirstName)
+		result.LastName = derefString(inv.Attributes.LastName)
+		result.Username = derefEmail(inv.Attributes.Email)
+		result.Roles = derefRoles(inv.Attributes.Roles)
+		result.AllAppsVisible = derefBool(inv.Attributes.AllAppsVisible)
+		result.ProvisioningAllowed = derefBool(inv.Attributes.ProvisioningAllowed)
+	}
+	return result, nil
 }
