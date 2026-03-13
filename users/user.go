@@ -1,6 +1,6 @@
 package users
 
-import "github.com/oliver-binns/appstore-go/openapi"
+import openapi_types "github.com/oapi-codegen/runtime/types"
 
 type User struct {
 	ID                  string     `json:"-"`
@@ -15,35 +15,50 @@ type User struct {
 	VisibleAppIDs []string `json:"-"`
 }
 
-func visibleAppsRelationship(ids []string) *openapi.VisibleAppsRelationship {
-	refs := make([]openapi.AppReference, len(ids))
-	for i, id := range ids {
-		refs[i] = openapi.AppReference{Id: id, Type: openapi.AppReferenceTypeApps}
+func derefString(s *string) string {
+	if s == nil {
+		return ""
 	}
-	return &openapi.VisibleAppsRelationship{Data: &refs}
+	return *s
 }
 
-func invitationCreateRelationships(ids []string, allAppsVisible bool) *openapi.UserInvitationCreateRelationships {
-	if len(ids) == 0 && allAppsVisible {
+func derefEmail(e *openapi_types.Email) string {
+	if e == nil {
+		return ""
+	}
+	return string(*e)
+}
+
+func derefBool(b *bool) bool {
+	if b == nil {
+		return false
+	}
+	return *b
+}
+
+func derefRoles(r *[]UserRole) []UserRole {
+	if r == nil {
 		return nil
 	}
-	return &openapi.UserInvitationCreateRelationships{VisibleApps: visibleAppsRelationship(ids)}
+	return *r
 }
 
-func userUpdateRelationships(ids []string, allAppsVisible bool) *openapi.UserUpdateRelationships {
-	if len(ids) == 0 && allAppsVisible {
+// boolPtrOrNil returns a pointer to b when b is true and nil when b is false.
+// This mirrors the previous behaviour of `bool` fields with `omitempty` JSON tags,
+// where zero (false) values were omitted from requests. A nil pointer on a
+// `*bool, omitempty` field is also omitted, so false values are not sent.
+// If explicit false values need to be included in future, this helper should
+// return &b unconditionally.
+func boolPtrOrNil(b bool) *bool {
+	if b {
+		return &b
+	}
+	return nil
+}
+
+func rolesOrNil(roles []UserRole) *[]UserRole {
+	if len(roles) == 0 {
 		return nil
 	}
-	return &openapi.UserUpdateRelationships{VisibleApps: visibleAppsRelationship(ids)}
-}
-
-func visibleAppIDs(r *openapi.UserRelationships) []string {
-	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
-		return []string{}
-	}
-	ids := make([]string, len(*r.VisibleApps.Data))
-	for i, app := range *r.VisibleApps.Data {
-		ids[i] = app.Id
-	}
-	return ids
+	return &roles
 }
