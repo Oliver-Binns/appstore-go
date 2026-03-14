@@ -19,15 +19,20 @@ func Delete(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 	if err != nil {
 		return fmt.Errorf("failed to delete user: %w", err)
 	}
-	defer resp.Body.Close()
 
-	if resp.StatusCode == http.StatusNoContent {
-		return nil
-	} else if resp.StatusCode == http.StatusNotFound {
+	switch resp.StatusCode {
+	case http.StatusNoContent:
+		return resp.Body.Close()
+	case http.StatusNotFound:
+		if err := resp.Body.Close(); err != nil {
+			return err
+		}
 		// if the user is not found, it might be an unaccepted user invitation:
 		return revokeInvitation(c, ctx, rawURL, id)
+	default:
+		_ = resp.Body.Close()
+		return fmt.Errorf("unexpected response code: %d", resp.StatusCode)
 	}
-	return fmt.Errorf("unexpected response code: %d", resp.StatusCode)
 }
 
 func revokeInvitation(c networking.HTTPClient, ctx context.Context, rawURL string, id string) error {
@@ -40,10 +45,10 @@ func revokeInvitation(c networking.HTTPClient, ctx context.Context, rawURL strin
 	if err != nil {
 		return fmt.Errorf("failed to delete user: %w", err)
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusNoContent || resp.StatusCode == http.StatusNotFound {
-		return nil
+		return resp.Body.Close()
 	}
+	_ = resp.Body.Close()
 	return fmt.Errorf("unexpected response code: %d", resp.StatusCode)
 }
