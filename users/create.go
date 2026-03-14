@@ -56,15 +56,19 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	var invResponse openapi.UserInvitationResponse
 	if err := json.NewDecoder(resp.Body).Decode(&invResponse); err != nil {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("failed to decode response: %w", err)
+	}
+	if err := resp.Body.Close(); err != nil {
+		return nil, err
 	}
 
 	inv := invResponse.Data
