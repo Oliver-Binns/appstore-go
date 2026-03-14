@@ -21,17 +21,22 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusNotFound {
+		_ = resp.Body.Close()
 		return getInvitations(c, ctx, rawURL, id)
 	} else if resp.StatusCode != http.StatusOK {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	var userResponse openapi.UserResponse
 	if err := json.NewDecoder(resp.Body).Decode(&userResponse); err != nil {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("failed to decode response: %w", err)
+	}
+	if err := resp.Body.Close(); err != nil {
+		return nil, err
 	}
 
 	u := userResponse.Data
@@ -63,15 +68,19 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	var invResponse openapi.UserInvitationResponse
 	if err := json.NewDecoder(resp.Body).Decode(&invResponse); err != nil {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("failed to decode response: %w", err)
+	}
+	if err := resp.Body.Close(); err != nil {
+		return nil, err
 	}
 
 	inv := invResponse.Data
