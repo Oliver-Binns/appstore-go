@@ -23,13 +23,12 @@ func TestModifyUser_MakesRequest(t *testing.T) {
 	assert.Equal(t, len(httpClient.Requests), 1)
 	assert.Equal(t, httpClient.Requests[0].Method, "PATCH")
 	assert.Equal(t, httpClient.Requests[0].Header.Get("Content-Type"), "application/json")
-	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/users/abcd1234-5678-90ab-cdef-1234567890ab")
+	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/v1/users/abcd1234-5678-90ab-cdef-1234567890ab")
 
 	bodyBytes, err := io.ReadAll(httpClient.Requests[0].Body)
 	assert.NoError(t, err)
 	bodyString := string(bodyBytes)
-	assert.Equal(t, `{"data":{"id":"abcd1234-5678-90ab-cdef-1234567890ab","type":"users","attributes":{"allAppsVisible":true,"provisioningAllowed":true}}}
-`, bodyString)
+	assert.JSONEq(t, `{"data":{"id":"abcd1234-5678-90ab-cdef-1234567890ab","type":"users","attributes":{"allAppsVisible":true,"provisioningAllowed":true}}}`, bodyString)
 }
 
 func TestModifyUser_DecodesResponse(t *testing.T) {

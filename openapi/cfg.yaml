@@ -1,0 +1,13 @@
+package: openapi
+generate:
+  models: true
+  client: true
+output: types.gen.go
+output-options:
+  include-operation-ids:
+    - users_getInstance
+    - users_updateInstance
+    - users_deleteInstance
+    - userInvitations_getInstance
+    - userInvitations_deleteInstance
+    - userInvitations_createInstance

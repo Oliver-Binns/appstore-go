@@ -1,5 +1,7 @@
 package users
 
+import openapi_types "github.com/oapi-codegen/runtime/types"
+
 type User struct {
 	ID                  string     `json:"-"`
 	FirstName           string     `json:"firstName,omitempty"`
@@ -13,51 +15,50 @@ type User struct {
 	VisibleAppIDs []string `json:"-"`
 }
 
-func (u *User) relationships() *userRelationships {
-	if len(u.VisibleAppIDs) == 0 && u.AllAppsVisible {
+func derefString(s *string) string {
+	if s == nil {
+		return ""
+	}
+	return *s
+}
+
+func derefEmail(e *openapi_types.Email) string {
+	if e == nil {
+		return ""
+	}
+	return string(*e)
+}
+
+func derefBool(b *bool) bool {
+	if b == nil {
+		return false
+	}
+	return *b
+}
+
+func derefRoles(r *[]UserRole) []UserRole {
+	if r == nil {
 		return nil
 	}
+	return *r
+}
 
-	apps := make([]relationshipObject, len(u.VisibleAppIDs))
-	for index, id := range u.VisibleAppIDs {
-		apps[index] = appReference(id)
+// boolPtrOrNil returns a pointer to b when b is true and nil when b is false.
+// This mirrors the previous behaviour of `bool` fields with `omitempty` JSON tags,
+// where zero (false) values were omitted from requests. A nil pointer on a
+// `*bool, omitempty` field is also omitted, so false values are not sent.
+// If explicit false values need to be included in future, this helper should
+// return &b unconditionally.
+func boolPtrOrNil(b bool) *bool {
+	if b {
+		return &b
 	}
+	return nil
+}
 
-	return &userRelationships{
-		VisibleApps: visibleApps{
-			AppReferences: apps,
-		},
+func rolesOrNil(roles []UserRole) *[]UserRole {
+	if len(roles) == 0 {
+		return nil
 	}
-}
-
-type userRelationships struct {
-	VisibleApps visibleApps `json:"visibleApps"`
-}
-
-func (r *userRelationships) ids() []string {
-	if r == nil || len(r.VisibleApps.AppReferences) == 0 {
-		return []string{}
-	}
-	ids := make([]string, len(r.VisibleApps.AppReferences))
-	for index, app := range r.VisibleApps.AppReferences {
-		ids[index] = app.ID
-	}
-	return ids
-
-}
-
-type visibleApps struct {
-	AppReferences []relationshipObject `json:"data"`
-}
-
-type relationshipObject struct {
-	ID   string `json:"id,omitempty"`
-	Type string `json:"type,omitempty"` // must be "apps"
-}
-
-func appReference(id string) relationshipObject {
-	data := relationshipObject{}
-	data.ID = id
-	data.Type = "apps"
-	return data
+	return &roles
 }
