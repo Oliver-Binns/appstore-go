@@ -9,6 +9,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestGetUser_ReturnsErrorForEmptyID(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWith200Response(`{ }`)
+
+	_, err := Get(
+		httpClient, context.Background(), "https://example.com", "",
+	)
+
+	assert.ErrorContains(t, err, "user ID cannot be empty")
+	assert.Equal(t, len(httpClient.Requests), 0)
+}
+
 func TestGetUser_MakesRequest(t *testing.T) {
 	httpClient := mocknetworking.MockHTTPClientWith200Response(`{ }`)
 
