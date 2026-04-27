@@ -49,6 +49,11 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		return nil, err
 	}
 
+	if resp.StatusCode != http.StatusOK {
+		_ = resp.Body.Close()
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
 	userResponse := new(connectapi.Response[User, userRelationships])
 	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)

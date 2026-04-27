@@ -32,6 +32,26 @@ func TestModifyUser_MakesRequest(t *testing.T) {
 `, bodyString)
 }
 
+func TestModifyUser_ReturnsErrorForNon200Response(t *testing.T) {
+	forbidden := 403
+	httpClient := mocknetworking.MockHTTPClient{
+		Responses: []mocknetworking.MockHTTPResponse{
+			{
+				StatusCode: &forbidden,
+				Body:       `{"errors": [{"status": "403", "title": "Forbidden"}]}`,
+			},
+		},
+	}
+
+	user, err := Modify(
+		&httpClient, context.Background(), "https://example.com", "dummy-id",
+		User{},
+	)
+
+	assert.Nil(t, user)
+	assert.ErrorContains(t, err, "403")
+}
+
 func TestModifyUser_DecodesResponse(t *testing.T) {
 	httpClient := mocknetworking.MockHTTPClientWith200Response(`
 	{
