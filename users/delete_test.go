@@ -2,7 +2,6 @@ package users
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"testing"
 
@@ -19,12 +18,10 @@ func TestDeleteUser_MakesRequest(t *testing.T) {
 
 	assert.Equal(t, len(httpClient.Requests), 1)
 	assert.Equal(t, httpClient.Requests[0].Method, "DELETE")
-	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/users/user-id")
+	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/v1/users/user-id")
 
 	// The body should be empty for a DELETE request
-	bodyBytes, err := io.ReadAll(httpClient.Requests[0].Body)
-	assert.NoError(t, err)
-	assert.Equal(t, len(bodyBytes), 0)
+	assert.Nil(t, httpClient.Requests[0].Body)
 }
 
 func TestDeleteUser_ReturnsNilForSuccess(t *testing.T) {
@@ -67,14 +64,12 @@ func TestDeleteUser_MakesSecondRequest_IfUserNotFound(t *testing.T) {
 
 	assert.Equal(t, len(httpClient.Requests), 2)
 	assert.Equal(t, httpClient.Requests[0].Method, "DELETE")
-	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/users/user-id")
+	assert.Equal(t, httpClient.Requests[0].URL.String(), "https://example.com/v1/users/user-id")
 
 	assert.Equal(t, httpClient.Requests[1].Method, "DELETE")
-	assert.Equal(t, httpClient.Requests[1].URL.String(), "https://example.com/userInvitations/user-id")
+	assert.Equal(t, httpClient.Requests[1].URL.String(), "https://example.com/v1/userInvitations/user-id")
 	// The body should be empty for a DELETE request
-	bodyBytes, err := io.ReadAll(httpClient.Requests[1].Body)
-	assert.NoError(t, err)
-	assert.Equal(t, len(bodyBytes), 0)
+	assert.Nil(t, httpClient.Requests[1].Body)
 }
 
 func TestDeleteUser_RevokeInvitationRequest_ReturnsNilForSuccess(t *testing.T) {

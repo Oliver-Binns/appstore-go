@@ -19,5 +19,5 @@ AoyVWzvsnOZ2F3ujWssdv6b27lkdrm513w==
 		key,
 	)
 
-	assert.Equal(t, "https://api.appstoreconnect.apple.com/v1/", client.baseURL)
+	assert.Equal(t, "https://api.appstoreconnect.apple.com", client.baseURL)
 }
