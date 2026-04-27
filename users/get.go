@@ -9,7 +9,7 @@ import (
 	"path"
 
 	"github.com/oliver-binns/appstore-go/connectapi"
-	"github.com/oliver-binns/googleplay-go/networking"
+	"github.com/oliver-binns/appstore-go/networking"
 )
 
 func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string) (*User, error) {

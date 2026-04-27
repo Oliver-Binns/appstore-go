@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/oliver-binns/appstore-go/authorization"
+	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/oliver-binns/appstore-go/users"
-	"github.com/oliver-binns/googleplay-go/networking"
 )
 
 type Client struct {
