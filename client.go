@@ -48,6 +48,10 @@ func (c *Client) ModifyUser(ctx context.Context, id string, user users.User) (*u
 	return users.Modify(*c.client, ctx, c.baseURL, id, user)
 }
 
+func (c *Client) FindUserByEmail(ctx context.Context, email string) (*users.User, error) {
+	return users.FindByEmail(*c.client, ctx, c.baseURL, email)
+}
+
 func (c *Client) DeleteUser(ctx context.Context, id string) error {
 	return users.Delete(*c.client, ctx, c.baseURL, id)
 }
