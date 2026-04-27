@@ -10,13 +10,20 @@ import (
 )
 
 func TestFindByEmail_MakesRequest(t *testing.T) {
-	httpClient := mocknetworking.MockHTTPClientWith200Response(`{"data": [], "links": {}}`)
+	httpClient := &mocknetworking.MockHTTPClient{
+		Responses: []mocknetworking.MockHTTPResponse{
+			{Body: `{"data": [], "links": {}}`},
+			{Body: `{"data": [], "links": {}}`},
+		},
+	}
 
 	_, _ = FindByEmail(httpClient, context.Background(), "https://example.com", "mail@oliverbinns.co.uk")
 
-	assert.Equal(t, 1, len(httpClient.Requests))
+	assert.Equal(t, 2, len(httpClient.Requests))
 	assert.Equal(t, "GET", httpClient.Requests[0].Method)
 	assert.Equal(t, "https://example.com/users?filter%5Busername%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[0].URL.String())
+	assert.Equal(t, "GET", httpClient.Requests[1].Method)
+	assert.Equal(t, "https://example.com/userInvitations?filter%5Bemail%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[1].URL.String())
 }
 
 func TestFindByEmail_ReturnsErrorIfNon200Returned(t *testing.T) {
@@ -29,7 +36,12 @@ func TestFindByEmail_ReturnsErrorIfNon200Returned(t *testing.T) {
 }
 
 func TestFindByEmail_ReturnsNilIfNotFound(t *testing.T) {
-	httpClient := mocknetworking.MockHTTPClientWith200Response(`{"data": [], "links": {}}`)
+	httpClient := &mocknetworking.MockHTTPClient{
+		Responses: []mocknetworking.MockHTTPResponse{
+			{Body: `{"data": [], "links": {}}`},
+			{Body: `{"data": [], "links": {}}`},
+		},
+	}
 
 	user, err := FindByEmail(httpClient, context.Background(), "https://example.com", "notfound@example.com")
 
@@ -70,5 +82,46 @@ func TestFindByEmail_DecodesResponse(t *testing.T) {
 	assert.Equal(t, "Binns", user.LastName)
 	assert.Equal(t, "mail@oliverbinns.co.uk", user.Username)
 	assert.True(t, user.HasAcceptedInvite)
+	assert.Equal(t, []string{"123456"}, user.VisibleAppIDs)
+}
+
+func TestFindByEmail_DecodesInvitationResponse(t *testing.T) {
+	httpClient := &mocknetworking.MockHTTPClient{
+		Responses: []mocknetworking.MockHTTPResponse{
+			{Body: `{"data": [], "links": {}}`},
+			{Body: `{
+				"data": [
+					{
+						"type": "userInvitations",
+						"id": "69a495c9-7dbc-5733-e053-5b8c7c1155b0",
+						"attributes": {
+							"allAppsVisible": true,
+							"lastName": "Binns",
+							"firstName": "Oliver",
+							"provisioningAllowed": true,
+							"roles": ["ACCOUNT_HOLDER", "ADMIN"],
+							"email": "mail@oliverbinns.co.uk"
+						},
+						"relationships": {
+							"visibleApps": {
+								"data": [{"id": "123456", "type": "apps"}]
+							}
+						}
+					}
+				],
+				"links": {}
+			}`},
+		},
+	}
+
+	user, err := FindByEmail(httpClient, context.Background(), "https://example.com", "mail@oliverbinns.co.uk")
+
+	assert.Nil(t, err)
+	assert.NotNil(t, user)
+	assert.Equal(t, "69a495c9-7dbc-5733-e053-5b8c7c1155b0", user.ID)
+	assert.Equal(t, "Oliver", user.FirstName)
+	assert.Equal(t, "Binns", user.LastName)
+	assert.Equal(t, "mail@oliverbinns.co.uk", user.Username)
+	assert.False(t, user.HasAcceptedInvite)
 	assert.Equal(t, []string{"123456"}, user.VisibleAppIDs)
 }
