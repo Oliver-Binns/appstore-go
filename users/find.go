@@ -41,15 +41,20 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	listResponse := new(connectapi.ListResponse[User, *userRelationships])
 	if err := json.NewDecoder(resp.Body).Decode(listResponse); err != nil {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("failed to decode response: %w", err)
+	}
+
+	if err := resp.Body.Close(); err != nil {
+		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
 	if len(listResponse.Data) == 0 {
@@ -85,15 +90,20 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	listResponse := new(connectapi.ListResponse[userInvitation, *userRelationships])
 	if err := json.NewDecoder(resp.Body).Decode(listResponse); err != nil {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("failed to decode response: %w", err)
+	}
+
+	if err := resp.Body.Close(); err != nil {
+		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
 	if len(listResponse.Data) == 0 {
