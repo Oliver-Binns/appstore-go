@@ -40,17 +40,16 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 	resp, err := c.Do(req)
 	if err != nil {
 		return nil, err
-	} else if resp.StatusCode != http.StatusOK {
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	listResponse := new(connectapi.ListResponse[User, *userRelationships])
 	if err := json.NewDecoder(resp.Body).Decode(listResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
 	if len(listResponse.Data) == 0 {
@@ -66,7 +65,10 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 }
 
 func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL string, email string) (*User, error) {
-	parsedURL, _ := url.Parse(rawURL)
+	parsedURL, err := url.Parse(rawURL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse URL: %w", err)
+	}
 	parsedURL.Path = path.Join(parsedURL.Path, "userInvitations")
 
 	query := parsedURL.Query()
@@ -82,17 +84,16 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 	resp, err := c.Do(req)
 	if err != nil {
 		return nil, err
-	} else if resp.StatusCode != http.StatusOK {
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	listResponse := new(connectapi.ListResponse[userInvitation, *userRelationships])
 	if err := json.NewDecoder(resp.Body).Decode(listResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
 	if len(listResponse.Data) == 0 {
