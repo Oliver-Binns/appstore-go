@@ -14,6 +14,10 @@ import (
 )
 
 func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id string, user User) (*User, error) {
+	if id == "" {
+		return nil, fmt.Errorf("user ID cannot be empty")
+	}
+
 	// Parse the raw URL
 	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
