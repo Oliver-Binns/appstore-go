@@ -32,6 +32,19 @@ func TestModifyUser_MakesRequest(t *testing.T) {
 `, bodyString)
 }
 
+func TestModifyUser_ReturnsErrorForEmptyID(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWith200Response(`{}`)
+
+	user, err := Modify(
+		httpClient, context.Background(), "https://example.com", "",
+		User{},
+	)
+
+	assert.Nil(t, user)
+	assert.ErrorContains(t, err, "user ID cannot be empty")
+	assert.Equal(t, 0, len(httpClient.Requests))
+}
+
 func TestModifyUser_ReturnsErrorForNon200Response(t *testing.T) {
 	forbidden := 403
 	httpClient := mocknetworking.MockHTTPClient{
