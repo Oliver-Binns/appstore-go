@@ -1,16 +1,19 @@
 package users
 
-import openapi_types "github.com/oapi-codegen/runtime/types"
+import (
+	openapi_types "github.com/oapi-codegen/runtime/types"
+	"github.com/oliver-binns/appstore-go/openapi"
+)
 
 type User struct {
-	ID                  string     `json:"-"`
-	FirstName           string     `json:"firstName,omitempty"`
-	LastName            string     `json:"lastName,omitempty"`
-	Username            string     `json:"username,omitempty"`
-	Roles               []UserRole `json:"roles,omitempty"`
-	AllAppsVisible      bool       `json:"allAppsVisible,omitempty"`
-	ProvisioningAllowed bool       `json:"provisioningAllowed,omitempty"`
-	HasAcceptedInvite   bool       `json:"userHasAcceptedInvitation,omitempty"`
+	ID                  string           `json:"-"`
+	FirstName           string           `json:"firstName,omitempty"`
+	LastName            string           `json:"lastName,omitempty"`
+	Username            string           `json:"username,omitempty"`
+	Roles               []openapi.UserRole `json:"roles,omitempty"`
+	AllAppsVisible      bool             `json:"allAppsVisible,omitempty"`
+	ProvisioningAllowed bool             `json:"provisioningAllowed,omitempty"`
+	HasAcceptedInvite   bool             `json:"userHasAcceptedInvitation,omitempty"`
 
 	VisibleAppIDs []string `json:"-"`
 }
@@ -36,7 +39,7 @@ func derefBool(b *bool) bool {
 	return *b
 }
 
-func derefRoles(r *[]UserRole) []UserRole {
+func derefRoles(r *[]openapi.UserRole) []openapi.UserRole {
 	if r == nil {
 		return nil
 	}
@@ -56,7 +59,7 @@ func boolPtrOrNil(b bool) *bool {
 	return nil
 }
 
-func rolesOrNil(roles []UserRole) *[]UserRole {
+func rolesOrNil(roles []openapi.UserRole) *[]openapi.UserRole {
 	if len(roles) == 0 {
 		return nil
 	}
