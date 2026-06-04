@@ -63,26 +63,14 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		}
 	}
 
-	var firstName, lastName, username string
-	var roles []openapi.UserRole
-	var allAppsVisible, provisioningAllowed bool
-	if userResponse.Data.Attributes != nil {
-		firstName = derefString(userResponse.Data.Attributes.FirstName)
-		lastName = derefString(userResponse.Data.Attributes.LastName)
-		username = derefString(userResponse.Data.Attributes.Username)
-		roles = derefRoles(userResponse.Data.Attributes.Roles)
-		allAppsVisible = derefBool(userResponse.Data.Attributes.AllAppsVisible)
-		provisioningAllowed = derefBool(userResponse.Data.Attributes.ProvisioningAllowed)
-	}
-
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           firstName,
-		LastName:            lastName,
-		Username:            username,
-		Roles:               roles,
-		AllAppsVisible:      allAppsVisible,
-		ProvisioningAllowed: provisioningAllowed,
+		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
+		LastName:            derefString(userResponse.Data.Attributes.LastName),
+		Username:            derefString(userResponse.Data.Attributes.Username),
+		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   true,
 		VisibleAppIDs:       visibleAppIDs,
 	}, nil
@@ -124,26 +112,14 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 		}
 	}
 
-	var firstName, lastName, username string
-	var roles []openapi.UserRole
-	var allAppsVisible, provisioningAllowed bool
-	if userResponse.Data.Attributes != nil {
-		firstName = derefString(userResponse.Data.Attributes.FirstName)
-		lastName = derefString(userResponse.Data.Attributes.LastName)
-		username = derefEmail(userResponse.Data.Attributes.Email)
-		roles = derefRoles(userResponse.Data.Attributes.Roles)
-		allAppsVisible = derefBool(userResponse.Data.Attributes.AllAppsVisible)
-		provisioningAllowed = derefBool(userResponse.Data.Attributes.ProvisioningAllowed)
-	}
-
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           firstName,
-		LastName:            lastName,
-		Username:            username,
-		Roles:               roles,
-		AllAppsVisible:      allAppsVisible,
-		ProvisioningAllowed: provisioningAllowed,
+		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
+		LastName:            derefString(userResponse.Data.Attributes.LastName),
+		Username:            derefEmail(userResponse.Data.Attributes.Email),
+		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   false,
 		VisibleAppIDs:       visibleAppIDs,
 	}, nil
