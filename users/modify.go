@@ -36,9 +36,9 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		ProvisioningAllowed *bool               `json:"provisioningAllowed,omitempty"`
 		Roles               *[]openapi.UserRole `json:"roles,omitempty"`
 	}{
-		AllAppsVisible:      boolPtrOrNil(user.AllAppsVisible),
-		ProvisioningAllowed: boolPtrOrNil(user.ProvisioningAllowed),
-		Roles:               rolesOrNil(user.Roles),
+		AllAppsVisible:      ptr.PtrOrNil(user.AllAppsVisible),
+		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
+		Roles:               ptr.SlicePtrOrNil(user.Roles),
 	}
 	if len(user.VisibleAppIDs) != 0 || !user.AllAppsVisible {
 		appReferences := make([]struct {

@@ -31,8 +31,8 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 	requestObject.Data.Attributes.LastName = user.LastName
 	requestObject.Data.Attributes.Email = openapi_types.Email(user.Username)
 	requestObject.Data.Attributes.Roles = user.Roles
-	requestObject.Data.Attributes.AllAppsVisible = boolPtrOrNil(user.AllAppsVisible)
-	requestObject.Data.Attributes.ProvisioningAllowed = boolPtrOrNil(user.ProvisioningAllowed)
+	requestObject.Data.Attributes.AllAppsVisible = ptr.PtrOrNil(user.AllAppsVisible)
+	requestObject.Data.Attributes.ProvisioningAllowed = ptr.PtrOrNil(user.ProvisioningAllowed)
 	if len(user.VisibleAppIDs) != 0 || !user.AllAppsVisible {
 		appReferences := make([]struct {
 			Id   string                                                                  `json:"id"`
