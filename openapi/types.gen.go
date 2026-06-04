@@ -72,13 +72,13 @@ func (e AppRelationshipsAppClipsDataType) Valid() bool {
 
 // Defines values for AppRelationshipsAppCustomProductPagesDataType.
 const (
-	AppCustomProductPages AppRelationshipsAppCustomProductPagesDataType = "appCustomProductPages"
+	AppRelationshipsAppCustomProductPagesDataTypeAppCustomProductPages AppRelationshipsAppCustomProductPagesDataType = "appCustomProductPages"
 )
 
 // Valid indicates whether the value is a known member of the AppRelationshipsAppCustomProductPagesDataType enum.
 func (e AppRelationshipsAppCustomProductPagesDataType) Valid() bool {
 	switch e {
-	case AppCustomProductPages:
+	case AppRelationshipsAppCustomProductPagesDataTypeAppCustomProductPages:
 		return true
 	default:
 		return false
@@ -87,13 +87,13 @@ func (e AppRelationshipsAppCustomProductPagesDataType) Valid() bool {
 
 // Defines values for AppRelationshipsAppEncryptionDeclarationsDataType.
 const (
-	AppEncryptionDeclarations AppRelationshipsAppEncryptionDeclarationsDataType = "appEncryptionDeclarations"
+	AppRelationshipsAppEncryptionDeclarationsDataTypeAppEncryptionDeclarations AppRelationshipsAppEncryptionDeclarationsDataType = "appEncryptionDeclarations"
 )
 
 // Valid indicates whether the value is a known member of the AppRelationshipsAppEncryptionDeclarationsDataType enum.
 func (e AppRelationshipsAppEncryptionDeclarationsDataType) Valid() bool {
 	switch e {
-	case AppEncryptionDeclarations:
+	case AppRelationshipsAppEncryptionDeclarationsDataTypeAppEncryptionDeclarations:
 		return true
 	default:
 		return false
@@ -540,49 +540,49 @@ func (e UserInvitationCreateRequestDataType) Valid() bool {
 
 // Defines values for UserRole.
 const (
-	ACCESSTOREPORTS             UserRole = "ACCESS_TO_REPORTS"
-	ACCOUNTHOLDER               UserRole = "ACCOUNT_HOLDER"
-	ADMIN                       UserRole = "ADMIN"
-	APPMANAGER                  UserRole = "APP_MANAGER"
-	CLOUDMANAGEDAPPDISTRIBUTION UserRole = "CLOUD_MANAGED_APP_DISTRIBUTION"
-	CLOUDMANAGEDDEVELOPERID     UserRole = "CLOUD_MANAGED_DEVELOPER_ID"
-	CREATEAPPS                  UserRole = "CREATE_APPS"
-	CUSTOMERSUPPORT             UserRole = "CUSTOMER_SUPPORT"
-	DEVELOPER                   UserRole = "DEVELOPER"
-	FINANCE                     UserRole = "FINANCE"
-	GENERATEINDIVIDUALKEYS      UserRole = "GENERATE_INDIVIDUAL_KEYS"
-	MARKETING                   UserRole = "MARKETING"
-	SALES                       UserRole = "SALES"
+	UserRoleACCESSTOREPORTS             UserRole = "ACCESS_TO_REPORTS"
+	UserRoleACCOUNTHOLDER               UserRole = "ACCOUNT_HOLDER"
+	UserRoleADMIN                       UserRole = "ADMIN"
+	UserRoleAPPMANAGER                  UserRole = "APP_MANAGER"
+	UserRoleCLOUDMANAGEDAPPDISTRIBUTION UserRole = "CLOUD_MANAGED_APP_DISTRIBUTION"
+	UserRoleCLOUDMANAGEDDEVELOPERID     UserRole = "CLOUD_MANAGED_DEVELOPER_ID"
+	UserRoleCREATEAPPS                  UserRole = "CREATE_APPS"
+	UserRoleCUSTOMERSUPPORT             UserRole = "CUSTOMER_SUPPORT"
+	UserRoleDEVELOPER                   UserRole = "DEVELOPER"
+	UserRoleFINANCE                     UserRole = "FINANCE"
+	UserRoleGENERATEINDIVIDUALKEYS      UserRole = "GENERATE_INDIVIDUAL_KEYS"
+	UserRoleMARKETING                   UserRole = "MARKETING"
+	UserRoleSALES                       UserRole = "SALES"
 )
 
 // Valid indicates whether the value is a known member of the UserRole enum.
 func (e UserRole) Valid() bool {
 	switch e {
-	case ACCESSTOREPORTS:
+	case UserRoleACCESSTOREPORTS:
 		return true
-	case ACCOUNTHOLDER:
+	case UserRoleACCOUNTHOLDER:
 		return true
-	case ADMIN:
+	case UserRoleADMIN:
 		return true
-	case APPMANAGER:
+	case UserRoleAPPMANAGER:
 		return true
-	case CLOUDMANAGEDAPPDISTRIBUTION:
+	case UserRoleCLOUDMANAGEDAPPDISTRIBUTION:
 		return true
-	case CLOUDMANAGEDDEVELOPERID:
+	case UserRoleCLOUDMANAGEDDEVELOPERID:
 		return true
-	case CREATEAPPS:
+	case UserRoleCREATEAPPS:
 		return true
-	case CUSTOMERSUPPORT:
+	case UserRoleCUSTOMERSUPPORT:
 		return true
-	case DEVELOPER:
+	case UserRoleDEVELOPER:
 		return true
-	case FINANCE:
+	case UserRoleFINANCE:
 		return true
-	case GENERATEINDIVIDUALKEYS:
+	case UserRoleGENERATEINDIVIDUALKEYS:
 		return true
-	case MARKETING:
+	case UserRoleMARKETING:
 		return true
-	case SALES:
+	case UserRoleSALES:
 		return true
 	default:
 		return false
@@ -613,6 +613,309 @@ const (
 func (e UserUpdateRequestDataType) Valid() bool {
 	switch e {
 	case UserUpdateRequestDataTypeUsers:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UserInvitationsGetCollectionParamsFilterRoles.
+const (
+	UserInvitationsGetCollectionParamsFilterRolesACCESSTOREPORTS             UserInvitationsGetCollectionParamsFilterRoles = "ACCESS_TO_REPORTS"
+	UserInvitationsGetCollectionParamsFilterRolesACCOUNTHOLDER               UserInvitationsGetCollectionParamsFilterRoles = "ACCOUNT_HOLDER"
+	UserInvitationsGetCollectionParamsFilterRolesADMIN                       UserInvitationsGetCollectionParamsFilterRoles = "ADMIN"
+	UserInvitationsGetCollectionParamsFilterRolesAPPMANAGER                  UserInvitationsGetCollectionParamsFilterRoles = "APP_MANAGER"
+	UserInvitationsGetCollectionParamsFilterRolesCLOUDMANAGEDAPPDISTRIBUTION UserInvitationsGetCollectionParamsFilterRoles = "CLOUD_MANAGED_APP_DISTRIBUTION"
+	UserInvitationsGetCollectionParamsFilterRolesCLOUDMANAGEDDEVELOPERID     UserInvitationsGetCollectionParamsFilterRoles = "CLOUD_MANAGED_DEVELOPER_ID"
+	UserInvitationsGetCollectionParamsFilterRolesCREATEAPPS                  UserInvitationsGetCollectionParamsFilterRoles = "CREATE_APPS"
+	UserInvitationsGetCollectionParamsFilterRolesCUSTOMERSUPPORT             UserInvitationsGetCollectionParamsFilterRoles = "CUSTOMER_SUPPORT"
+	UserInvitationsGetCollectionParamsFilterRolesDEVELOPER                   UserInvitationsGetCollectionParamsFilterRoles = "DEVELOPER"
+	UserInvitationsGetCollectionParamsFilterRolesFINANCE                     UserInvitationsGetCollectionParamsFilterRoles = "FINANCE"
+	UserInvitationsGetCollectionParamsFilterRolesGENERATEINDIVIDUALKEYS      UserInvitationsGetCollectionParamsFilterRoles = "GENERATE_INDIVIDUAL_KEYS"
+	UserInvitationsGetCollectionParamsFilterRolesMARKETING                   UserInvitationsGetCollectionParamsFilterRoles = "MARKETING"
+	UserInvitationsGetCollectionParamsFilterRolesSALES                       UserInvitationsGetCollectionParamsFilterRoles = "SALES"
+)
+
+// Valid indicates whether the value is a known member of the UserInvitationsGetCollectionParamsFilterRoles enum.
+func (e UserInvitationsGetCollectionParamsFilterRoles) Valid() bool {
+	switch e {
+	case UserInvitationsGetCollectionParamsFilterRolesACCESSTOREPORTS:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesACCOUNTHOLDER:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesADMIN:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesAPPMANAGER:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesCLOUDMANAGEDAPPDISTRIBUTION:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesCLOUDMANAGEDDEVELOPERID:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesCREATEAPPS:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesCUSTOMERSUPPORT:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesDEVELOPER:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesFINANCE:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesGENERATEINDIVIDUALKEYS:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesMARKETING:
+		return true
+	case UserInvitationsGetCollectionParamsFilterRolesSALES:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UserInvitationsGetCollectionParamsSort.
+const (
+	UserInvitationsGetCollectionParamsSortEmail         UserInvitationsGetCollectionParamsSort = "email"
+	UserInvitationsGetCollectionParamsSortLastName      UserInvitationsGetCollectionParamsSort = "lastName"
+	UserInvitationsGetCollectionParamsSortMinusEmail    UserInvitationsGetCollectionParamsSort = "-email"
+	UserInvitationsGetCollectionParamsSortMinusLastName UserInvitationsGetCollectionParamsSort = "-lastName"
+)
+
+// Valid indicates whether the value is a known member of the UserInvitationsGetCollectionParamsSort enum.
+func (e UserInvitationsGetCollectionParamsSort) Valid() bool {
+	switch e {
+	case UserInvitationsGetCollectionParamsSortEmail:
+		return true
+	case UserInvitationsGetCollectionParamsSortLastName:
+		return true
+	case UserInvitationsGetCollectionParamsSortMinusEmail:
+		return true
+	case UserInvitationsGetCollectionParamsSortMinusLastName:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UserInvitationsGetCollectionParamsFieldsUserInvitations.
+const (
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsAllAppsVisible      UserInvitationsGetCollectionParamsFieldsUserInvitations = "allAppsVisible"
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsEmail               UserInvitationsGetCollectionParamsFieldsUserInvitations = "email"
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsExpirationDate      UserInvitationsGetCollectionParamsFieldsUserInvitations = "expirationDate"
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsFirstName           UserInvitationsGetCollectionParamsFieldsUserInvitations = "firstName"
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsLastName            UserInvitationsGetCollectionParamsFieldsUserInvitations = "lastName"
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsProvisioningAllowed UserInvitationsGetCollectionParamsFieldsUserInvitations = "provisioningAllowed"
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsRoles               UserInvitationsGetCollectionParamsFieldsUserInvitations = "roles"
+	UserInvitationsGetCollectionParamsFieldsUserInvitationsVisibleApps         UserInvitationsGetCollectionParamsFieldsUserInvitations = "visibleApps"
+)
+
+// Valid indicates whether the value is a known member of the UserInvitationsGetCollectionParamsFieldsUserInvitations enum.
+func (e UserInvitationsGetCollectionParamsFieldsUserInvitations) Valid() bool {
+	switch e {
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsAllAppsVisible:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsEmail:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsExpirationDate:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsFirstName:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsLastName:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsProvisioningAllowed:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsRoles:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsUserInvitationsVisibleApps:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UserInvitationsGetCollectionParamsFieldsApps.
+const (
+	UserInvitationsGetCollectionParamsFieldsAppsAccessibilityDeclarations              UserInvitationsGetCollectionParamsFieldsApps = "accessibilityDeclarations"
+	UserInvitationsGetCollectionParamsFieldsAppsAccessibilityUrl                       UserInvitationsGetCollectionParamsFieldsApps = "accessibilityUrl"
+	UserInvitationsGetCollectionParamsFieldsAppsAlternativeDistributionKey             UserInvitationsGetCollectionParamsFieldsApps = "alternativeDistributionKey"
+	UserInvitationsGetCollectionParamsFieldsAppsAnalyticsReportRequests                UserInvitationsGetCollectionParamsFieldsApps = "analyticsReportRequests"
+	UserInvitationsGetCollectionParamsFieldsAppsAndroidToIosAppMappingDetails          UserInvitationsGetCollectionParamsFieldsApps = "androidToIosAppMappingDetails"
+	UserInvitationsGetCollectionParamsFieldsAppsAppAvailabilityV2                      UserInvitationsGetCollectionParamsFieldsApps = "appAvailabilityV2"
+	UserInvitationsGetCollectionParamsFieldsAppsAppClips                               UserInvitationsGetCollectionParamsFieldsApps = "appClips"
+	UserInvitationsGetCollectionParamsFieldsAppsAppCustomProductPages                  UserInvitationsGetCollectionParamsFieldsApps = "appCustomProductPages"
+	UserInvitationsGetCollectionParamsFieldsAppsAppEncryptionDeclarations              UserInvitationsGetCollectionParamsFieldsApps = "appEncryptionDeclarations"
+	UserInvitationsGetCollectionParamsFieldsAppsAppEvents                              UserInvitationsGetCollectionParamsFieldsApps = "appEvents"
+	UserInvitationsGetCollectionParamsFieldsAppsAppInfos                               UserInvitationsGetCollectionParamsFieldsApps = "appInfos"
+	UserInvitationsGetCollectionParamsFieldsAppsAppPricePoints                         UserInvitationsGetCollectionParamsFieldsApps = "appPricePoints"
+	UserInvitationsGetCollectionParamsFieldsAppsAppPriceSchedule                       UserInvitationsGetCollectionParamsFieldsApps = "appPriceSchedule"
+	UserInvitationsGetCollectionParamsFieldsAppsAppStoreIcon                           UserInvitationsGetCollectionParamsFieldsApps = "appStoreIcon"
+	UserInvitationsGetCollectionParamsFieldsAppsAppStoreVersionExperimentsV2           UserInvitationsGetCollectionParamsFieldsApps = "appStoreVersionExperimentsV2"
+	UserInvitationsGetCollectionParamsFieldsAppsAppStoreVersions                       UserInvitationsGetCollectionParamsFieldsApps = "appStoreVersions"
+	UserInvitationsGetCollectionParamsFieldsAppsAppTags                                UserInvitationsGetCollectionParamsFieldsApps = "appTags"
+	UserInvitationsGetCollectionParamsFieldsAppsBackgroundAssets                       UserInvitationsGetCollectionParamsFieldsApps = "backgroundAssets"
+	UserInvitationsGetCollectionParamsFieldsAppsBetaAppLocalizations                   UserInvitationsGetCollectionParamsFieldsApps = "betaAppLocalizations"
+	UserInvitationsGetCollectionParamsFieldsAppsBetaAppReviewDetail                    UserInvitationsGetCollectionParamsFieldsApps = "betaAppReviewDetail"
+	UserInvitationsGetCollectionParamsFieldsAppsBetaFeedbackCrashSubmissions           UserInvitationsGetCollectionParamsFieldsApps = "betaFeedbackCrashSubmissions"
+	UserInvitationsGetCollectionParamsFieldsAppsBetaFeedbackScreenshotSubmissions      UserInvitationsGetCollectionParamsFieldsApps = "betaFeedbackScreenshotSubmissions"
+	UserInvitationsGetCollectionParamsFieldsAppsBetaGroups                             UserInvitationsGetCollectionParamsFieldsApps = "betaGroups"
+	UserInvitationsGetCollectionParamsFieldsAppsBetaLicenseAgreement                   UserInvitationsGetCollectionParamsFieldsApps = "betaLicenseAgreement"
+	UserInvitationsGetCollectionParamsFieldsAppsBetaTesters                            UserInvitationsGetCollectionParamsFieldsApps = "betaTesters"
+	UserInvitationsGetCollectionParamsFieldsAppsBuildUploads                           UserInvitationsGetCollectionParamsFieldsApps = "buildUploads"
+	UserInvitationsGetCollectionParamsFieldsAppsBuilds                                 UserInvitationsGetCollectionParamsFieldsApps = "builds"
+	UserInvitationsGetCollectionParamsFieldsAppsBundleId                               UserInvitationsGetCollectionParamsFieldsApps = "bundleId"
+	UserInvitationsGetCollectionParamsFieldsAppsCiProduct                              UserInvitationsGetCollectionParamsFieldsApps = "ciProduct"
+	UserInvitationsGetCollectionParamsFieldsAppsContentRightsDeclaration               UserInvitationsGetCollectionParamsFieldsApps = "contentRightsDeclaration"
+	UserInvitationsGetCollectionParamsFieldsAppsCustomerReviewSummarizations           UserInvitationsGetCollectionParamsFieldsApps = "customerReviewSummarizations"
+	UserInvitationsGetCollectionParamsFieldsAppsCustomerReviews                        UserInvitationsGetCollectionParamsFieldsApps = "customerReviews"
+	UserInvitationsGetCollectionParamsFieldsAppsEndUserLicenseAgreement                UserInvitationsGetCollectionParamsFieldsApps = "endUserLicenseAgreement"
+	UserInvitationsGetCollectionParamsFieldsAppsGameCenterDetail                       UserInvitationsGetCollectionParamsFieldsApps = "gameCenterDetail"
+	UserInvitationsGetCollectionParamsFieldsAppsGameCenterEnabledVersions              UserInvitationsGetCollectionParamsFieldsApps = "gameCenterEnabledVersions"
+	UserInvitationsGetCollectionParamsFieldsAppsInAppPurchases                         UserInvitationsGetCollectionParamsFieldsApps = "inAppPurchases"
+	UserInvitationsGetCollectionParamsFieldsAppsInAppPurchasesV2                       UserInvitationsGetCollectionParamsFieldsApps = "inAppPurchasesV2"
+	UserInvitationsGetCollectionParamsFieldsAppsIsOrEverWasMadeForKids                 UserInvitationsGetCollectionParamsFieldsApps = "isOrEverWasMadeForKids"
+	UserInvitationsGetCollectionParamsFieldsAppsMarketplaceSearchDetail                UserInvitationsGetCollectionParamsFieldsApps = "marketplaceSearchDetail"
+	UserInvitationsGetCollectionParamsFieldsAppsName                                   UserInvitationsGetCollectionParamsFieldsApps = "name"
+	UserInvitationsGetCollectionParamsFieldsAppsPerfPowerMetrics                       UserInvitationsGetCollectionParamsFieldsApps = "perfPowerMetrics"
+	UserInvitationsGetCollectionParamsFieldsAppsPreReleaseVersions                     UserInvitationsGetCollectionParamsFieldsApps = "preReleaseVersions"
+	UserInvitationsGetCollectionParamsFieldsAppsPrimaryLocale                          UserInvitationsGetCollectionParamsFieldsApps = "primaryLocale"
+	UserInvitationsGetCollectionParamsFieldsAppsPromotedPurchases                      UserInvitationsGetCollectionParamsFieldsApps = "promotedPurchases"
+	UserInvitationsGetCollectionParamsFieldsAppsReviewSubmissions                      UserInvitationsGetCollectionParamsFieldsApps = "reviewSubmissions"
+	UserInvitationsGetCollectionParamsFieldsAppsSearchKeywords                         UserInvitationsGetCollectionParamsFieldsApps = "searchKeywords"
+	UserInvitationsGetCollectionParamsFieldsAppsSku                                    UserInvitationsGetCollectionParamsFieldsApps = "sku"
+	UserInvitationsGetCollectionParamsFieldsAppsStreamlinedPurchasingEnabled           UserInvitationsGetCollectionParamsFieldsApps = "streamlinedPurchasingEnabled"
+	UserInvitationsGetCollectionParamsFieldsAppsSubscriptionGracePeriod                UserInvitationsGetCollectionParamsFieldsApps = "subscriptionGracePeriod"
+	UserInvitationsGetCollectionParamsFieldsAppsSubscriptionGroups                     UserInvitationsGetCollectionParamsFieldsApps = "subscriptionGroups"
+	UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrl                  UserInvitationsGetCollectionParamsFieldsApps = "subscriptionStatusUrl"
+	UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrlForSandbox        UserInvitationsGetCollectionParamsFieldsApps = "subscriptionStatusUrlForSandbox"
+	UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersion           UserInvitationsGetCollectionParamsFieldsApps = "subscriptionStatusUrlVersion"
+	UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox UserInvitationsGetCollectionParamsFieldsApps = "subscriptionStatusUrlVersionForSandbox"
+	UserInvitationsGetCollectionParamsFieldsAppsWebhooks                               UserInvitationsGetCollectionParamsFieldsApps = "webhooks"
+)
+
+// Valid indicates whether the value is a known member of the UserInvitationsGetCollectionParamsFieldsApps enum.
+func (e UserInvitationsGetCollectionParamsFieldsApps) Valid() bool {
+	switch e {
+	case UserInvitationsGetCollectionParamsFieldsAppsAccessibilityDeclarations:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAccessibilityUrl:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAlternativeDistributionKey:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAnalyticsReportRequests:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAndroidToIosAppMappingDetails:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppAvailabilityV2:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppClips:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppCustomProductPages:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppEncryptionDeclarations:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppEvents:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppInfos:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppPricePoints:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppPriceSchedule:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppStoreIcon:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppStoreVersionExperimentsV2:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppStoreVersions:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsAppTags:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBackgroundAssets:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBetaAppLocalizations:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBetaAppReviewDetail:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBetaFeedbackCrashSubmissions:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBetaFeedbackScreenshotSubmissions:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBetaGroups:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBetaLicenseAgreement:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBetaTesters:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBuildUploads:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBuilds:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsBundleId:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsCiProduct:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsContentRightsDeclaration:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsCustomerReviewSummarizations:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsCustomerReviews:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsEndUserLicenseAgreement:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsGameCenterDetail:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsGameCenterEnabledVersions:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsInAppPurchases:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsInAppPurchasesV2:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsIsOrEverWasMadeForKids:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsMarketplaceSearchDetail:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsName:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsPerfPowerMetrics:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsPreReleaseVersions:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsPrimaryLocale:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsPromotedPurchases:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsReviewSubmissions:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSearchKeywords:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSku:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsStreamlinedPurchasingEnabled:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSubscriptionGracePeriod:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSubscriptionGroups:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrl:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrlForSandbox:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersion:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox:
+		return true
+	case UserInvitationsGetCollectionParamsFieldsAppsWebhooks:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UserInvitationsGetCollectionParamsInclude.
+const (
+	UserInvitationsGetCollectionParamsIncludeVisibleApps UserInvitationsGetCollectionParamsInclude = "visibleApps"
+)
+
+// Valid indicates whether the value is a known member of the UserInvitationsGetCollectionParamsInclude enum.
+func (e UserInvitationsGetCollectionParamsInclude) Valid() bool {
+	switch e {
+	case UserInvitationsGetCollectionParamsIncludeVisibleApps:
 		return true
 	default:
 		return false
@@ -841,6 +1144,306 @@ const (
 func (e UserInvitationsGetInstanceParamsInclude) Valid() bool {
 	switch e {
 	case UserInvitationsGetInstanceParamsIncludeVisibleApps:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UsersGetCollectionParamsFilterRoles.
+const (
+	ACCESSTOREPORTS             UsersGetCollectionParamsFilterRoles = "ACCESS_TO_REPORTS"
+	ACCOUNTHOLDER               UsersGetCollectionParamsFilterRoles = "ACCOUNT_HOLDER"
+	ADMIN                       UsersGetCollectionParamsFilterRoles = "ADMIN"
+	APPMANAGER                  UsersGetCollectionParamsFilterRoles = "APP_MANAGER"
+	CLOUDMANAGEDAPPDISTRIBUTION UsersGetCollectionParamsFilterRoles = "CLOUD_MANAGED_APP_DISTRIBUTION"
+	CLOUDMANAGEDDEVELOPERID     UsersGetCollectionParamsFilterRoles = "CLOUD_MANAGED_DEVELOPER_ID"
+	CREATEAPPS                  UsersGetCollectionParamsFilterRoles = "CREATE_APPS"
+	CUSTOMERSUPPORT             UsersGetCollectionParamsFilterRoles = "CUSTOMER_SUPPORT"
+	DEVELOPER                   UsersGetCollectionParamsFilterRoles = "DEVELOPER"
+	FINANCE                     UsersGetCollectionParamsFilterRoles = "FINANCE"
+	GENERATEINDIVIDUALKEYS      UsersGetCollectionParamsFilterRoles = "GENERATE_INDIVIDUAL_KEYS"
+	MARKETING                   UsersGetCollectionParamsFilterRoles = "MARKETING"
+	SALES                       UsersGetCollectionParamsFilterRoles = "SALES"
+)
+
+// Valid indicates whether the value is a known member of the UsersGetCollectionParamsFilterRoles enum.
+func (e UsersGetCollectionParamsFilterRoles) Valid() bool {
+	switch e {
+	case ACCESSTOREPORTS:
+		return true
+	case ACCOUNTHOLDER:
+		return true
+	case ADMIN:
+		return true
+	case APPMANAGER:
+		return true
+	case CLOUDMANAGEDAPPDISTRIBUTION:
+		return true
+	case CLOUDMANAGEDDEVELOPERID:
+		return true
+	case CREATEAPPS:
+		return true
+	case CUSTOMERSUPPORT:
+		return true
+	case DEVELOPER:
+		return true
+	case FINANCE:
+		return true
+	case GENERATEINDIVIDUALKEYS:
+		return true
+	case MARKETING:
+		return true
+	case SALES:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UsersGetCollectionParamsSort.
+const (
+	UsersGetCollectionParamsSortLastName      UsersGetCollectionParamsSort = "lastName"
+	UsersGetCollectionParamsSortMinusLastName UsersGetCollectionParamsSort = "-lastName"
+	UsersGetCollectionParamsSortMinusUsername UsersGetCollectionParamsSort = "-username"
+	UsersGetCollectionParamsSortUsername      UsersGetCollectionParamsSort = "username"
+)
+
+// Valid indicates whether the value is a known member of the UsersGetCollectionParamsSort enum.
+func (e UsersGetCollectionParamsSort) Valid() bool {
+	switch e {
+	case UsersGetCollectionParamsSortLastName:
+		return true
+	case UsersGetCollectionParamsSortMinusLastName:
+		return true
+	case UsersGetCollectionParamsSortMinusUsername:
+		return true
+	case UsersGetCollectionParamsSortUsername:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UsersGetCollectionParamsFieldsUsers.
+const (
+	UsersGetCollectionParamsFieldsUsersAllAppsVisible      UsersGetCollectionParamsFieldsUsers = "allAppsVisible"
+	UsersGetCollectionParamsFieldsUsersFirstName           UsersGetCollectionParamsFieldsUsers = "firstName"
+	UsersGetCollectionParamsFieldsUsersLastName            UsersGetCollectionParamsFieldsUsers = "lastName"
+	UsersGetCollectionParamsFieldsUsersProvisioningAllowed UsersGetCollectionParamsFieldsUsers = "provisioningAllowed"
+	UsersGetCollectionParamsFieldsUsersRoles               UsersGetCollectionParamsFieldsUsers = "roles"
+	UsersGetCollectionParamsFieldsUsersUsername            UsersGetCollectionParamsFieldsUsers = "username"
+	UsersGetCollectionParamsFieldsUsersVisibleApps         UsersGetCollectionParamsFieldsUsers = "visibleApps"
+)
+
+// Valid indicates whether the value is a known member of the UsersGetCollectionParamsFieldsUsers enum.
+func (e UsersGetCollectionParamsFieldsUsers) Valid() bool {
+	switch e {
+	case UsersGetCollectionParamsFieldsUsersAllAppsVisible:
+		return true
+	case UsersGetCollectionParamsFieldsUsersFirstName:
+		return true
+	case UsersGetCollectionParamsFieldsUsersLastName:
+		return true
+	case UsersGetCollectionParamsFieldsUsersProvisioningAllowed:
+		return true
+	case UsersGetCollectionParamsFieldsUsersRoles:
+		return true
+	case UsersGetCollectionParamsFieldsUsersUsername:
+		return true
+	case UsersGetCollectionParamsFieldsUsersVisibleApps:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UsersGetCollectionParamsFieldsApps.
+const (
+	UsersGetCollectionParamsFieldsAppsAccessibilityDeclarations              UsersGetCollectionParamsFieldsApps = "accessibilityDeclarations"
+	UsersGetCollectionParamsFieldsAppsAccessibilityUrl                       UsersGetCollectionParamsFieldsApps = "accessibilityUrl"
+	UsersGetCollectionParamsFieldsAppsAlternativeDistributionKey             UsersGetCollectionParamsFieldsApps = "alternativeDistributionKey"
+	UsersGetCollectionParamsFieldsAppsAnalyticsReportRequests                UsersGetCollectionParamsFieldsApps = "analyticsReportRequests"
+	UsersGetCollectionParamsFieldsAppsAndroidToIosAppMappingDetails          UsersGetCollectionParamsFieldsApps = "androidToIosAppMappingDetails"
+	UsersGetCollectionParamsFieldsAppsAppAvailabilityV2                      UsersGetCollectionParamsFieldsApps = "appAvailabilityV2"
+	UsersGetCollectionParamsFieldsAppsAppClips                               UsersGetCollectionParamsFieldsApps = "appClips"
+	UsersGetCollectionParamsFieldsAppsAppCustomProductPages                  UsersGetCollectionParamsFieldsApps = "appCustomProductPages"
+	UsersGetCollectionParamsFieldsAppsAppEncryptionDeclarations              UsersGetCollectionParamsFieldsApps = "appEncryptionDeclarations"
+	UsersGetCollectionParamsFieldsAppsAppEvents                              UsersGetCollectionParamsFieldsApps = "appEvents"
+	UsersGetCollectionParamsFieldsAppsAppInfos                               UsersGetCollectionParamsFieldsApps = "appInfos"
+	UsersGetCollectionParamsFieldsAppsAppPricePoints                         UsersGetCollectionParamsFieldsApps = "appPricePoints"
+	UsersGetCollectionParamsFieldsAppsAppPriceSchedule                       UsersGetCollectionParamsFieldsApps = "appPriceSchedule"
+	UsersGetCollectionParamsFieldsAppsAppStoreIcon                           UsersGetCollectionParamsFieldsApps = "appStoreIcon"
+	UsersGetCollectionParamsFieldsAppsAppStoreVersionExperimentsV2           UsersGetCollectionParamsFieldsApps = "appStoreVersionExperimentsV2"
+	UsersGetCollectionParamsFieldsAppsAppStoreVersions                       UsersGetCollectionParamsFieldsApps = "appStoreVersions"
+	UsersGetCollectionParamsFieldsAppsAppTags                                UsersGetCollectionParamsFieldsApps = "appTags"
+	UsersGetCollectionParamsFieldsAppsBackgroundAssets                       UsersGetCollectionParamsFieldsApps = "backgroundAssets"
+	UsersGetCollectionParamsFieldsAppsBetaAppLocalizations                   UsersGetCollectionParamsFieldsApps = "betaAppLocalizations"
+	UsersGetCollectionParamsFieldsAppsBetaAppReviewDetail                    UsersGetCollectionParamsFieldsApps = "betaAppReviewDetail"
+	UsersGetCollectionParamsFieldsAppsBetaFeedbackCrashSubmissions           UsersGetCollectionParamsFieldsApps = "betaFeedbackCrashSubmissions"
+	UsersGetCollectionParamsFieldsAppsBetaFeedbackScreenshotSubmissions      UsersGetCollectionParamsFieldsApps = "betaFeedbackScreenshotSubmissions"
+	UsersGetCollectionParamsFieldsAppsBetaGroups                             UsersGetCollectionParamsFieldsApps = "betaGroups"
+	UsersGetCollectionParamsFieldsAppsBetaLicenseAgreement                   UsersGetCollectionParamsFieldsApps = "betaLicenseAgreement"
+	UsersGetCollectionParamsFieldsAppsBetaTesters                            UsersGetCollectionParamsFieldsApps = "betaTesters"
+	UsersGetCollectionParamsFieldsAppsBuildUploads                           UsersGetCollectionParamsFieldsApps = "buildUploads"
+	UsersGetCollectionParamsFieldsAppsBuilds                                 UsersGetCollectionParamsFieldsApps = "builds"
+	UsersGetCollectionParamsFieldsAppsBundleId                               UsersGetCollectionParamsFieldsApps = "bundleId"
+	UsersGetCollectionParamsFieldsAppsCiProduct                              UsersGetCollectionParamsFieldsApps = "ciProduct"
+	UsersGetCollectionParamsFieldsAppsContentRightsDeclaration               UsersGetCollectionParamsFieldsApps = "contentRightsDeclaration"
+	UsersGetCollectionParamsFieldsAppsCustomerReviewSummarizations           UsersGetCollectionParamsFieldsApps = "customerReviewSummarizations"
+	UsersGetCollectionParamsFieldsAppsCustomerReviews                        UsersGetCollectionParamsFieldsApps = "customerReviews"
+	UsersGetCollectionParamsFieldsAppsEndUserLicenseAgreement                UsersGetCollectionParamsFieldsApps = "endUserLicenseAgreement"
+	UsersGetCollectionParamsFieldsAppsGameCenterDetail                       UsersGetCollectionParamsFieldsApps = "gameCenterDetail"
+	UsersGetCollectionParamsFieldsAppsGameCenterEnabledVersions              UsersGetCollectionParamsFieldsApps = "gameCenterEnabledVersions"
+	UsersGetCollectionParamsFieldsAppsInAppPurchases                         UsersGetCollectionParamsFieldsApps = "inAppPurchases"
+	UsersGetCollectionParamsFieldsAppsInAppPurchasesV2                       UsersGetCollectionParamsFieldsApps = "inAppPurchasesV2"
+	UsersGetCollectionParamsFieldsAppsIsOrEverWasMadeForKids                 UsersGetCollectionParamsFieldsApps = "isOrEverWasMadeForKids"
+	UsersGetCollectionParamsFieldsAppsMarketplaceSearchDetail                UsersGetCollectionParamsFieldsApps = "marketplaceSearchDetail"
+	UsersGetCollectionParamsFieldsAppsName                                   UsersGetCollectionParamsFieldsApps = "name"
+	UsersGetCollectionParamsFieldsAppsPerfPowerMetrics                       UsersGetCollectionParamsFieldsApps = "perfPowerMetrics"
+	UsersGetCollectionParamsFieldsAppsPreReleaseVersions                     UsersGetCollectionParamsFieldsApps = "preReleaseVersions"
+	UsersGetCollectionParamsFieldsAppsPrimaryLocale                          UsersGetCollectionParamsFieldsApps = "primaryLocale"
+	UsersGetCollectionParamsFieldsAppsPromotedPurchases                      UsersGetCollectionParamsFieldsApps = "promotedPurchases"
+	UsersGetCollectionParamsFieldsAppsReviewSubmissions                      UsersGetCollectionParamsFieldsApps = "reviewSubmissions"
+	UsersGetCollectionParamsFieldsAppsSearchKeywords                         UsersGetCollectionParamsFieldsApps = "searchKeywords"
+	UsersGetCollectionParamsFieldsAppsSku                                    UsersGetCollectionParamsFieldsApps = "sku"
+	UsersGetCollectionParamsFieldsAppsStreamlinedPurchasingEnabled           UsersGetCollectionParamsFieldsApps = "streamlinedPurchasingEnabled"
+	UsersGetCollectionParamsFieldsAppsSubscriptionGracePeriod                UsersGetCollectionParamsFieldsApps = "subscriptionGracePeriod"
+	UsersGetCollectionParamsFieldsAppsSubscriptionGroups                     UsersGetCollectionParamsFieldsApps = "subscriptionGroups"
+	UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrl                  UsersGetCollectionParamsFieldsApps = "subscriptionStatusUrl"
+	UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrlForSandbox        UsersGetCollectionParamsFieldsApps = "subscriptionStatusUrlForSandbox"
+	UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersion           UsersGetCollectionParamsFieldsApps = "subscriptionStatusUrlVersion"
+	UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox UsersGetCollectionParamsFieldsApps = "subscriptionStatusUrlVersionForSandbox"
+	UsersGetCollectionParamsFieldsAppsWebhooks                               UsersGetCollectionParamsFieldsApps = "webhooks"
+)
+
+// Valid indicates whether the value is a known member of the UsersGetCollectionParamsFieldsApps enum.
+func (e UsersGetCollectionParamsFieldsApps) Valid() bool {
+	switch e {
+	case UsersGetCollectionParamsFieldsAppsAccessibilityDeclarations:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAccessibilityUrl:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAlternativeDistributionKey:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAnalyticsReportRequests:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAndroidToIosAppMappingDetails:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppAvailabilityV2:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppClips:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppCustomProductPages:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppEncryptionDeclarations:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppEvents:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppInfos:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppPricePoints:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppPriceSchedule:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppStoreIcon:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppStoreVersionExperimentsV2:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppStoreVersions:
+		return true
+	case UsersGetCollectionParamsFieldsAppsAppTags:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBackgroundAssets:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBetaAppLocalizations:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBetaAppReviewDetail:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBetaFeedbackCrashSubmissions:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBetaFeedbackScreenshotSubmissions:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBetaGroups:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBetaLicenseAgreement:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBetaTesters:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBuildUploads:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBuilds:
+		return true
+	case UsersGetCollectionParamsFieldsAppsBundleId:
+		return true
+	case UsersGetCollectionParamsFieldsAppsCiProduct:
+		return true
+	case UsersGetCollectionParamsFieldsAppsContentRightsDeclaration:
+		return true
+	case UsersGetCollectionParamsFieldsAppsCustomerReviewSummarizations:
+		return true
+	case UsersGetCollectionParamsFieldsAppsCustomerReviews:
+		return true
+	case UsersGetCollectionParamsFieldsAppsEndUserLicenseAgreement:
+		return true
+	case UsersGetCollectionParamsFieldsAppsGameCenterDetail:
+		return true
+	case UsersGetCollectionParamsFieldsAppsGameCenterEnabledVersions:
+		return true
+	case UsersGetCollectionParamsFieldsAppsInAppPurchases:
+		return true
+	case UsersGetCollectionParamsFieldsAppsInAppPurchasesV2:
+		return true
+	case UsersGetCollectionParamsFieldsAppsIsOrEverWasMadeForKids:
+		return true
+	case UsersGetCollectionParamsFieldsAppsMarketplaceSearchDetail:
+		return true
+	case UsersGetCollectionParamsFieldsAppsName:
+		return true
+	case UsersGetCollectionParamsFieldsAppsPerfPowerMetrics:
+		return true
+	case UsersGetCollectionParamsFieldsAppsPreReleaseVersions:
+		return true
+	case UsersGetCollectionParamsFieldsAppsPrimaryLocale:
+		return true
+	case UsersGetCollectionParamsFieldsAppsPromotedPurchases:
+		return true
+	case UsersGetCollectionParamsFieldsAppsReviewSubmissions:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSearchKeywords:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSku:
+		return true
+	case UsersGetCollectionParamsFieldsAppsStreamlinedPurchasingEnabled:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSubscriptionGracePeriod:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSubscriptionGroups:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrl:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrlForSandbox:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersion:
+		return true
+	case UsersGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox:
+		return true
+	case UsersGetCollectionParamsFieldsAppsWebhooks:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UsersGetCollectionParamsInclude.
+const (
+	UsersGetCollectionParamsIncludeVisibleApps UsersGetCollectionParamsInclude = "visibleApps"
+)
+
+// Valid indicates whether the value is a known member of the UsersGetCollectionParamsInclude enum.
+func (e UsersGetCollectionParamsInclude) Valid() bool {
+	switch e {
+	case UsersGetCollectionParamsIncludeVisibleApps:
 		return true
 	default:
 		return false
@@ -1496,6 +2099,13 @@ type ErrorSourcePointer struct {
 	Pointer string `json:"pointer"`
 }
 
+// PagedDocumentLinks defines model for PagedDocumentLinks.
+type PagedDocumentLinks struct {
+	First *string `json:"first,omitempty"`
+	Next  *string `json:"next,omitempty"`
+	Self  string  `json:"self"`
+}
+
 // PagingInformation defines model for PagingInformation.
 type PagingInformation struct {
 	Paging struct {
@@ -1618,6 +2228,14 @@ type UserInvitationResponse struct {
 	Links    DocumentLinks  `json:"links"`
 }
 
+// UserInvitationsResponse defines model for UserInvitationsResponse.
+type UserInvitationsResponse struct {
+	Data     []UserInvitation   `json:"data"`
+	Included *[]App             `json:"included,omitempty"`
+	Links    PagedDocumentLinks `json:"links"`
+	Meta     *PagingInformation `json:"meta,omitempty"`
+}
+
 // UserResponse defines model for UserResponse.
 type UserResponse struct {
 	Data     User          `json:"data"`
@@ -1655,6 +2273,59 @@ type UserUpdateRequestDataRelationshipsVisibleAppsDataType string
 // UserUpdateRequestDataType defines model for UserUpdateRequest.Data.Type.
 type UserUpdateRequestDataType string
 
+// UsersResponse defines model for UsersResponse.
+type UsersResponse struct {
+	Data     []User             `json:"data"`
+	Included *[]App             `json:"included,omitempty"`
+	Links    PagedDocumentLinks `json:"links"`
+	Meta     *PagingInformation `json:"meta,omitempty"`
+}
+
+// UserInvitationsGetCollectionParams defines parameters for UserInvitationsGetCollection.
+type UserInvitationsGetCollectionParams struct {
+	// FilterEmail filter by attribute 'email'
+	FilterEmail *[]string `form:"filter[email],omitempty" json:"filter[email],omitempty"`
+
+	// FilterRoles filter by attribute 'roles'
+	FilterRoles *[]UserInvitationsGetCollectionParamsFilterRoles `form:"filter[roles],omitempty" json:"filter[roles],omitempty"`
+
+	// FilterVisibleApps filter by id(s) of related 'visibleApps'
+	FilterVisibleApps *[]string `form:"filter[visibleApps],omitempty" json:"filter[visibleApps],omitempty"`
+
+	// Sort comma-separated list of sort expressions; resources will be sorted as specified
+	Sort *[]UserInvitationsGetCollectionParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// FieldsUserInvitations the fields to include for returned resources of type userInvitations
+	FieldsUserInvitations *[]UserInvitationsGetCollectionParamsFieldsUserInvitations `form:"fields[userInvitations],omitempty" json:"fields[userInvitations],omitempty"`
+
+	// FieldsApps the fields to include for returned resources of type apps
+	FieldsApps *[]UserInvitationsGetCollectionParamsFieldsApps `form:"fields[apps],omitempty" json:"fields[apps],omitempty"`
+
+	// Limit maximum resources per page
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Include comma-separated list of relationships to include
+	Include *[]UserInvitationsGetCollectionParamsInclude `form:"include,omitempty" json:"include,omitempty"`
+
+	// LimitVisibleApps maximum number of related visibleApps returned (when they are included)
+	LimitVisibleApps *int `form:"limit[visibleApps],omitempty" json:"limit[visibleApps],omitempty"`
+}
+
+// UserInvitationsGetCollectionParamsFilterRoles defines parameters for UserInvitationsGetCollection.
+type UserInvitationsGetCollectionParamsFilterRoles string
+
+// UserInvitationsGetCollectionParamsSort defines parameters for UserInvitationsGetCollection.
+type UserInvitationsGetCollectionParamsSort string
+
+// UserInvitationsGetCollectionParamsFieldsUserInvitations defines parameters for UserInvitationsGetCollection.
+type UserInvitationsGetCollectionParamsFieldsUserInvitations string
+
+// UserInvitationsGetCollectionParamsFieldsApps defines parameters for UserInvitationsGetCollection.
+type UserInvitationsGetCollectionParamsFieldsApps string
+
+// UserInvitationsGetCollectionParamsInclude defines parameters for UserInvitationsGetCollection.
+type UserInvitationsGetCollectionParamsInclude string
+
 // UserInvitationsGetInstanceParams defines parameters for UserInvitationsGetInstance.
 type UserInvitationsGetInstanceParams struct {
 	// FieldsUserInvitations the fields to include for returned resources of type userInvitations
@@ -1678,6 +2349,51 @@ type UserInvitationsGetInstanceParamsFieldsApps string
 
 // UserInvitationsGetInstanceParamsInclude defines parameters for UserInvitationsGetInstance.
 type UserInvitationsGetInstanceParamsInclude string
+
+// UsersGetCollectionParams defines parameters for UsersGetCollection.
+type UsersGetCollectionParams struct {
+	// FilterUsername filter by attribute 'username'
+	FilterUsername *[]string `form:"filter[username],omitempty" json:"filter[username],omitempty"`
+
+	// FilterRoles filter by attribute 'roles'
+	FilterRoles *[]UsersGetCollectionParamsFilterRoles `form:"filter[roles],omitempty" json:"filter[roles],omitempty"`
+
+	// FilterVisibleApps filter by id(s) of related 'visibleApps'
+	FilterVisibleApps *[]string `form:"filter[visibleApps],omitempty" json:"filter[visibleApps],omitempty"`
+
+	// Sort comma-separated list of sort expressions; resources will be sorted as specified
+	Sort *[]UsersGetCollectionParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// FieldsUsers the fields to include for returned resources of type users
+	FieldsUsers *[]UsersGetCollectionParamsFieldsUsers `form:"fields[users],omitempty" json:"fields[users],omitempty"`
+
+	// FieldsApps the fields to include for returned resources of type apps
+	FieldsApps *[]UsersGetCollectionParamsFieldsApps `form:"fields[apps],omitempty" json:"fields[apps],omitempty"`
+
+	// Limit maximum resources per page
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Include comma-separated list of relationships to include
+	Include *[]UsersGetCollectionParamsInclude `form:"include,omitempty" json:"include,omitempty"`
+
+	// LimitVisibleApps maximum number of related visibleApps returned (when they are included)
+	LimitVisibleApps *int `form:"limit[visibleApps],omitempty" json:"limit[visibleApps],omitempty"`
+}
+
+// UsersGetCollectionParamsFilterRoles defines parameters for UsersGetCollection.
+type UsersGetCollectionParamsFilterRoles string
+
+// UsersGetCollectionParamsSort defines parameters for UsersGetCollection.
+type UsersGetCollectionParamsSort string
+
+// UsersGetCollectionParamsFieldsUsers defines parameters for UsersGetCollection.
+type UsersGetCollectionParamsFieldsUsers string
+
+// UsersGetCollectionParamsFieldsApps defines parameters for UsersGetCollection.
+type UsersGetCollectionParamsFieldsApps string
+
+// UsersGetCollectionParamsInclude defines parameters for UsersGetCollection.
+type UsersGetCollectionParamsInclude string
 
 // UsersGetInstanceParams defines parameters for UsersGetInstance.
 type UsersGetInstanceParams struct {
@@ -1906,6 +2622,9 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// UserInvitationsGetCollection request
+	UserInvitationsGetCollection(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// UserInvitationsCreateInstanceWithBody request with any body
 	UserInvitationsCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1917,6 +2636,9 @@ type ClientInterface interface {
 	// UserInvitationsGetInstance request
 	UserInvitationsGetInstance(ctx context.Context, id string, params *UserInvitationsGetInstanceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// UsersGetCollection request
+	UsersGetCollection(ctx context.Context, params *UsersGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// UsersDeleteInstance request
 	UsersDeleteInstance(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1927,6 +2649,18 @@ type ClientInterface interface {
 	UsersUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UsersUpdateInstance(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) UserInvitationsGetCollection(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUserInvitationsGetCollectionRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) UserInvitationsCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1967,6 +2701,18 @@ func (c *Client) UserInvitationsDeleteInstance(ctx context.Context, id string, r
 
 func (c *Client) UserInvitationsGetInstance(ctx context.Context, id string, params *UserInvitationsGetInstanceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUserInvitationsGetInstanceRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) UsersGetCollection(ctx context.Context, params *UsersGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUsersGetCollectionRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2023,6 +2769,183 @@ func (c *Client) UsersUpdateInstance(ctx context.Context, id string, body UsersU
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewUserInvitationsGetCollectionRequest generates requests for UserInvitationsGetCollection
+func NewUserInvitationsGetCollectionRequest(server string, params *UserInvitationsGetCollectionParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/userInvitations")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FilterEmail != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[email]", *params.FilterEmail, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FilterRoles != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[roles]", *params.FilterRoles, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FilterVisibleApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[visibleApps]", *params.FilterVisibleApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FieldsUserInvitations != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[userInvitations]", *params.FieldsUserInvitations, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FieldsApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[apps]", *params.FieldsApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Include != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "include", *params.Include, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.LimitVisibleApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit[visibleApps]", *params.LimitVisibleApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
 }
 
 // NewUserInvitationsCreateInstanceRequest calls the generic UserInvitationsCreateInstance builder with application/json body
@@ -2147,6 +3070,183 @@ func NewUserInvitationsGetInstanceRequest(server string, id string, params *User
 		if params.FieldsApps != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[apps]", *params.FieldsApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Include != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "include", *params.Include, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.LimitVisibleApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit[visibleApps]", *params.LimitVisibleApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUsersGetCollectionRequest generates requests for UsersGetCollection
+func NewUsersGetCollectionRequest(server string, params *UsersGetCollectionParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/users")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FilterUsername != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[username]", *params.FilterUsername, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FilterRoles != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[roles]", *params.FilterRoles, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FilterVisibleApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[visibleApps]", *params.FilterVisibleApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FieldsUsers != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[users]", *params.FieldsUsers, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.FieldsApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[apps]", *params.FieldsApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
@@ -2431,6 +3531,9 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// UserInvitationsGetCollectionWithResponse request
+	UserInvitationsGetCollectionWithResponse(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*UserInvitationsGetCollectionResponse, error)
+
 	// UserInvitationsCreateInstanceWithBodyWithResponse request with any body
 	UserInvitationsCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UserInvitationsCreateInstanceResponse, error)
 
@@ -2442,6 +3545,9 @@ type ClientWithResponsesInterface interface {
 	// UserInvitationsGetInstanceWithResponse request
 	UserInvitationsGetInstanceWithResponse(ctx context.Context, id string, params *UserInvitationsGetInstanceParams, reqEditors ...RequestEditorFn) (*UserInvitationsGetInstanceResponse, error)
 
+	// UsersGetCollectionWithResponse request
+	UsersGetCollectionWithResponse(ctx context.Context, params *UsersGetCollectionParams, reqEditors ...RequestEditorFn) (*UsersGetCollectionResponse, error)
+
 	// UsersDeleteInstanceWithResponse request
 	UsersDeleteInstanceWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*UsersDeleteInstanceResponse, error)
 
@@ -2452,6 +3558,32 @@ type ClientWithResponsesInterface interface {
 	UsersUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
 
 	UsersUpdateInstanceWithResponse(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
+}
+
+type UserInvitationsGetCollectionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *UserInvitationsResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r UserInvitationsGetCollectionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UserInvitationsGetCollectionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
 }
 
 type UserInvitationsCreateInstanceResponse struct {
@@ -2529,6 +3661,32 @@ func (r UserInvitationsGetInstanceResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r UserInvitationsGetInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type UsersGetCollectionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *UsersResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r UsersGetCollectionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UsersGetCollectionResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -2617,6 +3775,15 @@ func (r UsersUpdateInstanceResponse) StatusCode() int {
 	return 0
 }
 
+// UserInvitationsGetCollectionWithResponse request returning *UserInvitationsGetCollectionResponse
+func (c *ClientWithResponses) UserInvitationsGetCollectionWithResponse(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*UserInvitationsGetCollectionResponse, error) {
+	rsp, err := c.UserInvitationsGetCollection(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUserInvitationsGetCollectionResponse(rsp)
+}
+
 // UserInvitationsCreateInstanceWithBodyWithResponse request with arbitrary body returning *UserInvitationsCreateInstanceResponse
 func (c *ClientWithResponses) UserInvitationsCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UserInvitationsCreateInstanceResponse, error) {
 	rsp, err := c.UserInvitationsCreateInstanceWithBody(ctx, contentType, body, reqEditors...)
@@ -2652,6 +3819,15 @@ func (c *ClientWithResponses) UserInvitationsGetInstanceWithResponse(ctx context
 	return ParseUserInvitationsGetInstanceResponse(rsp)
 }
 
+// UsersGetCollectionWithResponse request returning *UsersGetCollectionResponse
+func (c *ClientWithResponses) UsersGetCollectionWithResponse(ctx context.Context, params *UsersGetCollectionParams, reqEditors ...RequestEditorFn) (*UsersGetCollectionResponse, error) {
+	rsp, err := c.UsersGetCollection(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUsersGetCollectionResponse(rsp)
+}
+
 // UsersDeleteInstanceWithResponse request returning *UsersDeleteInstanceResponse
 func (c *ClientWithResponses) UsersDeleteInstanceWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*UsersDeleteInstanceResponse, error) {
 	rsp, err := c.UsersDeleteInstance(ctx, id, reqEditors...)
@@ -2685,6 +3861,60 @@ func (c *ClientWithResponses) UsersUpdateInstanceWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseUsersUpdateInstanceResponse(rsp)
+}
+
+// ParseUserInvitationsGetCollectionResponse parses an HTTP response from a UserInvitationsGetCollectionWithResponse call
+func ParseUserInvitationsGetCollectionResponse(rsp *http.Response) (*UserInvitationsGetCollectionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UserInvitationsGetCollectionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest UserInvitationsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseUserInvitationsCreateInstanceResponse parses an HTTP response from a UserInvitationsCreateInstanceWithResponse call
@@ -2857,6 +4087,60 @@ func ParseUserInvitationsGetInstanceResponse(rsp *http.Response) (*UserInvitatio
 			return nil, err
 		}
 		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUsersGetCollectionResponse parses an HTTP response from a UsersGetCollectionWithResponse call
+func ParseUsersGetCollectionResponse(rsp *http.Response) (*UsersGetCollectionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UsersGetCollectionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest UsersResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
 		var dest ErrorResponse

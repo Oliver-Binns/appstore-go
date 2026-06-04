@@ -5,9 +5,11 @@ generate:
 output: types.gen.go
 output-options:
   include-operation-ids:
+    - users_getCollection
     - users_getInstance
     - users_updateInstance
     - users_deleteInstance
+    - userInvitations_getCollection
     - userInvitations_getInstance
     - userInvitations_deleteInstance
     - userInvitations_createInstance

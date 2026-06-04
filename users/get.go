@@ -11,6 +11,10 @@ import (
 )
 
 func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string) (*User, error) {
+	if id == "" {
+		return nil, fmt.Errorf("user ID cannot be empty")
+	}
+
 	apiClient, err := openapi.NewClient(rawURL, openapi.WithHTTPClient(c))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create API client: %w", err)

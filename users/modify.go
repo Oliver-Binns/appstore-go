@@ -11,6 +11,10 @@ import (
 )
 
 func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id string, user User) (*User, error) {
+	if id == "" {
+		return nil, fmt.Errorf("user ID cannot be empty")
+	}
+
 	apiClient, err := openapi.NewClient(rawURL, openapi.WithHTTPClient(c))
 	if err != nil {
 		return nil, fmt.Errorf("failed to create API client: %w", err)
@@ -20,9 +24,9 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 	req.Data.Id = id
 	req.Data.Type = openapi.UserUpdateRequestDataTypeUsers
 	req.Data.Attributes = &struct {
-		AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-		ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-		Roles               *[]UserRole `json:"roles,omitempty"`
+		AllAppsVisible      *bool              `json:"allAppsVisible,omitempty"`
+		ProvisioningAllowed *bool              `json:"provisioningAllowed,omitempty"`
+		Roles               *[]openapi.UserRole `json:"roles,omitempty"`
 	}{
 		Roles:               rolesOrNil(user.Roles),
 		AllAppsVisible:      boolPtrOrNil(user.AllAppsVisible),
