@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
+	"path"
 
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/googleplay-go/networking"
@@ -15,92 +17,134 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, fmt.Errorf("user ID cannot be empty")
 	}
 
-	apiClient, err := openapi.NewClient(rawURL, openapi.WithHTTPClient(c))
+	// Parse the raw URL
+	parsedURL, err := url.Parse(rawURL)
 	if err != nil {
-		return nil, fmt.Errorf("failed to create API client: %w", err)
+		return nil, fmt.Errorf("failed to parse URL: %w", err)
+	}
+	parsedURL.Path = path.Join(parsedURL.Path, "users", id)
+
+	query := parsedURL.Query()
+	query.Set("include", "visibleApps")
+	parsedURL.RawQuery = query.Encode()
+
+	// Create the HTTP request
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, parsedURL.String(), http.NoBody)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
 
-	include := []openapi.UsersGetInstanceParamsInclude{openapi.UsersGetInstanceParamsIncludeVisibleApps}
-	resp, err := apiClient.UsersGetInstance(ctx, id, &openapi.UsersGetInstanceParams{Include: &include})
-	if err != nil {
-		return nil, err
-	}
+	resp, err := c.Do(req)
 
+	// If the user is not found, see if the user invitation exists
 	if resp.StatusCode == http.StatusNotFound {
-		_ = resp.Body.Close()
 		return getInvitations(c, ctx, rawURL, id)
 	} else if resp.StatusCode != http.StatusOK {
-		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	var userResponse openapi.UserResponse
-	if err := json.NewDecoder(resp.Body).Decode(&userResponse); err != nil {
-		_ = resp.Body.Close()
-		return nil, fmt.Errorf("failed to decode response: %w", err)
-	}
-	if err := resp.Body.Close(); err != nil {
+	if err != nil {
 		return nil, err
 	}
 
-	u := userResponse.Data
-	user := &User{ID: u.Id, HasAcceptedInvite: true}
-	if u.Attributes != nil {
-		user.FirstName = derefString(u.Attributes.FirstName)
-		user.LastName = derefString(u.Attributes.LastName)
-		user.Username = derefString(u.Attributes.Username)
-		user.Roles = derefRoles(u.Attributes.Roles)
-		user.AllAppsVisible = derefBool(u.Attributes.AllAppsVisible)
-		user.ProvisioningAllowed = derefBool(u.Attributes.ProvisioningAllowed)
+	userResponse := new(openapi.UserResponse)
+	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
+		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
-	if u.Relationships != nil && u.Relationships.VisibleApps != nil && u.Relationships.VisibleApps.Data != nil {
-		for _, app := range *u.Relationships.VisibleApps.Data {
-			user.VisibleAppIDs = append(user.VisibleAppIDs, app.Id)
+
+	if err := resp.Body.Close(); err != nil {
+		return nil, fmt.Errorf("failed to close response body: %w", err)
+	}
+
+	visibleAppIDs := []string{}
+	if userResponse.Data.Relationships != nil && userResponse.Data.Relationships.VisibleApps != nil && userResponse.Data.Relationships.VisibleApps.Data != nil {
+		for _, app := range *userResponse.Data.Relationships.VisibleApps.Data {
+			visibleAppIDs = append(visibleAppIDs, app.Id)
 		}
 	}
-	return user, nil
+
+	var firstName, lastName, username string
+	var roles []openapi.UserRole
+	var allAppsVisible, provisioningAllowed bool
+	if userResponse.Data.Attributes != nil {
+		firstName = derefString(userResponse.Data.Attributes.FirstName)
+		lastName = derefString(userResponse.Data.Attributes.LastName)
+		username = derefString(userResponse.Data.Attributes.Username)
+		roles = derefRoles(userResponse.Data.Attributes.Roles)
+		allAppsVisible = derefBool(userResponse.Data.Attributes.AllAppsVisible)
+		provisioningAllowed = derefBool(userResponse.Data.Attributes.ProvisioningAllowed)
+	}
+
+	return &User{
+		ID:                  userResponse.Data.Id,
+		FirstName:           firstName,
+		LastName:            lastName,
+		Username:            username,
+		Roles:               roles,
+		AllAppsVisible:      allAppsVisible,
+		ProvisioningAllowed: provisioningAllowed,
+		HasAcceptedInvite:   true,
+		VisibleAppIDs:       visibleAppIDs,
+	}, nil
 }
 
 func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string, id string) (*User, error) {
-	apiClient, err := openapi.NewClient(rawURL, openapi.WithHTTPClient(c))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create API client: %w", err)
-	}
+	parsedURL, _ := url.Parse(rawURL)
+	parsedURL.Path = path.Join(parsedURL.Path, "userInvitations", id)
 
-	include := []openapi.UserInvitationsGetInstanceParamsInclude{openapi.UserInvitationsGetInstanceParamsIncludeVisibleApps}
-	resp, err := apiClient.UserInvitationsGetInstance(ctx, id, &openapi.UserInvitationsGetInstanceParams{Include: &include})
+	query := parsedURL.Query()
+	query.Set("include", "visibleApps")
+	parsedURL.RawQuery = query.Encode()
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, parsedURL.String(), http.NoBody)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request: %w", err)
+	}
+	resp, err := c.Do(req)
+
 	if err != nil {
 		return nil, err
-	}
-
-	if resp.StatusCode != http.StatusOK {
-		_ = resp.Body.Close()
+	} else if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	var invResponse openapi.UserInvitationResponse
-	if err := json.NewDecoder(resp.Body).Decode(&invResponse); err != nil {
-		_ = resp.Body.Close()
+	userResponse := new(openapi.UserInvitationResponse)
+	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
+
 	if err := resp.Body.Close(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
-	inv := invResponse.Data
-	user := &User{ID: inv.Id, HasAcceptedInvite: false}
-	if inv.Attributes != nil {
-		user.FirstName = derefString(inv.Attributes.FirstName)
-		user.LastName = derefString(inv.Attributes.LastName)
-		user.Username = derefEmail(inv.Attributes.Email)
-		user.Roles = derefRoles(inv.Attributes.Roles)
-		user.AllAppsVisible = derefBool(inv.Attributes.AllAppsVisible)
-		user.ProvisioningAllowed = derefBool(inv.Attributes.ProvisioningAllowed)
-	}
-	if inv.Relationships != nil && inv.Relationships.VisibleApps != nil && inv.Relationships.VisibleApps.Data != nil {
-		for _, app := range *inv.Relationships.VisibleApps.Data {
-			user.VisibleAppIDs = append(user.VisibleAppIDs, app.Id)
+	visibleAppIDs := []string{}
+	if userResponse.Data.Relationships != nil && userResponse.Data.Relationships.VisibleApps != nil && userResponse.Data.Relationships.VisibleApps.Data != nil {
+		for _, app := range *userResponse.Data.Relationships.VisibleApps.Data {
+			visibleAppIDs = append(visibleAppIDs, app.Id)
 		}
 	}
-	return user, nil
+
+	var firstName, lastName, username string
+	var roles []openapi.UserRole
+	var allAppsVisible, provisioningAllowed bool
+	if userResponse.Data.Attributes != nil {
+		firstName = derefString(userResponse.Data.Attributes.FirstName)
+		lastName = derefString(userResponse.Data.Attributes.LastName)
+		username = derefEmail(userResponse.Data.Attributes.Email)
+		roles = derefRoles(userResponse.Data.Attributes.Roles)
+		allAppsVisible = derefBool(userResponse.Data.Attributes.AllAppsVisible)
+		provisioningAllowed = derefBool(userResponse.Data.Attributes.ProvisioningAllowed)
+	}
+
+	return &User{
+		ID:                  userResponse.Data.Id,
+		FirstName:           firstName,
+		LastName:            lastName,
+		Username:            username,
+		Roles:               roles,
+		AllAppsVisible:      allAppsVisible,
+		ProvisioningAllowed: provisioningAllowed,
+		HasAcceptedInvite:   false,
+		VisibleAppIDs:       visibleAppIDs,
+	}, nil
 }

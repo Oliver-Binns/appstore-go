@@ -21,9 +21,9 @@ func TestFindByEmail_MakesRequest(t *testing.T) {
 
 	assert.Equal(t, 2, len(httpClient.Requests))
 	assert.Equal(t, "GET", httpClient.Requests[0].Method)
-	assert.Equal(t, "https://example.com/v1/users?filter%5Busername%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[0].URL.String())
+	assert.Equal(t, "https://example.com/users?filter%5Busername%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[0].URL.String())
 	assert.Equal(t, "GET", httpClient.Requests[1].Method)
-	assert.Equal(t, "https://example.com/v1/userInvitations?filter%5Bemail%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[1].URL.String())
+	assert.Equal(t, "https://example.com/userInvitations?filter%5Bemail%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[1].URL.String())
 }
 
 func TestFindByEmail_ReturnsErrorIfNon200Returned(t *testing.T) {
