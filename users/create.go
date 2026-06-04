@@ -11,7 +11,7 @@ import (
 
 	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/oliver-binns/appstore-go/openapi"
-	"github.com/oliver-binns/googleplay-go/networking"
+	"github.com/oliver-binns/appstore-go/networking"
 )
 
 func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user User) (*User, error) {
