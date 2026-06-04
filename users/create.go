@@ -10,6 +10,7 @@ import (
 	"path"
 
 	openapi_types "github.com/oapi-codegen/runtime/types"
+	"github.com/oliver-binns/appstore-go/internal/ptr"
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/appstore-go/networking"
 )
@@ -88,12 +89,12 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
-		LastName:            derefString(userResponse.Data.Attributes.LastName),
-		Username:            derefEmail(userResponse.Data.Attributes.Email),
-		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
-		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            string(ptr.Deref(userResponse.Data.Attributes.Email)),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		// Visible App IDs are returned from the input as these are not available in the API response:
 		VisibleAppIDs: user.VisibleAppIDs,
 	}, nil

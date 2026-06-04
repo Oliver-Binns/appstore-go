@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"path"
 
+	"github.com/oliver-binns/appstore-go/internal/ptr"
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/appstore-go/networking"
 )
@@ -65,12 +66,12 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
-		LastName:            derefString(userResponse.Data.Attributes.LastName),
-		Username:            derefString(userResponse.Data.Attributes.Username),
-		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
-		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            ptr.Deref(userResponse.Data.Attributes.Username),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   true,
 		VisibleAppIDs:       visibleAppIDs,
 	}, nil
@@ -114,12 +115,12 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
-		LastName:            derefString(userResponse.Data.Attributes.LastName),
-		Username:            derefEmail(userResponse.Data.Attributes.Email),
-		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
-		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            string(ptr.Deref(userResponse.Data.Attributes.Email)),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   false,
 		VisibleAppIDs:       visibleAppIDs,
 	}, nil

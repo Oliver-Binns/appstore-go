@@ -1,7 +1,6 @@
 package users
 
 import (
-	openapi_types "github.com/oapi-codegen/runtime/types"
 	"github.com/oliver-binns/appstore-go/openapi"
 )
 
@@ -16,34 +15,6 @@ type User struct {
 	HasAcceptedInvite   bool             `json:"userHasAcceptedInvitation,omitempty"`
 
 	VisibleAppIDs []string `json:"-"`
-}
-
-func derefString(s *string) string {
-	if s == nil {
-		return ""
-	}
-	return *s
-}
-
-func derefEmail(e *openapi_types.Email) string {
-	if e == nil {
-		return ""
-	}
-	return string(*e)
-}
-
-func derefBool(b *bool) bool {
-	if b == nil {
-		return false
-	}
-	return *b
-}
-
-func derefRoles(r *[]openapi.UserRole) []openapi.UserRole {
-	if r == nil {
-		return nil
-	}
-	return *r
 }
 
 // boolPtrOrNil returns a pointer to b when b is true and nil when b is false.

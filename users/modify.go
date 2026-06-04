@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"path"
 
+	"github.com/oliver-binns/appstore-go/internal/ptr"
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/appstore-go/networking"
 )
@@ -100,12 +101,12 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
-		LastName:            derefString(userResponse.Data.Attributes.LastName),
-		Username:            derefString(userResponse.Data.Attributes.Username),
-		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
-		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            ptr.Deref(userResponse.Data.Attributes.Username),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		// Visible App IDs are returned from the input as these are not available in the API response:
 		VisibleAppIDs: user.VisibleAppIDs,
 	}, nil

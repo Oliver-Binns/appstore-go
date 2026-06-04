@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"path"
 
+	"github.com/oliver-binns/appstore-go/internal/ptr"
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/appstore-go/networking"
 )
@@ -70,12 +71,12 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 
 	return &User{
 		ID:                  listResponse.Data[0].Id,
-		FirstName:           derefString(listResponse.Data[0].Attributes.FirstName),
-		LastName:            derefString(listResponse.Data[0].Attributes.LastName),
-		Username:            derefString(listResponse.Data[0].Attributes.Username),
-		Roles:               derefRoles(listResponse.Data[0].Attributes.Roles),
-		AllAppsVisible:      derefBool(listResponse.Data[0].Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(listResponse.Data[0].Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(listResponse.Data[0].Attributes.FirstName),
+		LastName:            ptr.Deref(listResponse.Data[0].Attributes.LastName),
+		Username:            ptr.Deref(listResponse.Data[0].Attributes.Username),
+		Roles:               ptr.Deref(listResponse.Data[0].Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(listResponse.Data[0].Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(listResponse.Data[0].Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   true,
 		VisibleAppIDs:       visibleAppIDs,
 	}, nil
@@ -131,12 +132,12 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 
 	return &User{
 		ID:                  listResponse.Data[0].Id,
-		FirstName:           derefString(listResponse.Data[0].Attributes.FirstName),
-		LastName:            derefString(listResponse.Data[0].Attributes.LastName),
-		Username:            derefEmail(listResponse.Data[0].Attributes.Email),
-		Roles:               derefRoles(listResponse.Data[0].Attributes.Roles),
-		AllAppsVisible:      derefBool(listResponse.Data[0].Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(listResponse.Data[0].Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(listResponse.Data[0].Attributes.FirstName),
+		LastName:            ptr.Deref(listResponse.Data[0].Attributes.LastName),
+		Username:            string(ptr.Deref(listResponse.Data[0].Attributes.Email)),
+		Roles:               ptr.Deref(listResponse.Data[0].Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(listResponse.Data[0].Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(listResponse.Data[0].Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   false,
 		VisibleAppIDs:       visibleAppIDs,
 	}, nil
