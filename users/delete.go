@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/oliver-binns/googleplay-go/networking"
+	"github.com/oliver-binns/appstore-go/networking"
 )
 
 func Delete(c networking.HTTPClient, ctx context.Context, rawURL string, id string) error {

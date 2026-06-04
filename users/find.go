@@ -9,7 +9,7 @@ import (
 	"path"
 
 	"github.com/oliver-binns/appstore-go/openapi"
-	"github.com/oliver-binns/googleplay-go/networking"
+	"github.com/oliver-binns/appstore-go/networking"
 )
 
 func FindByEmail(c networking.HTTPClient, ctx context.Context, rawURL string, email string) (*User, error) {
