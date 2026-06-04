@@ -1,67 +1,49 @@
 package users
 
-import (
-	openapi_types "github.com/oapi-codegen/runtime/types"
-	"github.com/oliver-binns/appstore-go/openapi"
-)
+import "github.com/oliver-binns/appstore-go/openapi"
 
 type User struct {
-	ID                  string           `json:"-"`
-	FirstName           string           `json:"firstName,omitempty"`
-	LastName            string           `json:"lastName,omitempty"`
-	Username            string           `json:"username,omitempty"`
-	Roles               []openapi.UserRole `json:"roles,omitempty"`
-	AllAppsVisible      bool             `json:"allAppsVisible,omitempty"`
-	ProvisioningAllowed bool             `json:"provisioningAllowed,omitempty"`
-	HasAcceptedInvite   bool             `json:"userHasAcceptedInvitation,omitempty"`
+	ID                  string     `json:"-"`
+	FirstName           string     `json:"firstName,omitempty"`
+	LastName            string     `json:"lastName,omitempty"`
+	Username            string     `json:"username,omitempty"`
+	Roles               []UserRole `json:"roles,omitempty"`
+	AllAppsVisible      bool       `json:"allAppsVisible,omitempty"`
+	ProvisioningAllowed bool       `json:"provisioningAllowed,omitempty"`
+	HasAcceptedInvite   bool       `json:"userHasAcceptedInvitation,omitempty"`
 
 	VisibleAppIDs []string `json:"-"`
 }
 
-func derefString(s *string) string {
-	if s == nil {
-		return ""
+func visibleAppsRelationship(ids []string) *openapi.VisibleAppsRelationship {
+	refs := make([]openapi.AppReference, len(ids))
+	for i, id := range ids {
+		refs[i] = openapi.AppReference{Id: id, Type: openapi.AppReferenceTypeApps}
 	}
-	return *s
+	return &openapi.VisibleAppsRelationship{Data: &refs}
 }
 
-func derefEmail(e *openapi_types.Email) string {
-	if e == nil {
-		return ""
-	}
-	return string(*e)
-}
-
-func derefBool(b *bool) bool {
-	if b == nil {
-		return false
-	}
-	return *b
-}
-
-func derefRoles(r *[]openapi.UserRole) []openapi.UserRole {
-	if r == nil {
+func invitationCreateRelationships(ids []string, allAppsVisible bool) *openapi.UserInvitationCreateRelationships {
+	if len(ids) == 0 && allAppsVisible {
 		return nil
 	}
-	return *r
+	return &openapi.UserInvitationCreateRelationships{VisibleApps: visibleAppsRelationship(ids)}
 }
 
-// boolPtrOrNil returns a pointer to b when b is true and nil when b is false.
-// This mirrors the previous behaviour of `bool` fields with `omitempty` JSON tags,
-// where zero (false) values were omitted from requests. A nil pointer on a
-// `*bool, omitempty` field is also omitted, so false values are not sent.
-// If explicit false values need to be included in future, this helper should
-// return &b unconditionally.
-func boolPtrOrNil(b bool) *bool {
-	if b {
-		return &b
-	}
-	return nil
-}
-
-func rolesOrNil(roles []openapi.UserRole) *[]openapi.UserRole {
-	if len(roles) == 0 {
+func userUpdateRelationships(ids []string, allAppsVisible bool) *openapi.UserUpdateRelationships {
+	if len(ids) == 0 && allAppsVisible {
 		return nil
 	}
-	return &roles
+	return &openapi.UserUpdateRelationships{VisibleApps: visibleAppsRelationship(ids)}
+}
+
+func visibleAppIDs(r *openapi.UserRelationships) []string {
+	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
+		return []string{}
+	}
+	ids := make([]string, len(*r.VisibleApps.Data))
+	for i, app := range *r.VisibleApps.Data {
+		ids[i] = app.Id
+	}
+	return ids
 }

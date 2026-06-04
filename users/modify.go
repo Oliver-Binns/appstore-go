@@ -1,16 +1,12 @@
 package users
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
-	"net/http"
-	"net/url"
-	"path"
 
-	"github.com/oliver-binns/appstore-go/openapi"
+	"github.com/oliver-binns/appstore-go/internal/ptr"
 	"github.com/oliver-binns/appstore-go/networking"
+	"github.com/oliver-binns/appstore-go/openapi"
 )
 
 func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id string, user User) (*User, error) {
@@ -18,95 +14,41 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		return nil, fmt.Errorf("user ID cannot be empty")
 	}
 
-	// Parse the raw URL
-	parsedURL, err := url.Parse(rawURL)
+	client, err := openapi.NewClientWithResponses(rawURL, openapi.WithHTTPClient(c))
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse URL: %w", err)
+		return nil, fmt.Errorf("failed to create client: %w", err)
 	}
-	parsedURL.Path = path.Join(parsedURL.Path, "users", id)
 
-	// Create the request body
-	body := bytes.NewBuffer(nil)
 	requestObject := openapi.UserUpdateRequest{}
 	requestObject.Data.Id = id
 	requestObject.Data.Type = openapi.UserUpdateRequestDataTypeUsers
-	requestObject.Data.Attributes = &struct {
-		AllAppsVisible      *bool               `json:"allAppsVisible,omitempty"`
-		ProvisioningAllowed *bool               `json:"provisioningAllowed,omitempty"`
-		Roles               *[]openapi.UserRole `json:"roles,omitempty"`
-	}{
-		AllAppsVisible:      boolPtrOrNil(user.AllAppsVisible),
-		ProvisioningAllowed: boolPtrOrNil(user.ProvisioningAllowed),
-		Roles:               rolesOrNil(user.Roles),
+	requestObject.Data.Attributes = &openapi.UserUpdateAttributes{
+		AllAppsVisible:      ptr.PtrOrNil(user.AllAppsVisible),
+		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
+		Roles:               ptr.SlicePtrOrNil(user.Roles),
 	}
-	if len(user.VisibleAppIDs) != 0 || !user.AllAppsVisible {
-		appReferences := make([]struct {
-			Id   string                                                        `json:"id"`
-			Type openapi.UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-		}, len(user.VisibleAppIDs))
-		for index, id := range user.VisibleAppIDs {
-			appReferences[index].Id = id
-			appReferences[index].Type = openapi.Apps
-		}
-		requestObject.Data.Relationships = &struct {
-			VisibleApps *struct {
-				Data *[]struct {
-					Id   string                                                        `json:"id"`
-					Type openapi.UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-				} `json:"data,omitempty"`
-			} `json:"visibleApps,omitempty"`
-		}{
-			VisibleApps: &struct {
-				Data *[]struct {
-					Id   string                                                        `json:"id"`
-					Type openapi.UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-				} `json:"data,omitempty"`
-			}{
-				Data: &appReferences,
-			},
-		}
-	}
-	err = json.NewEncoder(body).Encode(requestObject)
-	if err != nil {
-		return nil, fmt.Errorf("failed to encode request body: %w", err)
-	}
+	requestObject.Data.Relationships = userUpdateRelationships(user.VisibleAppIDs, user.AllAppsVisible)
 
-	// Create the HTTP request
-	req, err := http.NewRequestWithContext(ctx, http.MethodPatch, parsedURL.String(), body)
-	req.Header.Set("Content-Type", "application/json")
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
-	}
-
-	resp, err := c.Do(req)
-
+	resp, err := client.UsersUpdateInstanceWithResponse(ctx, id, requestObject)
 	if err != nil {
 		return nil, err
 	}
-
-	if resp.StatusCode != http.StatusOK {
-		_ = resp.Body.Close()
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	if resp.StatusCode() != 200 {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())
+	}
+	if resp.JSON200 == nil {
+		return nil, fmt.Errorf("failed to decode response")
 	}
 
-	userResponse := new(openapi.UserResponse)
-	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %w", err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		return nil, fmt.Errorf("failed to close response body: %w", err)
-	}
-
+	userResponse := resp.JSON200
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
-		LastName:            derefString(userResponse.Data.Attributes.LastName),
-		Username:            derefString(userResponse.Data.Attributes.Username),
-		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
-		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
-		// Visible App IDs are returned from the input as these are not available in the API response:
-		VisibleAppIDs: user.VisibleAppIDs,
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            ptr.Deref(userResponse.Data.Attributes.Username),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
+		VisibleAppIDs:       user.VisibleAppIDs,
 	}, nil
 }

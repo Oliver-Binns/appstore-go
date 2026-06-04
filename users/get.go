@@ -2,14 +2,11 @@ package users
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"net/http"
-	"net/url"
-	"path"
 
-	"github.com/oliver-binns/appstore-go/openapi"
+	"github.com/oliver-binns/appstore-go/internal/ptr"
 	"github.com/oliver-binns/appstore-go/networking"
+	"github.com/oliver-binns/appstore-go/openapi"
 )
 
 func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string) (*User, error) {
@@ -17,110 +14,69 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, fmt.Errorf("user ID cannot be empty")
 	}
 
-	// Parse the raw URL
-	parsedURL, err := url.Parse(rawURL)
+	client, err := openapi.NewClientWithResponses(rawURL, openapi.WithHTTPClient(c))
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse URL: %w", err)
-	}
-	parsedURL.Path = path.Join(parsedURL.Path, "users", id)
-
-	query := parsedURL.Query()
-	query.Set("include", "visibleApps")
-	parsedURL.RawQuery = query.Encode()
-
-	// Create the HTTP request
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, parsedURL.String(), http.NoBody)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
+		return nil, fmt.Errorf("failed to create client: %w", err)
 	}
 
-	resp, err := c.Do(req)
-
-	// If the user is not found, see if the user invitation exists
-	if resp.StatusCode == http.StatusNotFound {
-		return getInvitations(c, ctx, rawURL, id)
-	} else if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
-	}
-
+	include := []openapi.UsersGetInstanceParamsInclude{openapi.UsersGetInstanceParamsIncludeVisibleApps}
+	resp, err := client.UsersGetInstanceWithResponse(ctx, id, &openapi.UsersGetInstanceParams{Include: &include})
 	if err != nil {
 		return nil, err
 	}
 
-	userResponse := new(openapi.UserResponse)
-	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %w", err)
+	if resp.StatusCode() == 404 {
+		return getInvitations(c, ctx, rawURL, id)
+	}
+	if resp.StatusCode() != 200 {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())
+	}
+	if resp.JSON200 == nil {
+		return nil, fmt.Errorf("failed to decode response")
 	}
 
-	if err := resp.Body.Close(); err != nil {
-		return nil, fmt.Errorf("failed to close response body: %w", err)
-	}
-
-	visibleAppIDs := []string{}
-	if userResponse.Data.Relationships != nil && userResponse.Data.Relationships.VisibleApps != nil && userResponse.Data.Relationships.VisibleApps.Data != nil {
-		for _, app := range *userResponse.Data.Relationships.VisibleApps.Data {
-			visibleAppIDs = append(visibleAppIDs, app.Id)
-		}
-	}
-
+	userResponse := resp.JSON200
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
-		LastName:            derefString(userResponse.Data.Attributes.LastName),
-		Username:            derefString(userResponse.Data.Attributes.Username),
-		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
-		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            ptr.Deref(userResponse.Data.Attributes.Username),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   true,
-		VisibleAppIDs:       visibleAppIDs,
+		VisibleAppIDs:       visibleAppIDs(userResponse.Data.Relationships),
 	}, nil
 }
 
 func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string, id string) (*User, error) {
-	parsedURL, _ := url.Parse(rawURL)
-	parsedURL.Path = path.Join(parsedURL.Path, "userInvitations", id)
-
-	query := parsedURL.Query()
-	query.Set("include", "visibleApps")
-	parsedURL.RawQuery = query.Encode()
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, parsedURL.String(), http.NoBody)
+	client, err := openapi.NewClientWithResponses(rawURL, openapi.WithHTTPClient(c))
 	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
+		return nil, fmt.Errorf("failed to create client: %w", err)
 	}
-	resp, err := c.Do(req)
 
+	include := []openapi.UserInvitationsGetInstanceParamsInclude{openapi.UserInvitationsGetInstanceParamsIncludeVisibleApps}
+	resp, err := client.UserInvitationsGetInstanceWithResponse(ctx, id, &openapi.UserInvitationsGetInstanceParams{Include: &include})
 	if err != nil {
 		return nil, err
-	} else if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+	if resp.StatusCode() != 200 {
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())
+	}
+	if resp.JSON200 == nil {
+		return nil, fmt.Errorf("failed to decode response")
 	}
 
-	userResponse := new(openapi.UserInvitationResponse)
-	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %w", err)
-	}
-
-	if err := resp.Body.Close(); err != nil {
-		return nil, fmt.Errorf("failed to close response body: %w", err)
-	}
-
-	visibleAppIDs := []string{}
-	if userResponse.Data.Relationships != nil && userResponse.Data.Relationships.VisibleApps != nil && userResponse.Data.Relationships.VisibleApps.Data != nil {
-		for _, app := range *userResponse.Data.Relationships.VisibleApps.Data {
-			visibleAppIDs = append(visibleAppIDs, app.Id)
-		}
-	}
-
+	userResponse := resp.JSON200
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
-		LastName:            derefString(userResponse.Data.Attributes.LastName),
-		Username:            derefEmail(userResponse.Data.Attributes.Email),
-		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
-		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
-		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            string(ptr.Deref(userResponse.Data.Attributes.Email)),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   false,
-		VisibleAppIDs:       visibleAppIDs,
+		VisibleAppIDs:       visibleAppIDs(userResponse.Data.Relationships),
 	}, nil
 }

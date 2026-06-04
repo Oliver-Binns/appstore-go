@@ -31,5 +31,8 @@ func (c *MockHTTPClient) Do(req *http.Request) (*http.Response, error) {
 	return &http.Response{
 		StatusCode: status,
 		Body:       responseBody,
+		Header: http.Header{
+			"Content-Type": []string{"application/json"},
+		},
 	}, nil
 }
