@@ -98,30 +98,15 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
-	var firstName, lastName, username string
-	var roles []openapi.UserRole
-	var allAppsVisible, provisioningAllowed bool
-	if userResponse.Data.Attributes != nil {
-		firstName = derefString(userResponse.Data.Attributes.FirstName)
-		lastName = derefString(userResponse.Data.Attributes.LastName)
-		username = derefString(userResponse.Data.Attributes.Username)
-		roles = derefRoles(userResponse.Data.Attributes.Roles)
-		allAppsVisible = derefBool(userResponse.Data.Attributes.AllAppsVisible)
-		provisioningAllowed = derefBool(userResponse.Data.Attributes.ProvisioningAllowed)
-	}
-
-	visibleAppIDs := []string{}
-	visibleAppIDs = append(visibleAppIDs, user.VisibleAppIDs...)
-
 	return &User{
 		ID:                  userResponse.Data.Id,
-		FirstName:           firstName,
-		LastName:            lastName,
-		Username:            username,
-		Roles:               roles,
-		AllAppsVisible:      allAppsVisible,
-		ProvisioningAllowed: provisioningAllowed,
+		FirstName:           derefString(userResponse.Data.Attributes.FirstName),
+		LastName:            derefString(userResponse.Data.Attributes.LastName),
+		Username:            derefString(userResponse.Data.Attributes.Username),
+		Roles:               derefRoles(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      derefBool(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: derefBool(userResponse.Data.Attributes.ProvisioningAllowed),
 		// Visible App IDs are returned from the input as these are not available in the API response:
-		VisibleAppIDs: visibleAppIDs,
+		VisibleAppIDs: user.VisibleAppIDs,
 	}, nil
 }
