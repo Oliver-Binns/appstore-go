@@ -2374,23 +2374,26 @@ type User struct {
 		Roles               *[]UserRole `json:"roles,omitempty"`
 		Username            *string     `json:"username,omitempty"`
 	} `json:"attributes,omitempty"`
-	Id            string         `json:"id"`
-	Links         *ResourceLinks `json:"links,omitempty"`
-	Relationships *struct {
-		VisibleApps *struct {
-			Data *[]struct {
-				Id   string                               `json:"id"`
-				Type UserRelationshipsVisibleAppsDataType `json:"type"`
-			} `json:"data,omitempty"`
-			Links *RelationshipLinks `json:"links,omitempty"`
-			Meta  *PagingInformation `json:"meta,omitempty"`
-		} `json:"visibleApps,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type UserType `json:"type"`
+	Id            string             `json:"id"`
+	Links         *ResourceLinks     `json:"links,omitempty"`
+	Relationships *UserRelationships `json:"relationships,omitempty"`
+	Type          UserType           `json:"type"`
 }
 
 // UserRelationshipsVisibleAppsDataType defines model for User.Relationships.VisibleApps.Data.Type.
 type UserRelationshipsVisibleAppsDataType string
+
+// UserRelationships defines model for .
+type UserRelationships struct {
+	VisibleApps *struct {
+		Data *[]struct {
+			Id   string                               `json:"id"`
+			Type UserRelationshipsVisibleAppsDataType `json:"type"`
+		} `json:"data,omitempty"`
+		Links *RelationshipLinks `json:"links,omitempty"`
+		Meta  *PagingInformation `json:"meta,omitempty"`
+	} `json:"visibleApps,omitempty"`
+}
 
 // UserType defines model for User.Type.
 type UserType string
@@ -2406,19 +2409,10 @@ type UserInvitation struct {
 		ProvisioningAllowed *bool                `json:"provisioningAllowed,omitempty"`
 		Roles               *[]UserRole          `json:"roles,omitempty"`
 	} `json:"attributes,omitempty"`
-	Id            string         `json:"id"`
-	Links         *ResourceLinks `json:"links,omitempty"`
-	Relationships *struct {
-		VisibleApps *struct {
-			Data *[]struct {
-				Id   string                                         `json:"id"`
-				Type UserInvitationRelationshipsVisibleAppsDataType `json:"type"`
-			} `json:"data,omitempty"`
-			Links *RelationshipLinks `json:"links,omitempty"`
-			Meta  *PagingInformation `json:"meta,omitempty"`
-		} `json:"visibleApps,omitempty"`
-	} `json:"relationships,omitempty"`
-	Type UserInvitationType `json:"type"`
+	Id            string             `json:"id"`
+	Links         *ResourceLinks     `json:"links,omitempty"`
+	Relationships *UserRelationships `json:"relationships,omitempty"`
+	Type          UserInvitationType `json:"type"`
 }
 
 // UserInvitationRelationshipsVisibleAppsDataType defines model for UserInvitation.Relationships.VisibleApps.Data.Type.

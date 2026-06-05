@@ -4,6 +4,8 @@ generate:
   client: true
 output: types.gen.go
 output-options:
+  overlay:
+    path: overlay.yaml
   include-operation-ids:
     - users_getCollection
     - users_getInstance

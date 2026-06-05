@@ -57,12 +57,7 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
-	visibleAppIDs := []string{}
-	if userResponse.Data.Relationships != nil && userResponse.Data.Relationships.VisibleApps != nil && userResponse.Data.Relationships.VisibleApps.Data != nil {
-		for _, app := range *userResponse.Data.Relationships.VisibleApps.Data {
-			visibleAppIDs = append(visibleAppIDs, app.Id)
-		}
-	}
+	visibleAppIDs := visibleAppIDs(userResponse.Data.Relationships)
 
 	return &User{
 		ID:                  userResponse.Data.Id,
