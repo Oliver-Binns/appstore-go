@@ -62,12 +62,7 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, nil
 	}
 
-	visibleAppIDs := []string{}
-	if listResponse.Data[0].Relationships != nil && listResponse.Data[0].Relationships.VisibleApps != nil && listResponse.Data[0].Relationships.VisibleApps.Data != nil {
-		for _, app := range *listResponse.Data[0].Relationships.VisibleApps.Data {
-			visibleAppIDs = append(visibleAppIDs, app.Id)
-		}
-	}
+	visibleAppIDs := visibleAppIDs(listResponse.Data[0].Relationships)
 
 	return &User{
 		ID:                  listResponse.Data[0].Id,
@@ -123,12 +118,7 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, nil
 	}
 
-	visibleAppIDs := []string{}
-	if listResponse.Data[0].Relationships != nil && listResponse.Data[0].Relationships.VisibleApps != nil && listResponse.Data[0].Relationships.VisibleApps.Data != nil {
-		for _, app := range *listResponse.Data[0].Relationships.VisibleApps.Data {
-			visibleAppIDs = append(visibleAppIDs, app.Id)
-		}
-	}
+	visibleAppIDs := visibleAppIDs(listResponse.Data[0].Relationships)
 
 	return &User{
 		ID:                  listResponse.Data[0].Id,
