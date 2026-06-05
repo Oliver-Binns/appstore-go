@@ -9,6 +9,7 @@ import (
 	"github.com/oliver-binns/appstore-go/mocknetworking"
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/stretchr/testify/assert"
+
 )
 
 func TestCreateUser_MakesRequest(t *testing.T) {
@@ -16,7 +17,7 @@ func TestCreateUser_MakesRequest(t *testing.T) {
 		FirstName:     "Joseph",
 		LastName:      "Bloggs",
 		Username:      "joe.bloggs@example.com",
-		Roles:         []openapi.UserRole{openapi.UserRoleMARKETING},
+		Roles:         []UserRole{openapi.UserRoleMARKETING},
 		VisibleAppIDs: []string{"abcd"},
 	}
 	httpClient := mocknetworking.MockHTTPClientWith200Response(`{ }`)
@@ -41,7 +42,7 @@ func TestCreateUser_ThrowsErrorIfNon201Returned(t *testing.T) {
 		FirstName:     "Joseph",
 		LastName:      "Bloggs",
 		Username:      "joe.bloggs@example.com",
-		Roles:         []openapi.UserRole{openapi.UserRoleMARKETING},
+		Roles:         []UserRole{openapi.UserRoleMARKETING},
 		VisibleAppIDs: []string{"abcd"},
 	}
 	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(
