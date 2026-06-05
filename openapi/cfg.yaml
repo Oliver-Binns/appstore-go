@@ -13,3 +13,6 @@ output-options:
     - userInvitations_getInstance
     - userInvitations_deleteInstance
     - userInvitations_createInstance
+    - devices_getInstance
+    - devices_createInstance
+    - devices_updateInstance

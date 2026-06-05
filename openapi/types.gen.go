@@ -430,6 +430,141 @@ func (e AppType) Valid() bool {
 	}
 }
 
+// Defines values for BundleIdPlatform.
+const (
+	IOS       BundleIdPlatform = "IOS"
+	MACOS     BundleIdPlatform = "MAC_OS"
+	UNIVERSAL BundleIdPlatform = "UNIVERSAL"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdPlatform enum.
+func (e BundleIdPlatform) Valid() bool {
+	switch e {
+	case IOS:
+		return true
+	case MACOS:
+		return true
+	case UNIVERSAL:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DeviceAttributesDeviceClass.
+const (
+	APPLETV        DeviceAttributesDeviceClass = "APPLE_TV"
+	APPLEVISIONPRO DeviceAttributesDeviceClass = "APPLE_VISION_PRO"
+	APPLEWATCH     DeviceAttributesDeviceClass = "APPLE_WATCH"
+	IPAD           DeviceAttributesDeviceClass = "IPAD"
+	IPHONE         DeviceAttributesDeviceClass = "IPHONE"
+	IPOD           DeviceAttributesDeviceClass = "IPOD"
+	MAC            DeviceAttributesDeviceClass = "MAC"
+)
+
+// Valid indicates whether the value is a known member of the DeviceAttributesDeviceClass enum.
+func (e DeviceAttributesDeviceClass) Valid() bool {
+	switch e {
+	case APPLETV:
+		return true
+	case APPLEVISIONPRO:
+		return true
+	case APPLEWATCH:
+		return true
+	case IPAD:
+		return true
+	case IPHONE:
+		return true
+	case IPOD:
+		return true
+	case MAC:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DeviceAttributesStatus.
+const (
+	DeviceAttributesStatusDISABLED DeviceAttributesStatus = "DISABLED"
+	DeviceAttributesStatusENABLED  DeviceAttributesStatus = "ENABLED"
+)
+
+// Valid indicates whether the value is a known member of the DeviceAttributesStatus enum.
+func (e DeviceAttributesStatus) Valid() bool {
+	switch e {
+	case DeviceAttributesStatusDISABLED:
+		return true
+	case DeviceAttributesStatusENABLED:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DeviceType.
+const (
+	DeviceTypeDevices DeviceType = "devices"
+)
+
+// Valid indicates whether the value is a known member of the DeviceType enum.
+func (e DeviceType) Valid() bool {
+	switch e {
+	case DeviceTypeDevices:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DeviceCreateRequestDataType.
+const (
+	DeviceCreateRequestDataTypeDevices DeviceCreateRequestDataType = "devices"
+)
+
+// Valid indicates whether the value is a known member of the DeviceCreateRequestDataType enum.
+func (e DeviceCreateRequestDataType) Valid() bool {
+	switch e {
+	case DeviceCreateRequestDataTypeDevices:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DeviceUpdateRequestDataAttributesStatus.
+const (
+	DeviceUpdateRequestDataAttributesStatusDISABLED DeviceUpdateRequestDataAttributesStatus = "DISABLED"
+	DeviceUpdateRequestDataAttributesStatusENABLED  DeviceUpdateRequestDataAttributesStatus = "ENABLED"
+)
+
+// Valid indicates whether the value is a known member of the DeviceUpdateRequestDataAttributesStatus enum.
+func (e DeviceUpdateRequestDataAttributesStatus) Valid() bool {
+	switch e {
+	case DeviceUpdateRequestDataAttributesStatusDISABLED:
+		return true
+	case DeviceUpdateRequestDataAttributesStatusENABLED:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DeviceUpdateRequestDataType.
+const (
+	Devices DeviceUpdateRequestDataType = "devices"
+)
+
+// Valid indicates whether the value is a known member of the DeviceUpdateRequestDataType enum.
+func (e DeviceUpdateRequestDataType) Valid() bool {
+	switch e {
+	case Devices:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SubscriptionStatusUrlVersion.
 const (
 	V1 SubscriptionStatusUrlVersion = "V1"
@@ -613,6 +748,39 @@ const (
 func (e UserUpdateRequestDataType) Valid() bool {
 	switch e {
 	case UserUpdateRequestDataTypeUsers:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DevicesGetInstanceParamsFieldsDevices.
+const (
+	AddedDate   DevicesGetInstanceParamsFieldsDevices = "addedDate"
+	DeviceClass DevicesGetInstanceParamsFieldsDevices = "deviceClass"
+	Model       DevicesGetInstanceParamsFieldsDevices = "model"
+	Name        DevicesGetInstanceParamsFieldsDevices = "name"
+	Platform    DevicesGetInstanceParamsFieldsDevices = "platform"
+	Status      DevicesGetInstanceParamsFieldsDevices = "status"
+	Udid        DevicesGetInstanceParamsFieldsDevices = "udid"
+)
+
+// Valid indicates whether the value is a known member of the DevicesGetInstanceParamsFieldsDevices enum.
+func (e DevicesGetInstanceParamsFieldsDevices) Valid() bool {
+	switch e {
+	case AddedDate:
+		return true
+	case DeviceClass:
+		return true
+	case Model:
+		return true
+	case Name:
+		return true
+	case Platform:
+		return true
+	case Status:
+		return true
+	case Udid:
 		return true
 	default:
 		return false
@@ -2026,6 +2194,73 @@ type AppRelationshipsSubscriptionGroupsDataType string
 // AppType defines model for App.Type.
 type AppType string
 
+// BundleIdPlatform defines model for BundleIdPlatform.
+type BundleIdPlatform string
+
+// Device defines model for Device.
+type Device struct {
+	Attributes *struct {
+		AddedDate   *time.Time                   `json:"addedDate,omitempty"`
+		DeviceClass *DeviceAttributesDeviceClass `json:"deviceClass,omitempty"`
+		Model       *string                      `json:"model,omitempty"`
+		Name        *string                      `json:"name,omitempty"`
+		Platform    *BundleIdPlatform            `json:"platform,omitempty"`
+		Status      *DeviceAttributesStatus      `json:"status,omitempty"`
+		Udid        *string                      `json:"udid,omitempty"`
+	} `json:"attributes,omitempty"`
+	Id    string         `json:"id"`
+	Links *ResourceLinks `json:"links,omitempty"`
+	Type  DeviceType     `json:"type"`
+}
+
+// DeviceAttributesDeviceClass defines model for Device.Attributes.DeviceClass.
+type DeviceAttributesDeviceClass string
+
+// DeviceAttributesStatus defines model for Device.Attributes.Status.
+type DeviceAttributesStatus string
+
+// DeviceType defines model for Device.Type.
+type DeviceType string
+
+// DeviceCreateRequest defines model for DeviceCreateRequest.
+type DeviceCreateRequest struct {
+	Data struct {
+		Attributes struct {
+			Name     string           `json:"name"`
+			Platform BundleIdPlatform `json:"platform"`
+			Udid     string           `json:"udid"`
+		} `json:"attributes"`
+		Type DeviceCreateRequestDataType `json:"type"`
+	} `json:"data"`
+}
+
+// DeviceCreateRequestDataType defines model for DeviceCreateRequest.Data.Type.
+type DeviceCreateRequestDataType string
+
+// DeviceResponse defines model for DeviceResponse.
+type DeviceResponse struct {
+	Data  Device        `json:"data"`
+	Links DocumentLinks `json:"links"`
+}
+
+// DeviceUpdateRequest defines model for DeviceUpdateRequest.
+type DeviceUpdateRequest struct {
+	Data struct {
+		Attributes *struct {
+			Name   *string                                  `json:"name,omitempty"`
+			Status *DeviceUpdateRequestDataAttributesStatus `json:"status,omitempty"`
+		} `json:"attributes,omitempty"`
+		Id   string                      `json:"id"`
+		Type DeviceUpdateRequestDataType `json:"type"`
+	} `json:"data"`
+}
+
+// DeviceUpdateRequestDataAttributesStatus defines model for DeviceUpdateRequest.Data.Attributes.Status.
+type DeviceUpdateRequestDataAttributesStatus string
+
+// DeviceUpdateRequestDataType defines model for DeviceUpdateRequest.Data.Type.
+type DeviceUpdateRequestDataType string
+
 // DiagnosticLogCallStackNode defines model for DiagnosticLogCallStackNode.
 type DiagnosticLogCallStackNode struct {
 	Address                     *string                       `json:"address,omitempty"`
@@ -2281,6 +2516,15 @@ type UsersResponse struct {
 	Meta     *PagingInformation `json:"meta,omitempty"`
 }
 
+// DevicesGetInstanceParams defines parameters for DevicesGetInstance.
+type DevicesGetInstanceParams struct {
+	// FieldsDevices the fields to include for returned resources of type devices
+	FieldsDevices *[]DevicesGetInstanceParamsFieldsDevices `form:"fields[devices],omitempty" json:"fields[devices],omitempty"`
+}
+
+// DevicesGetInstanceParamsFieldsDevices defines parameters for DevicesGetInstance.
+type DevicesGetInstanceParamsFieldsDevices string
+
 // UserInvitationsGetCollectionParams defines parameters for UserInvitationsGetCollection.
 type UserInvitationsGetCollectionParams struct {
 	// FilterEmail filter by attribute 'email'
@@ -2418,6 +2662,12 @@ type UsersGetInstanceParamsFieldsApps string
 
 // UsersGetInstanceParamsInclude defines parameters for UsersGetInstance.
 type UsersGetInstanceParamsInclude string
+
+// DevicesCreateInstanceJSONRequestBody defines body for DevicesCreateInstance for application/json ContentType.
+type DevicesCreateInstanceJSONRequestBody = DeviceCreateRequest
+
+// DevicesUpdateInstanceJSONRequestBody defines body for DevicesUpdateInstance for application/json ContentType.
+type DevicesUpdateInstanceJSONRequestBody = DeviceUpdateRequest
 
 // UserInvitationsCreateInstanceJSONRequestBody defines body for UserInvitationsCreateInstance for application/json ContentType.
 type UserInvitationsCreateInstanceJSONRequestBody = UserInvitationCreateRequest
@@ -2622,6 +2872,19 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// DevicesCreateInstanceWithBody request with any body
+	DevicesCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DevicesCreateInstance(ctx context.Context, body DevicesCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DevicesGetInstance request
+	DevicesGetInstance(ctx context.Context, id string, params *DevicesGetInstanceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DevicesUpdateInstanceWithBody request with any body
+	DevicesUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	DevicesUpdateInstance(ctx context.Context, id string, body DevicesUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// UserInvitationsGetCollection request
 	UserInvitationsGetCollection(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -2649,6 +2912,66 @@ type ClientInterface interface {
 	UsersUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UsersUpdateInstance(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) DevicesCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDevicesCreateInstanceRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DevicesCreateInstance(ctx context.Context, body DevicesCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDevicesCreateInstanceRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DevicesGetInstance(ctx context.Context, id string, params *DevicesGetInstanceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDevicesGetInstanceRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DevicesUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDevicesUpdateInstanceRequestWithBody(c.Server, id, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DevicesUpdateInstance(ctx context.Context, id string, body DevicesUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDevicesUpdateInstanceRequest(c.Server, id, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) UserInvitationsGetCollection(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -2769,6 +3092,149 @@ func (c *Client) UsersUpdateInstance(ctx context.Context, id string, body UsersU
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewDevicesCreateInstanceRequest calls the generic DevicesCreateInstance builder with application/json body
+func NewDevicesCreateInstanceRequest(server string, body DevicesCreateInstanceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDevicesCreateInstanceRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewDevicesCreateInstanceRequestWithBody generates requests for DevicesCreateInstance with any type of body
+func NewDevicesCreateInstanceRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/devices")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDevicesGetInstanceRequest generates requests for DevicesGetInstance
+func NewDevicesGetInstanceRequest(server string, id string, params *DevicesGetInstanceParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/devices/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.FieldsDevices != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[devices]", *params.FieldsDevices, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewDevicesUpdateInstanceRequest calls the generic DevicesUpdateInstance builder with application/json body
+func NewDevicesUpdateInstanceRequest(server string, id string, body DevicesUpdateInstanceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewDevicesUpdateInstanceRequestWithBody(server, id, "application/json", bodyReader)
+}
+
+// NewDevicesUpdateInstanceRequestWithBody generates requests for DevicesUpdateInstance with any type of body
+func NewDevicesUpdateInstanceRequestWithBody(server string, id string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/devices/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
 }
 
 // NewUserInvitationsGetCollectionRequest generates requests for UserInvitationsGetCollection
@@ -3531,6 +3997,19 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// DevicesCreateInstanceWithBodyWithResponse request with any body
+	DevicesCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DevicesCreateInstanceResponse, error)
+
+	DevicesCreateInstanceWithResponse(ctx context.Context, body DevicesCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*DevicesCreateInstanceResponse, error)
+
+	// DevicesGetInstanceWithResponse request
+	DevicesGetInstanceWithResponse(ctx context.Context, id string, params *DevicesGetInstanceParams, reqEditors ...RequestEditorFn) (*DevicesGetInstanceResponse, error)
+
+	// DevicesUpdateInstanceWithBodyWithResponse request with any body
+	DevicesUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DevicesUpdateInstanceResponse, error)
+
+	DevicesUpdateInstanceWithResponse(ctx context.Context, id string, body DevicesUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*DevicesUpdateInstanceResponse, error)
+
 	// UserInvitationsGetCollectionWithResponse request
 	UserInvitationsGetCollectionWithResponse(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*UserInvitationsGetCollectionResponse, error)
 
@@ -3558,6 +4037,90 @@ type ClientWithResponsesInterface interface {
 	UsersUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
 
 	UsersUpdateInstanceWithResponse(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
+}
+
+type DevicesCreateInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *DeviceResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r DevicesCreateInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DevicesCreateInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DevicesGetInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeviceResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r DevicesGetInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DevicesGetInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DevicesUpdateInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DeviceResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r DevicesUpdateInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DevicesUpdateInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
 }
 
 type UserInvitationsGetCollectionResponse struct {
@@ -3775,6 +4338,49 @@ func (r UsersUpdateInstanceResponse) StatusCode() int {
 	return 0
 }
 
+// DevicesCreateInstanceWithBodyWithResponse request with arbitrary body returning *DevicesCreateInstanceResponse
+func (c *ClientWithResponses) DevicesCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DevicesCreateInstanceResponse, error) {
+	rsp, err := c.DevicesCreateInstanceWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDevicesCreateInstanceResponse(rsp)
+}
+
+func (c *ClientWithResponses) DevicesCreateInstanceWithResponse(ctx context.Context, body DevicesCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*DevicesCreateInstanceResponse, error) {
+	rsp, err := c.DevicesCreateInstance(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDevicesCreateInstanceResponse(rsp)
+}
+
+// DevicesGetInstanceWithResponse request returning *DevicesGetInstanceResponse
+func (c *ClientWithResponses) DevicesGetInstanceWithResponse(ctx context.Context, id string, params *DevicesGetInstanceParams, reqEditors ...RequestEditorFn) (*DevicesGetInstanceResponse, error) {
+	rsp, err := c.DevicesGetInstance(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDevicesGetInstanceResponse(rsp)
+}
+
+// DevicesUpdateInstanceWithBodyWithResponse request with arbitrary body returning *DevicesUpdateInstanceResponse
+func (c *ClientWithResponses) DevicesUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DevicesUpdateInstanceResponse, error) {
+	rsp, err := c.DevicesUpdateInstanceWithBody(ctx, id, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDevicesUpdateInstanceResponse(rsp)
+}
+
+func (c *ClientWithResponses) DevicesUpdateInstanceWithResponse(ctx context.Context, id string, body DevicesUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*DevicesUpdateInstanceResponse, error) {
+	rsp, err := c.DevicesUpdateInstance(ctx, id, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDevicesUpdateInstanceResponse(rsp)
+}
+
 // UserInvitationsGetCollectionWithResponse request returning *UserInvitationsGetCollectionResponse
 func (c *ClientWithResponses) UserInvitationsGetCollectionWithResponse(ctx context.Context, params *UserInvitationsGetCollectionParams, reqEditors ...RequestEditorFn) (*UserInvitationsGetCollectionResponse, error) {
 	rsp, err := c.UserInvitationsGetCollection(ctx, params, reqEditors...)
@@ -3861,6 +4467,210 @@ func (c *ClientWithResponses) UsersUpdateInstanceWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseUsersUpdateInstanceResponse(rsp)
+}
+
+// ParseDevicesCreateInstanceResponse parses an HTTP response from a DevicesCreateInstanceWithResponse call
+func ParseDevicesCreateInstanceResponse(rsp *http.Response) (*DevicesCreateInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DevicesCreateInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest DeviceResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDevicesGetInstanceResponse parses an HTTP response from a DevicesGetInstanceWithResponse call
+func ParseDevicesGetInstanceResponse(rsp *http.Response) (*DevicesGetInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DevicesGetInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeviceResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDevicesUpdateInstanceResponse parses an HTTP response from a DevicesUpdateInstanceWithResponse call
+func ParseDevicesUpdateInstanceResponse(rsp *http.Response) (*DevicesUpdateInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DevicesUpdateInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DeviceResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseUserInvitationsGetCollectionResponse parses an HTTP response from a UserInvitationsGetCollectionWithResponse call
