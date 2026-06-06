@@ -8,7 +8,8 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/oliver-binns/appstore-go/connectapi"
+	"github.com/oliver-binns/appstore-go/internal/ptr"
+	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/appstore-go/networking"
 )
 
@@ -47,7 +48,7 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	listResponse := new(connectapi.ListResponse[User, *userRelationships])
+	listResponse := new(openapi.UsersResponse)
 	if err := json.NewDecoder(resp.Body).Decode(listResponse); err != nil {
 		_ = resp.Body.Close()
 		return nil, fmt.Errorf("failed to decode response: %w", err)
@@ -61,12 +62,17 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, nil
 	}
 
-	userData := listResponse.Data[0]
-	user := userData.Data
-	user.ID = userData.ID
-	user.HasAcceptedInvite = true
-	user.VisibleAppIDs = userData.Relationships.ids()
-	return &user, nil
+	return &User{
+		ID:                  listResponse.Data[0].Id,
+		FirstName:           ptr.Deref(listResponse.Data[0].Attributes.FirstName),
+		LastName:            ptr.Deref(listResponse.Data[0].Attributes.LastName),
+		Username:            ptr.Deref(listResponse.Data[0].Attributes.Username),
+		Roles:               ptr.Deref(listResponse.Data[0].Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(listResponse.Data[0].Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(listResponse.Data[0].Attributes.ProvisioningAllowed),
+		HasAcceptedInvite:   true,
+		VisibleAppIDs:       visibleAppIDs(listResponse.Data[0].Relationships),
+	}, nil
 }
 
 func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL string, email string) (*User, error) {
@@ -96,7 +102,7 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	listResponse := new(connectapi.ListResponse[userInvitation, *userRelationships])
+	listResponse := new(openapi.UserInvitationsResponse)
 	if err := json.NewDecoder(resp.Body).Decode(listResponse); err != nil {
 		_ = resp.Body.Close()
 		return nil, fmt.Errorf("failed to decode response: %w", err)
@@ -110,16 +116,15 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, nil
 	}
 
-	invData := listResponse.Data[0]
 	return &User{
-		ID:                  invData.ID,
-		FirstName:           invData.Data.FirstName,
-		LastName:            invData.Data.LastName,
-		Username:            invData.Data.Email,
-		Roles:               invData.Data.Roles,
-		AllAppsVisible:      invData.Data.AllAppsVisible,
-		ProvisioningAllowed: invData.Data.ProvisioningAllowed,
+		ID:                  listResponse.Data[0].Id,
+		FirstName:           ptr.Deref(listResponse.Data[0].Attributes.FirstName),
+		LastName:            ptr.Deref(listResponse.Data[0].Attributes.LastName),
+		Username:            string(ptr.Deref(listResponse.Data[0].Attributes.Email)),
+		Roles:               ptr.Deref(listResponse.Data[0].Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(listResponse.Data[0].Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(listResponse.Data[0].Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   false,
-		VisibleAppIDs:       invData.Relationships.ids(),
+		VisibleAppIDs:       visibleAppIDs(listResponse.Data[0].Relationships),
 	}, nil
 }

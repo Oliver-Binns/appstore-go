@@ -9,7 +9,8 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/oliver-binns/appstore-go/connectapi"
+	"github.com/oliver-binns/appstore-go/internal/ptr"
+	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/appstore-go/networking"
 )
 
@@ -27,14 +28,15 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 
 	// Create the request body
 	body := bytes.NewBuffer(nil)
-	requestObject := connectapi.Request[User, *userRelationships]{
-		Data: connectapi.RequestData[User, *userRelationships]{
-			ID:            id,
-			Type:          "users",
-			Data:          user,
-			Relationships: user.relationships(),
-		},
+	requestObject := openapi.UserUpdateRequest{}
+	requestObject.Data.Id = id
+	requestObject.Data.Type = openapi.UserUpdateRequestDataTypeUsers
+	requestObject.Data.Attributes = &openapi.UserUpdateAttributes{
+		AllAppsVisible:      ptr.PtrOrNil(user.AllAppsVisible),
+		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
+		Roles:               ptr.SlicePtrOrNil(user.Roles),
 	}
+	requestObject.Data.Relationships = userUpdateRelationships(user.VisibleAppIDs, user.AllAppsVisible)
 	err = json.NewEncoder(body).Encode(requestObject)
 	if err != nil {
 		return nil, fmt.Errorf("failed to encode request body: %w", err)
@@ -58,7 +60,7 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	userResponse := new(connectapi.Response[User, userRelationships])
+	userResponse := new(openapi.UserResponse)
 	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
@@ -68,14 +70,14 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 	}
 
 	return &User{
-		ID:                  userResponse.Data.ID,
-		FirstName:           userResponse.Data.Data.FirstName,
-		LastName:            userResponse.Data.Data.LastName,
-		Username:            userResponse.Data.Data.Username,
-		Roles:               userResponse.Data.Data.Roles,
-		AllAppsVisible:      userResponse.Data.Data.AllAppsVisible,
-		ProvisioningAllowed: userResponse.Data.Data.ProvisioningAllowed,
+		ID:                  userResponse.Data.Id,
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            ptr.Deref(userResponse.Data.Attributes.Username),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		// Visible App IDs are returned from the input as these are not available in the API response:
-		VisibleAppIDs: user.relationships().ids(),
+		VisibleAppIDs: user.VisibleAppIDs,
 	}, nil
 }

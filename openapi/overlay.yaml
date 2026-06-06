@@ -1,0 +1,41 @@
+overlay: 1.0.0
+info:
+  title: appstore-go type name overrides
+  version: 0.1.0
+actions:
+  - target: $.components.schemas.User.properties.relationships
+    update:
+      x-go-type-name: UserRelationships
+  - target: $.components.schemas.UserInvitation.properties.relationships
+    update:
+      x-go-type-name: UserRelationships
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.attributes
+    update:
+      x-go-type-name: UserInvitationAttributes
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships
+    update:
+      x-go-type-name: UserInvitationCreateRelationships
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.attributes
+    update:
+      x-go-type-name: UserUpdateAttributes
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships
+    update:
+      x-go-type-name: UserUpdateRelationships
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships.properties.visibleApps
+    update:
+      x-go-type-name: VisibleAppsRelationship
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items
+    update:
+      x-go-type-name: AppReference
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships.properties.visibleApps
+    update:
+      x-go-type-name: VisibleAppsRelationship
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items
+    update:
+      x-go-type-name: AppReference
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items.properties.type
+    update:
+      x-go-type-name: AppReferenceType
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items.properties.type
+    update:
+      x-go-type-name: AppReferenceType

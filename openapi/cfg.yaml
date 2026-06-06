@@ -1,0 +1,20 @@
+package: openapi
+generate:
+  models: true
+  client: true
+output: types.gen.go
+output-options:
+  overlay:
+    path: overlay.yaml
+  include-operation-ids:
+    - users_getCollection
+    - users_getInstance
+    - users_updateInstance
+    - users_deleteInstance
+    - userInvitations_getCollection
+    - userInvitations_getInstance
+    - userInvitations_deleteInstance
+    - userInvitations_createInstance
+    - devices_getInstance
+    - devices_createInstance
+    - devices_updateInstance

@@ -7,7 +7,9 @@ import (
 	"testing"
 
 	"github.com/oliver-binns/appstore-go/mocknetworking"
+	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/stretchr/testify/assert"
+
 )
 
 func TestCreateUser_MakesRequest(t *testing.T) {
@@ -15,7 +17,7 @@ func TestCreateUser_MakesRequest(t *testing.T) {
 		FirstName:     "Joseph",
 		LastName:      "Bloggs",
 		Username:      "joe.bloggs@example.com",
-		Roles:         []UserRole{Marketing},
+		Roles:         []UserRole{openapi.UserRoleMARKETING},
 		VisibleAppIDs: []string{"abcd"},
 	}
 	httpClient := mocknetworking.MockHTTPClientWith200Response(`{ }`)
@@ -32,8 +34,7 @@ func TestCreateUser_MakesRequest(t *testing.T) {
 	bodyBytes, err := io.ReadAll(httpClient.Requests[0].Body)
 	assert.NoError(t, err)
 	bodyString := string(bodyBytes)
-	assert.Equal(t, `{"data":{"type":"userInvitations","attributes":{"firstName":"Joseph","lastName":"Bloggs","email":"joe.bloggs@example.com","roles":["MARKETING"]},"relationships":{"visibleApps":{"data":[{"id":"abcd","type":"apps"}]}}}}
-`, bodyString)
+	assert.JSONEq(t, `{"data":{"type":"userInvitations","attributes":{"firstName":"Joseph","lastName":"Bloggs","email":"joe.bloggs@example.com","roles":["MARKETING"]},"relationships":{"visibleApps":{"data":[{"id":"abcd","type":"apps"}]}}}}`, bodyString)
 }
 
 func TestCreateUser_ThrowsErrorIfNon201Returned(t *testing.T) {
@@ -41,7 +42,7 @@ func TestCreateUser_ThrowsErrorIfNon201Returned(t *testing.T) {
 		FirstName:     "Joseph",
 		LastName:      "Bloggs",
 		Username:      "joe.bloggs@example.com",
-		Roles:         []UserRole{Marketing},
+		Roles:         []UserRole{openapi.UserRoleMARKETING},
 		VisibleAppIDs: []string{"abcd"},
 	}
 	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(
@@ -85,6 +86,7 @@ func TestCreateUser_DecodesResponse(t *testing.T) {
 
 	user, err := Create(
 		httpClient, context.Background(), "https://example.com", User{
+			Username:      "test@example.com",
 			VisibleAppIDs: []string{"test"},
 		},
 	)

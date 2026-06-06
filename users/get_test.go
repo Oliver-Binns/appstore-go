@@ -21,7 +21,7 @@ func TestGetUser_ReturnsErrorForEmptyID(t *testing.T) {
 }
 
 func TestGetUser_MakesRequest(t *testing.T) {
-	httpClient := mocknetworking.MockHTTPClientWith200Response(`{ }`)
+	httpClient := mocknetworking.MockHTTPClientWith200Response(`{"data":{"type":"users","id":"abcd1234-5678-90ab-cdef-1234567890ab","attributes":{}}}`)
 
 	_, _ = Get(
 		httpClient, context.Background(), "https://example.com", "abcd1234-5678-90ab-cdef-1234567890ab",
@@ -42,7 +42,7 @@ func TestGetUser_MakesSecondRequestToInvitations_When404Returned(t *testing.T) {
 				Body:       `{ }`,
 			},
 			{
-				Body: `{ }`,
+				Body: `{"data":{"type":"userInvitations","id":"abcd1234-5678-90ab-cdef-1234567890ab","attributes":{}}}`,
 			},
 		},
 	}

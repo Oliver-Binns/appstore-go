@@ -1,5 +1,7 @@
 package users
 
+import "github.com/oliver-binns/appstore-go/openapi"
+
 type User struct {
 	ID                  string     `json:"-"`
 	FirstName           string     `json:"firstName,omitempty"`
@@ -13,51 +15,35 @@ type User struct {
 	VisibleAppIDs []string `json:"-"`
 }
 
-func (u *User) relationships() *userRelationships {
-	if len(u.VisibleAppIDs) == 0 && u.AllAppsVisible {
+func visibleAppsRelationship(ids []string) *openapi.VisibleAppsRelationship {
+	refs := make([]openapi.AppReference, len(ids))
+	for i, id := range ids {
+		refs[i] = openapi.AppReference{Id: id, Type: openapi.AppReferenceTypeApps}
+	}
+	return &openapi.VisibleAppsRelationship{Data: &refs}
+}
+
+func invitationCreateRelationships(ids []string, allAppsVisible bool) *openapi.UserInvitationCreateRelationships {
+	if len(ids) == 0 && allAppsVisible {
 		return nil
 	}
-
-	apps := make([]relationshipObject, len(u.VisibleAppIDs))
-	for index, id := range u.VisibleAppIDs {
-		apps[index] = appReference(id)
-	}
-
-	return &userRelationships{
-		VisibleApps: visibleApps{
-			AppReferences: apps,
-		},
-	}
+	return &openapi.UserInvitationCreateRelationships{VisibleApps: visibleAppsRelationship(ids)}
 }
 
-type userRelationships struct {
-	VisibleApps visibleApps `json:"visibleApps"`
+func userUpdateRelationships(ids []string, allAppsVisible bool) *openapi.UserUpdateRelationships {
+	if len(ids) == 0 && allAppsVisible {
+		return nil
+	}
+	return &openapi.UserUpdateRelationships{VisibleApps: visibleAppsRelationship(ids)}
 }
 
-func (r *userRelationships) ids() []string {
-	if r == nil || len(r.VisibleApps.AppReferences) == 0 {
+func visibleAppIDs(r *openapi.UserRelationships) []string {
+	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
 		return []string{}
 	}
-	ids := make([]string, len(r.VisibleApps.AppReferences))
-	for index, app := range r.VisibleApps.AppReferences {
-		ids[index] = app.ID
+	ids := make([]string, len(*r.VisibleApps.Data))
+	for i, app := range *r.VisibleApps.Data {
+		ids[i] = app.Id
 	}
 	return ids
-
-}
-
-type visibleApps struct {
-	AppReferences []relationshipObject `json:"data"`
-}
-
-type relationshipObject struct {
-	ID   string `json:"id,omitempty"`
-	Type string `json:"type,omitempty"` // must be "apps"
-}
-
-func appReference(id string) relationshipObject {
-	data := relationshipObject{}
-	data.ID = id
-	data.Type = "apps"
-	return data
 }

@@ -9,7 +9,9 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/oliver-binns/appstore-go/connectapi"
+	openapi_types "github.com/oapi-codegen/runtime/types"
+	"github.com/oliver-binns/appstore-go/internal/ptr"
+	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/oliver-binns/appstore-go/networking"
 )
 
@@ -21,26 +23,20 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 	}
 	parsedURL.Path = path.Join(parsedURL.Path, "userInvitations")
 
-	invitation := userInvitation{
-		FirstName:           user.FirstName,
-		LastName:            user.LastName,
-		Email:               user.Username,
-		Roles:               user.Roles,
-		AllAppsVisible:      user.AllAppsVisible,
-		ProvisioningAllowed: user.ProvisioningAllowed,
-	}
-
 	// Create the request body
 	body := bytes.NewBuffer(nil)
-	requestObject := connectapi.Request[userInvitation, *userRelationships]{
-		Data: connectapi.RequestData[userInvitation, *userRelationships]{
-			Type:          "userInvitations",
-			Data:          invitation,
-			Relationships: user.relationships(),
-		},
+	requestObject := openapi.UserInvitationCreateRequest{}
+	requestObject.Data.Type = openapi.UserInvitationCreateRequestDataTypeUserInvitations
+	requestObject.Data.Attributes = openapi.UserInvitationAttributes{
+		FirstName:           user.FirstName,
+		LastName:            user.LastName,
+		Email:               openapi_types.Email(user.Username),
+		Roles:               user.Roles,
+		AllAppsVisible:      ptr.PtrOrNil(user.AllAppsVisible),
+		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
 	}
-	err = json.NewEncoder(body).Encode(requestObject)
-	if err != nil {
+	requestObject.Data.Relationships = invitationCreateRelationships(user.VisibleAppIDs, user.AllAppsVisible)
+	if err := json.NewEncoder(body).Encode(requestObject); err != nil {
 		return nil, fmt.Errorf("failed to encode request body: %w", err)
 	}
 
@@ -58,7 +54,7 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	userResponse := new(connectapi.Response[userInvitation, *userRelationships])
+	userResponse := new(openapi.UserInvitationResponse)
 	if err := json.NewDecoder(resp.Body).Decode(userResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
@@ -68,14 +64,14 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 	}
 
 	return &User{
-		ID:                  userResponse.Data.ID,
-		FirstName:           userResponse.Data.Data.FirstName,
-		LastName:            userResponse.Data.Data.LastName,
-		Username:            userResponse.Data.Data.Email,
-		Roles:               userResponse.Data.Data.Roles,
-		AllAppsVisible:      userResponse.Data.Data.AllAppsVisible,
-		ProvisioningAllowed: userResponse.Data.Data.ProvisioningAllowed,
+		ID:                  userResponse.Data.Id,
+		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
+		LastName:            ptr.Deref(userResponse.Data.Attributes.LastName),
+		Username:            string(ptr.Deref(userResponse.Data.Attributes.Email)),
+		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
+		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
+		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		// Visible App IDs are returned from the input as these are not available in the API response:
-		VisibleAppIDs: user.relationships().ids(),
+		VisibleAppIDs: user.VisibleAppIDs,
 	}, nil
 }
