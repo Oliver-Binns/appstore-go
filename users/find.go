@@ -62,8 +62,6 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, nil
 	}
 
-	visibleAppIDs := visibleAppIDs(listResponse.Data[0].Relationships)
-
 	return &User{
 		ID:                  listResponse.Data[0].Id,
 		FirstName:           ptr.Deref(listResponse.Data[0].Attributes.FirstName),
@@ -73,7 +71,7 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		AllAppsVisible:      ptr.Deref(listResponse.Data[0].Attributes.AllAppsVisible),
 		ProvisioningAllowed: ptr.Deref(listResponse.Data[0].Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   true,
-		VisibleAppIDs:       visibleAppIDs,
+		VisibleAppIDs:       visibleAppIDs(listResponse.Data[0].Relationships),
 	}, nil
 }
 
@@ -118,8 +116,6 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		return nil, nil
 	}
 
-	visibleAppIDs := visibleAppIDs(listResponse.Data[0].Relationships)
-
 	return &User{
 		ID:                  listResponse.Data[0].Id,
 		FirstName:           ptr.Deref(listResponse.Data[0].Attributes.FirstName),
@@ -129,6 +125,6 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		AllAppsVisible:      ptr.Deref(listResponse.Data[0].Attributes.AllAppsVisible),
 		ProvisioningAllowed: ptr.Deref(listResponse.Data[0].Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   false,
-		VisibleAppIDs:       visibleAppIDs,
+		VisibleAppIDs:       visibleAppIDs(listResponse.Data[0].Relationships),
 	}, nil
 }

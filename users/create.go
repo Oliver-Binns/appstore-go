@@ -35,18 +35,7 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		AllAppsVisible:      ptr.PtrOrNil(user.AllAppsVisible),
 		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
 	}
-	if len(user.VisibleAppIDs) != 0 || !user.AllAppsVisible {
-		appReferences := make([]openapi.AppReference, len(user.VisibleAppIDs))
-		for index, id := range user.VisibleAppIDs {
-			appReferences[index] = openapi.AppReference{
-				Id:   id,
-				Type: openapi.AppReferenceTypeApps,
-			}
-		}
-		requestObject.Data.Relationships = &openapi.UserInvitationCreateRelationships{
-			VisibleApps: &openapi.VisibleAppsRelationship{Data: &appReferences},
-		}
-	}
+	requestObject.Data.Relationships = invitationCreateRelationships(user.VisibleAppIDs, user.AllAppsVisible)
 	if err := json.NewEncoder(body).Encode(requestObject); err != nil {
 		return nil, fmt.Errorf("failed to encode request body: %w", err)
 	}

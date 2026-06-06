@@ -57,8 +57,6 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
-	visibleAppIDs := visibleAppIDs(userResponse.Data.Relationships)
-
 	return &User{
 		ID:                  userResponse.Data.Id,
 		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
@@ -68,7 +66,7 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
 		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   true,
-		VisibleAppIDs:       visibleAppIDs,
+		VisibleAppIDs:       visibleAppIDs(userResponse.Data.Relationships),
 	}, nil
 }
 
@@ -101,8 +99,6 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 		return nil, fmt.Errorf("failed to close response body: %w", err)
 	}
 
-	visibleAppIDs := visibleAppIDs(userResponse.Data.Relationships)
-
 	return &User{
 		ID:                  userResponse.Data.Id,
 		FirstName:           ptr.Deref(userResponse.Data.Attributes.FirstName),
@@ -112,6 +108,6 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
 		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
 		HasAcceptedInvite:   false,
-		VisibleAppIDs:       visibleAppIDs,
+		VisibleAppIDs:       visibleAppIDs(userResponse.Data.Relationships),
 	}, nil
 }

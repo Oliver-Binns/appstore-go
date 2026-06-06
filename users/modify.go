@@ -36,18 +36,7 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
 		Roles:               ptr.SlicePtrOrNil(user.Roles),
 	}
-	if len(user.VisibleAppIDs) != 0 || !user.AllAppsVisible {
-		appReferences := make([]openapi.AppReference, len(user.VisibleAppIDs))
-		for index, id := range user.VisibleAppIDs {
-			appReferences[index] = openapi.AppReference{
-				Id:   id,
-				Type: openapi.AppReferenceTypeApps,
-			}
-		}
-		requestObject.Data.Relationships = &openapi.UserUpdateRelationships{
-			VisibleApps: &openapi.VisibleAppsRelationship{Data: &appReferences},
-		}
-	}
+	requestObject.Data.Relationships = userUpdateRelationships(user.VisibleAppIDs, user.AllAppsVisible)
 	err = json.NewEncoder(body).Encode(requestObject)
 	if err != nil {
 		return nil, fmt.Errorf("failed to encode request body: %w", err)

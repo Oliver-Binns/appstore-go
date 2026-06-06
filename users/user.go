@@ -15,6 +15,28 @@ type User struct {
 	VisibleAppIDs []string `json:"-"`
 }
 
+func visibleAppsRelationship(ids []string) *openapi.VisibleAppsRelationship {
+	refs := make([]openapi.AppReference, len(ids))
+	for i, id := range ids {
+		refs[i] = openapi.AppReference{Id: id, Type: openapi.AppReferenceTypeApps}
+	}
+	return &openapi.VisibleAppsRelationship{Data: &refs}
+}
+
+func invitationCreateRelationships(ids []string, allAppsVisible bool) *openapi.UserInvitationCreateRelationships {
+	if len(ids) == 0 && allAppsVisible {
+		return nil
+	}
+	return &openapi.UserInvitationCreateRelationships{VisibleApps: visibleAppsRelationship(ids)}
+}
+
+func userUpdateRelationships(ids []string, allAppsVisible bool) *openapi.UserUpdateRelationships {
+	if len(ids) == 0 && allAppsVisible {
+		return nil
+	}
+	return &openapi.UserUpdateRelationships{VisibleApps: visibleAppsRelationship(ids)}
+}
+
 func visibleAppIDs(r *openapi.UserRelationships) []string {
 	if r == nil || r.VisibleApps == nil || r.VisibleApps.Data == nil {
 		return []string{}
