@@ -9,3 +9,15 @@ actions:
   - target: $.components.schemas.UserInvitation.properties.relationships
     update:
       x-go-type-name: UserRelationships
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.attributes
+    update:
+      x-go-type-name: UserInvitationAttributes
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships
+    update:
+      x-go-type-name: UserInvitationCreateRelationships
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.attributes
+    update:
+      x-go-type-name: UserUpdateAttributes
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships
+    update:
+      x-go-type-name: UserUpdateRelationships

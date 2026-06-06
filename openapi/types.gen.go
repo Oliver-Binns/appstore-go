@@ -2424,28 +2424,34 @@ type UserInvitationType string
 // UserInvitationCreateRequest defines model for UserInvitationCreateRequest.
 type UserInvitationCreateRequest struct {
 	Data struct {
-		Attributes struct {
-			AllAppsVisible      *bool               `json:"allAppsVisible,omitempty"`
-			Email               openapi_types.Email `json:"email"`
-			FirstName           string              `json:"firstName"`
-			LastName            string              `json:"lastName"`
-			ProvisioningAllowed *bool               `json:"provisioningAllowed,omitempty"`
-			Roles               []UserRole          `json:"roles"`
-		} `json:"attributes"`
-		Relationships *struct {
-			VisibleApps *struct {
-				Data *[]struct {
-					Id   string                                                          `json:"id"`
-					Type UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-				} `json:"data,omitempty"`
-			} `json:"visibleApps,omitempty"`
-		} `json:"relationships,omitempty"`
-		Type UserInvitationCreateRequestDataType `json:"type"`
+		Attributes    UserInvitationAttributes            `json:"attributes"`
+		Relationships *UserInvitationCreateRelationships  `json:"relationships,omitempty"`
+		Type          UserInvitationCreateRequestDataType `json:"type"`
 	} `json:"data"`
+}
+
+// UserInvitationAttributes defines model for .
+type UserInvitationAttributes struct {
+	AllAppsVisible      *bool               `json:"allAppsVisible,omitempty"`
+	Email               openapi_types.Email `json:"email"`
+	FirstName           string              `json:"firstName"`
+	LastName            string              `json:"lastName"`
+	ProvisioningAllowed *bool               `json:"provisioningAllowed,omitempty"`
+	Roles               []UserRole          `json:"roles"`
 }
 
 // UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType defines model for UserInvitationCreateRequest.Data.Relationships.VisibleApps.Data.Type.
 type UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType string
+
+// UserInvitationCreateRelationships defines model for .
+type UserInvitationCreateRelationships struct {
+	VisibleApps *struct {
+		Data *[]struct {
+			Id   string                                                          `json:"id"`
+			Type UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
+		} `json:"data,omitempty"`
+	} `json:"visibleApps,omitempty"`
+}
 
 // UserInvitationCreateRequestDataType defines model for UserInvitationCreateRequest.Data.Type.
 type UserInvitationCreateRequestDataType string
@@ -2478,26 +2484,32 @@ type UserRole string
 // UserUpdateRequest defines model for UserUpdateRequest.
 type UserUpdateRequest struct {
 	Data struct {
-		Attributes *struct {
-			AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
-			ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
-			Roles               *[]UserRole `json:"roles,omitempty"`
-		} `json:"attributes,omitempty"`
-		Id            string `json:"id"`
-		Relationships *struct {
-			VisibleApps *struct {
-				Data *[]struct {
-					Id   string                                                `json:"id"`
-					Type UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-				} `json:"data,omitempty"`
-			} `json:"visibleApps,omitempty"`
-		} `json:"relationships,omitempty"`
-		Type UserUpdateRequestDataType `json:"type"`
+		Attributes    *UserUpdateAttributes     `json:"attributes,omitempty"`
+		Id            string                    `json:"id"`
+		Relationships *UserUpdateRelationships  `json:"relationships,omitempty"`
+		Type          UserUpdateRequestDataType `json:"type"`
 	} `json:"data"`
+}
+
+// UserUpdateAttributes defines model for .
+type UserUpdateAttributes struct {
+	AllAppsVisible      *bool       `json:"allAppsVisible,omitempty"`
+	ProvisioningAllowed *bool       `json:"provisioningAllowed,omitempty"`
+	Roles               *[]UserRole `json:"roles,omitempty"`
 }
 
 // UserUpdateRequestDataRelationshipsVisibleAppsDataType defines model for UserUpdateRequest.Data.Relationships.VisibleApps.Data.Type.
 type UserUpdateRequestDataRelationshipsVisibleAppsDataType string
+
+// UserUpdateRelationships defines model for .
+type UserUpdateRelationships struct {
+	VisibleApps *struct {
+		Data *[]struct {
+			Id   string                                                `json:"id"`
+			Type UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
+		} `json:"data,omitempty"`
+	} `json:"visibleApps,omitempty"`
+}
 
 // UserUpdateRequestDataType defines model for UserUpdateRequest.Data.Type.
 type UserUpdateRequestDataType string

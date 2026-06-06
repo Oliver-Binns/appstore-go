@@ -27,12 +27,14 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 	body := bytes.NewBuffer(nil)
 	requestObject := openapi.UserInvitationCreateRequest{}
 	requestObject.Data.Type = openapi.UserInvitationCreateRequestDataTypeUserInvitations
-	requestObject.Data.Attributes.FirstName = user.FirstName
-	requestObject.Data.Attributes.LastName = user.LastName
-	requestObject.Data.Attributes.Email = openapi_types.Email(user.Username)
-	requestObject.Data.Attributes.Roles = user.Roles
-	requestObject.Data.Attributes.AllAppsVisible = ptr.PtrOrNil(user.AllAppsVisible)
-	requestObject.Data.Attributes.ProvisioningAllowed = ptr.PtrOrNil(user.ProvisioningAllowed)
+	requestObject.Data.Attributes = openapi.UserInvitationAttributes{
+		FirstName:           user.FirstName,
+		LastName:            user.LastName,
+		Email:               openapi_types.Email(user.Username),
+		Roles:               user.Roles,
+		AllAppsVisible:      ptr.PtrOrNil(user.AllAppsVisible),
+		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
+	}
 	if len(user.VisibleAppIDs) != 0 || !user.AllAppsVisible {
 		appReferences := make([]struct {
 			Id   string                                                                  `json:"id"`
@@ -42,22 +44,13 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 			appReferences[index].Id = id
 			appReferences[index].Type = openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataTypeApps
 		}
-		requestObject.Data.Relationships = &struct {
-			VisibleApps *struct {
-				Data *[]struct {
-					Id   string                                                                  `json:"id"`
-					Type openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-				} `json:"data,omitempty"`
-			} `json:"visibleApps,omitempty"`
-		}{
+		requestObject.Data.Relationships = &openapi.UserInvitationCreateRelationships{
 			VisibleApps: &struct {
 				Data *[]struct {
 					Id   string                                                                  `json:"id"`
 					Type openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
 				} `json:"data,omitempty"`
-			}{
-				Data: &appReferences,
-			},
+			}{Data: &appReferences},
 		}
 	}
 	if err := json.NewEncoder(body).Encode(requestObject); err != nil {

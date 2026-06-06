@@ -31,11 +31,7 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 	requestObject := openapi.UserUpdateRequest{}
 	requestObject.Data.Id = id
 	requestObject.Data.Type = openapi.UserUpdateRequestDataTypeUsers
-	requestObject.Data.Attributes = &struct {
-		AllAppsVisible      *bool               `json:"allAppsVisible,omitempty"`
-		ProvisioningAllowed *bool               `json:"provisioningAllowed,omitempty"`
-		Roles               *[]openapi.UserRole `json:"roles,omitempty"`
-	}{
+	requestObject.Data.Attributes = &openapi.UserUpdateAttributes{
 		AllAppsVisible:      ptr.PtrOrNil(user.AllAppsVisible),
 		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
 		Roles:               ptr.SlicePtrOrNil(user.Roles),
@@ -49,22 +45,13 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 			appReferences[index].Id = id
 			appReferences[index].Type = openapi.Apps
 		}
-		requestObject.Data.Relationships = &struct {
-			VisibleApps *struct {
-				Data *[]struct {
-					Id   string                                                        `json:"id"`
-					Type openapi.UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-				} `json:"data,omitempty"`
-			} `json:"visibleApps,omitempty"`
-		}{
+		requestObject.Data.Relationships = &openapi.UserUpdateRelationships{
 			VisibleApps: &struct {
 				Data *[]struct {
 					Id   string                                                        `json:"id"`
 					Type openapi.UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
 				} `json:"data,omitempty"`
-			}{
-				Data: &appReferences,
-			},
+			}{Data: &appReferences},
 		}
 	}
 	err = json.NewEncoder(body).Encode(requestObject)
