@@ -36,21 +36,15 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 		ProvisioningAllowed: ptr.PtrOrNil(user.ProvisioningAllowed),
 	}
 	if len(user.VisibleAppIDs) != 0 || !user.AllAppsVisible {
-		appReferences := make([]struct {
-			Id   string                                                                  `json:"id"`
-			Type openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-		}, len(user.VisibleAppIDs))
+		appReferences := make([]openapi.AppReference, len(user.VisibleAppIDs))
 		for index, id := range user.VisibleAppIDs {
-			appReferences[index].Id = id
-			appReferences[index].Type = openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataTypeApps
+			appReferences[index] = openapi.AppReference{
+				Id:   id,
+				Type: openapi.AppReferenceTypeApps,
+			}
 		}
 		requestObject.Data.Relationships = &openapi.UserInvitationCreateRelationships{
-			VisibleApps: &struct {
-				Data *[]struct {
-					Id   string                                                                  `json:"id"`
-					Type openapi.UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-				} `json:"data,omitempty"`
-			}{Data: &appReferences},
+			VisibleApps: &openapi.VisibleAppsRelationship{Data: &appReferences},
 		}
 	}
 	if err := json.NewEncoder(body).Encode(requestObject); err != nil {

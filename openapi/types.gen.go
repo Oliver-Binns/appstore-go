@@ -643,15 +643,15 @@ func (e UserInvitationType) Valid() bool {
 	}
 }
 
-// Defines values for UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType.
+// Defines values for AppReferenceType.
 const (
-	UserInvitationCreateRequestDataRelationshipsVisibleAppsDataTypeApps UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType = "apps"
+	AppReferenceTypeApps AppReferenceType = "apps"
 )
 
-// Valid indicates whether the value is a known member of the UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType enum.
-func (e UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType) Valid() bool {
+// Valid indicates whether the value is a known member of the AppReferenceType enum.
+func (e AppReferenceType) Valid() bool {
 	switch e {
-	case UserInvitationCreateRequestDataRelationshipsVisibleAppsDataTypeApps:
+	case AppReferenceTypeApps:
 		return true
 	default:
 		return false
@@ -718,21 +718,6 @@ func (e UserRole) Valid() bool {
 	case UserRoleMARKETING:
 		return true
 	case UserRoleSALES:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for UserUpdateRequestDataRelationshipsVisibleAppsDataType.
-const (
-	Apps UserUpdateRequestDataRelationshipsVisibleAppsDataType = "apps"
-)
-
-// Valid indicates whether the value is a known member of the UserUpdateRequestDataRelationshipsVisibleAppsDataType enum.
-func (e UserUpdateRequestDataRelationshipsVisibleAppsDataType) Valid() bool {
-	switch e {
-	case Apps:
 		return true
 	default:
 		return false
@@ -2440,17 +2425,23 @@ type UserInvitationAttributes struct {
 	Roles               []UserRole          `json:"roles"`
 }
 
-// UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType defines model for UserInvitationCreateRequest.Data.Relationships.VisibleApps.Data.Type.
-type UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType string
+// AppReferenceType defines model for UserInvitationCreateRequest.data.relationships.visibleApps.data.type.
+type AppReferenceType string
+
+// AppReference defines model for .
+type AppReference struct {
+	Id   string           `json:"id"`
+	Type AppReferenceType `json:"type"`
+}
+
+// VisibleAppsRelationship defines model for .
+type VisibleAppsRelationship struct {
+	Data *[]AppReference `json:"data,omitempty"`
+}
 
 // UserInvitationCreateRelationships defines model for .
 type UserInvitationCreateRelationships struct {
-	VisibleApps *struct {
-		Data *[]struct {
-			Id   string                                                          `json:"id"`
-			Type UserInvitationCreateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-		} `json:"data,omitempty"`
-	} `json:"visibleApps,omitempty"`
+	VisibleApps *VisibleAppsRelationship `json:"visibleApps,omitempty"`
 }
 
 // UserInvitationCreateRequestDataType defines model for UserInvitationCreateRequest.Data.Type.
@@ -2498,17 +2489,9 @@ type UserUpdateAttributes struct {
 	Roles               *[]UserRole `json:"roles,omitempty"`
 }
 
-// UserUpdateRequestDataRelationshipsVisibleAppsDataType defines model for UserUpdateRequest.Data.Relationships.VisibleApps.Data.Type.
-type UserUpdateRequestDataRelationshipsVisibleAppsDataType string
-
 // UserUpdateRelationships defines model for .
 type UserUpdateRelationships struct {
-	VisibleApps *struct {
-		Data *[]struct {
-			Id   string                                                `json:"id"`
-			Type UserUpdateRequestDataRelationshipsVisibleAppsDataType `json:"type"`
-		} `json:"data,omitempty"`
-	} `json:"visibleApps,omitempty"`
+	VisibleApps *VisibleAppsRelationship `json:"visibleApps,omitempty"`
 }
 
 // UserUpdateRequestDataType defines model for UserUpdateRequest.Data.Type.

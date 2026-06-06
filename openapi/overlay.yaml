@@ -21,3 +21,21 @@ actions:
   - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships
     update:
       x-go-type-name: UserUpdateRelationships
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships.properties.visibleApps
+    update:
+      x-go-type-name: VisibleAppsRelationship
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items
+    update:
+      x-go-type-name: AppReference
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships.properties.visibleApps
+    update:
+      x-go-type-name: VisibleAppsRelationship
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items
+    update:
+      x-go-type-name: AppReference
+  - target: $.components.schemas.UserInvitationCreateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items.properties.type
+    update:
+      x-go-type-name: AppReferenceType
+  - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items.properties.type
+    update:
+      x-go-type-name: AppReferenceType
