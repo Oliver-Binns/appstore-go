@@ -30,7 +30,7 @@ func Create(c networking.HTTPClient, ctx context.Context, rawURL string, user Us
 
 	resp, err := client.UserInvitationsCreateInstanceWithResponse(ctx, requestObject)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create user invitation: %w", err)
 	}
 	if resp.StatusCode() != 201 {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())

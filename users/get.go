@@ -22,7 +22,7 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 	include := []openapi.UsersGetInstanceParamsInclude{openapi.UsersGetInstanceParamsIncludeVisibleApps}
 	resp, err := client.UsersGetInstanceWithResponse(ctx, id, &openapi.UsersGetInstanceParams{Include: &include})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get user: %w", err)
 	}
 
 	if resp.StatusCode() == 404 {
@@ -58,7 +58,7 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 	include := []openapi.UserInvitationsGetInstanceParamsInclude{openapi.UserInvitationsGetInstanceParamsIncludeVisibleApps}
 	resp, err := client.UserInvitationsGetInstanceWithResponse(ctx, id, &openapi.UserInvitationsGetInstanceParams{Include: &include})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get user invitation: %w", err)
 	}
 	if resp.StatusCode() != 200 {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())

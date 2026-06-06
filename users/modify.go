@@ -31,7 +31,7 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 
 	resp, err := client.UsersUpdateInstanceWithResponse(ctx, id, requestObject)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to modify user: %w", err)
 	}
 	if resp.StatusCode() != 200 {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())

@@ -31,7 +31,7 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		Include:        &include,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to find user by email: %w", err)
 	}
 	if resp.StatusCode() != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())
@@ -71,7 +71,7 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 		Include:     &include,
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to find invitation by email: %w", err)
 	}
 	if resp.StatusCode() != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())

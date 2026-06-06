@@ -37,7 +37,7 @@ func revokeInvitation(c networking.HTTPClient, ctx context.Context, rawURL strin
 
 	resp, err := client.UserInvitationsDeleteInstanceWithResponse(ctx, id)
 	if err != nil {
-		return fmt.Errorf("failed to delete user: %w", err)
+		return fmt.Errorf("failed to revoke user invitation: %w", err)
 	}
 
 	if resp.StatusCode() == http.StatusNoContent || resp.StatusCode() == http.StatusNotFound {
