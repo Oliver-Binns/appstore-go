@@ -49,6 +49,7 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 		Roles:               ptr.Deref(userResponse.Data.Attributes.Roles),
 		AllAppsVisible:      ptr.Deref(userResponse.Data.Attributes.AllAppsVisible),
 		ProvisioningAllowed: ptr.Deref(userResponse.Data.Attributes.ProvisioningAllowed),
+		// Visible App IDs are returned from the input as these are not available in the API response:
 		VisibleAppIDs:       user.VisibleAppIDs,
 	}, nil
 }
