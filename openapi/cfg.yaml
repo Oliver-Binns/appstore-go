@@ -19,3 +19,8 @@ output-options:
     - devices_createInstance
     - devices_updateInstance
     - devices_getCollection
+    - bundleIds_getCollection
+    - bundleIds_getInstance
+    - bundleIds_createInstance
+    - bundleIds_updateInstance
+    - bundleIds_deleteInstance
