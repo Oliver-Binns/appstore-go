@@ -39,3 +39,28 @@ actions:
   - target: $.components.schemas.UserUpdateRequest.properties.data.properties.relationships.properties.visibleApps.properties.data.items.properties.type
     update:
       x-go-type-name: AppReferenceType
+  - target: $.components.schemas.Device.properties.attributes.properties.deviceClass
+    update:
+      x-go-type-name: DeviceClass
+  - target: $.components.schemas.Device.properties.attributes.properties.deviceClass
+    update:
+      x-go-type-name: DeviceClass
+  - target: $.components.schemas.Device.properties.attributes.properties.status
+    update:
+      x-go-type-name: DeviceStatus
+  - target: $.components.schemas.DeviceUpdateRequest.properties.data.properties.attributes.properties.status
+    update:
+      x-go-type: DeviceStatus
+  - target: $.components.schemas.DeviceUpdateRequest.properties.data.properties.attributes
+    update:
+      x-go-type-name: DeviceUpdateAttributes
+  - target: "$.paths['/v1/devices/{id}'].get.parameters[?(@.name=='fields[devices]')].schema.items"
+    update:
+      x-enum-varnames:
+        - FieldName
+        - FieldPlatform
+        - FieldUdid
+        - FieldDeviceClass
+        - FieldStatus
+        - FieldModel
+        - FieldAddedDate
