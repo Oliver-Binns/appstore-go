@@ -28522,12 +28522,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "IOS",
-                  "MAC_OS",
-                  "UNIVERSAL"
-                ]
+                "$ref": "#/components/schemas/BundleIdPlatform"
               }
             },
             "style": "form",
@@ -32742,12 +32737,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string",
-                "enum": [
-                  "IOS",
-                  "MAC_OS",
-                  "UNIVERSAL"
-                ]
+                "$ref": "#/components/schemas/BundleIdPlatform"
               }
             },
             "style": "form",
