@@ -93,5 +93,5 @@ func TestRegisterDevice_DecodesResponse(t *testing.T) {
 	assert.Equal(t, openapi.IPHONE, device.DeviceClass)
 	assert.Equal(t, "iPhone 14 Pro", device.Model)
 	assert.Equal(t, openapi.IOS, device.Platform)
-	assert.Equal(t, openapi.ENABLED, device.Status)
+	assert.Equal(t, openapi.Enabled, device.Status)
 }

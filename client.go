@@ -57,6 +57,10 @@ func (c *Client) DeleteUser(ctx context.Context, id string) error {
 	return users.Delete(*c.client, ctx, c.baseURL, id)
 }
 
+func (c *Client) FindDeviceByUDID(ctx context.Context, udid string) (*devices.Device, error) {
+	return devices.FindByUDID(*c.client, ctx, c.baseURL, udid)
+}
+
 func (c *Client) GetDevice(ctx context.Context, id string) (*devices.Device, error) {
 	return devices.Get(*c.client, ctx, c.baseURL, id)
 }

@@ -45,9 +45,24 @@ actions:
   - target: $.components.schemas.Device.properties.attributes.properties.deviceClass
     update:
       x-go-type-name: DeviceClass
+  - target: "$.paths['/v1/devices'].get.parameters[?(@.name=='filter[platform]')].schema.items"
+    update:
+      x-enum-varnames:
+        - FilterIOS
+        - FilterMacOS
+        - FilterUniversal
+  - target: $.components.schemas.BundleIdPlatform
+    update:
+      x-enum-varnames:
+        - IOS
+        - MacOS
+        - Universal
   - target: $.components.schemas.Device.properties.attributes.properties.status
     update:
       x-go-type-name: DeviceStatus
+      x-enum-varnames:
+        - Enabled
+        - Disabled
   - target: $.components.schemas.DeviceUpdateRequest.properties.data.properties.attributes.properties.status
     update:
       x-go-type: DeviceStatus

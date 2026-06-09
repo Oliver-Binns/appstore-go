@@ -18,3 +18,4 @@ output-options:
     - devices_getInstance
     - devices_createInstance
     - devices_updateInstance
+    - devices_getCollection

@@ -16,7 +16,7 @@ func TestModifyDevice_ReturnsErrorForEmptyID(t *testing.T) {
 
 	_, err := Modify(
 		httpClient, context.Background(), "https://example.com", "",
-		Device{Name: "My iPhone", Status: openapi.ENABLED},
+		Device{Name: "My iPhone", Status: openapi.Enabled},
 	)
 
 	assert.ErrorContains(t, err, "device ID cannot be empty")
@@ -28,7 +28,7 @@ func TestModifyDevice_MakesRequest(t *testing.T) {
 
 	_, _ = Modify(
 		httpClient, context.Background(), "https://example.com", "abcd1234-5678-90ab-cdef-1234567890ab",
-		Device{Name: "My iPhone", Status: openapi.ENABLED},
+		Device{Name: "My iPhone", Status: openapi.Enabled},
 	)
 
 	assert.Equal(t, 1, len(httpClient.Requests))
@@ -55,7 +55,7 @@ func TestModifyDevice_ThrowsErrorForUnexpectedStatusCode(t *testing.T) {
 
 	d, err := Modify(
 		httpClient, context.Background(), "https://example.com", "abcd1234-5678-90ab-cdef-1234567890ab",
-		Device{Name: "My iPhone", Status: openapi.ENABLED},
+		Device{Name: "My iPhone", Status: openapi.Enabled},
 	)
 
 	assert.Nil(t, d)
@@ -80,7 +80,7 @@ func TestModifyDevice_DecodesResponse(t *testing.T) {
 
 	device, err := Modify(
 		httpClient, context.Background(), "https://example.com", "69a495c9-7dbc-5733-e053-5b8c7c1155b0",
-		Device{Name: "My iPhone", Status: openapi.ENABLED},
+		Device{Name: "My iPhone", Status: openapi.Enabled},
 	)
 
 	assert.Nil(t, err)
@@ -90,5 +90,5 @@ func TestModifyDevice_DecodesResponse(t *testing.T) {
 	assert.Equal(t, openapi.IPHONE, device.DeviceClass)
 	assert.Equal(t, "iPhone 14 Pro", device.Model)
 	assert.Equal(t, openapi.IOS, device.Platform)
-	assert.Equal(t, openapi.ENABLED, device.Status)
+	assert.Equal(t, openapi.Enabled, device.Status)
 }

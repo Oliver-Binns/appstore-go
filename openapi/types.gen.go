@@ -433,8 +433,8 @@ func (e AppType) Valid() bool {
 // Defines values for BundleIdPlatform.
 const (
 	IOS       BundleIdPlatform = "IOS"
-	MACOS     BundleIdPlatform = "MAC_OS"
-	UNIVERSAL BundleIdPlatform = "UNIVERSAL"
+	MacOS     BundleIdPlatform = "MAC_OS"
+	Universal BundleIdPlatform = "UNIVERSAL"
 )
 
 // Valid indicates whether the value is a known member of the BundleIdPlatform enum.
@@ -442,9 +442,9 @@ func (e BundleIdPlatform) Valid() bool {
 	switch e {
 	case IOS:
 		return true
-	case MACOS:
+	case MacOS:
 		return true
-	case UNIVERSAL:
+	case Universal:
 		return true
 	default:
 		return false
@@ -486,16 +486,16 @@ func (e DeviceClass) Valid() bool {
 
 // Defines values for DeviceStatus.
 const (
-	DISABLED DeviceStatus = "DISABLED"
-	ENABLED  DeviceStatus = "ENABLED"
+	Disabled DeviceStatus = "DISABLED"
+	Enabled  DeviceStatus = "ENABLED"
 )
 
 // Valid indicates whether the value is a known member of the DeviceStatus enum.
 func (e DeviceStatus) Valid() bool {
 	switch e {
-	case DISABLED:
+	case Disabled:
 		return true
-	case ENABLED:
+	case Enabled:
 		return true
 	default:
 		return false
@@ -715,6 +715,120 @@ const (
 func (e UserUpdateRequestDataType) Valid() bool {
 	switch e {
 	case UserUpdateRequestDataTypeUsers:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DevicesGetCollectionParamsFilterPlatform.
+const (
+	FilterIOS       DevicesGetCollectionParamsFilterPlatform = "IOS"
+	FilterMacOS     DevicesGetCollectionParamsFilterPlatform = "MAC_OS"
+	FilterUniversal DevicesGetCollectionParamsFilterPlatform = "UNIVERSAL"
+)
+
+// Valid indicates whether the value is a known member of the DevicesGetCollectionParamsFilterPlatform enum.
+func (e DevicesGetCollectionParamsFilterPlatform) Valid() bool {
+	switch e {
+	case FilterIOS:
+		return true
+	case FilterMacOS:
+		return true
+	case FilterUniversal:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DevicesGetCollectionParamsFilterStatus.
+const (
+	DISABLED DevicesGetCollectionParamsFilterStatus = "DISABLED"
+	ENABLED  DevicesGetCollectionParamsFilterStatus = "ENABLED"
+)
+
+// Valid indicates whether the value is a known member of the DevicesGetCollectionParamsFilterStatus enum.
+func (e DevicesGetCollectionParamsFilterStatus) Valid() bool {
+	switch e {
+	case DISABLED:
+		return true
+	case ENABLED:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DevicesGetCollectionParamsSort.
+const (
+	DevicesGetCollectionParamsSortId            DevicesGetCollectionParamsSort = "id"
+	DevicesGetCollectionParamsSortMinusId       DevicesGetCollectionParamsSort = "-id"
+	DevicesGetCollectionParamsSortMinusName     DevicesGetCollectionParamsSort = "-name"
+	DevicesGetCollectionParamsSortMinusPlatform DevicesGetCollectionParamsSort = "-platform"
+	DevicesGetCollectionParamsSortMinusStatus   DevicesGetCollectionParamsSort = "-status"
+	DevicesGetCollectionParamsSortMinusUdid     DevicesGetCollectionParamsSort = "-udid"
+	DevicesGetCollectionParamsSortName          DevicesGetCollectionParamsSort = "name"
+	DevicesGetCollectionParamsSortPlatform      DevicesGetCollectionParamsSort = "platform"
+	DevicesGetCollectionParamsSortStatus        DevicesGetCollectionParamsSort = "status"
+	DevicesGetCollectionParamsSortUdid          DevicesGetCollectionParamsSort = "udid"
+)
+
+// Valid indicates whether the value is a known member of the DevicesGetCollectionParamsSort enum.
+func (e DevicesGetCollectionParamsSort) Valid() bool {
+	switch e {
+	case DevicesGetCollectionParamsSortId:
+		return true
+	case DevicesGetCollectionParamsSortMinusId:
+		return true
+	case DevicesGetCollectionParamsSortMinusName:
+		return true
+	case DevicesGetCollectionParamsSortMinusPlatform:
+		return true
+	case DevicesGetCollectionParamsSortMinusStatus:
+		return true
+	case DevicesGetCollectionParamsSortMinusUdid:
+		return true
+	case DevicesGetCollectionParamsSortName:
+		return true
+	case DevicesGetCollectionParamsSortPlatform:
+		return true
+	case DevicesGetCollectionParamsSortStatus:
+		return true
+	case DevicesGetCollectionParamsSortUdid:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for DevicesGetCollectionParamsFieldsDevices.
+const (
+	DevicesGetCollectionParamsFieldsDevicesAddedDate   DevicesGetCollectionParamsFieldsDevices = "addedDate"
+	DevicesGetCollectionParamsFieldsDevicesDeviceClass DevicesGetCollectionParamsFieldsDevices = "deviceClass"
+	DevicesGetCollectionParamsFieldsDevicesModel       DevicesGetCollectionParamsFieldsDevices = "model"
+	DevicesGetCollectionParamsFieldsDevicesName        DevicesGetCollectionParamsFieldsDevices = "name"
+	DevicesGetCollectionParamsFieldsDevicesPlatform    DevicesGetCollectionParamsFieldsDevices = "platform"
+	DevicesGetCollectionParamsFieldsDevicesStatus      DevicesGetCollectionParamsFieldsDevices = "status"
+	DevicesGetCollectionParamsFieldsDevicesUdid        DevicesGetCollectionParamsFieldsDevices = "udid"
+)
+
+// Valid indicates whether the value is a known member of the DevicesGetCollectionParamsFieldsDevices enum.
+func (e DevicesGetCollectionParamsFieldsDevices) Valid() bool {
+	switch e {
+	case DevicesGetCollectionParamsFieldsDevicesAddedDate:
+		return true
+	case DevicesGetCollectionParamsFieldsDevicesDeviceClass:
+		return true
+	case DevicesGetCollectionParamsFieldsDevicesModel:
+		return true
+	case DevicesGetCollectionParamsFieldsDevicesName:
+		return true
+	case DevicesGetCollectionParamsFieldsDevicesPlatform:
+		return true
+	case DevicesGetCollectionParamsFieldsDevicesStatus:
+		return true
+	case DevicesGetCollectionParamsFieldsDevicesUdid:
 		return true
 	default:
 		return false
@@ -2228,6 +2342,13 @@ type DeviceUpdateAttributes struct {
 // DeviceUpdateRequestDataType defines model for DeviceUpdateRequest.Data.Type.
 type DeviceUpdateRequestDataType string
 
+// DevicesResponse defines model for DevicesResponse.
+type DevicesResponse struct {
+	Data  []Device           `json:"data"`
+	Links PagedDocumentLinks `json:"links"`
+	Meta  *PagingInformation `json:"meta,omitempty"`
+}
+
 // DiagnosticLogCallStackNode defines model for DiagnosticLogCallStackNode.
 type DiagnosticLogCallStackNode struct {
 	Address                     *string                       `json:"address,omitempty"`
@@ -2489,6 +2610,45 @@ type UsersResponse struct {
 
 // itcBearerTokenContextKey is the context key for itc-bearer-token security scheme
 type itcBearerTokenContextKey string
+
+// DevicesGetCollectionParams defines parameters for DevicesGetCollection.
+type DevicesGetCollectionParams struct {
+	// FilterName filter by attribute 'name'
+	FilterName *[]string `form:"filter[name],omitempty" json:"filter[name],omitempty"`
+
+	// FilterPlatform filter by attribute 'platform'
+	FilterPlatform *[]DevicesGetCollectionParamsFilterPlatform `form:"filter[platform],omitempty" json:"filter[platform],omitempty"`
+
+	// FilterUdid filter by attribute 'udid'
+	FilterUdid *[]string `form:"filter[udid],omitempty" json:"filter[udid],omitempty"`
+
+	// FilterStatus filter by attribute 'status'
+	FilterStatus *[]DevicesGetCollectionParamsFilterStatus `form:"filter[status],omitempty" json:"filter[status],omitempty"`
+
+	// FilterId filter by id(s)
+	FilterId *[]string `form:"filter[id],omitempty" json:"filter[id],omitempty"`
+
+	// Sort comma-separated list of sort expressions; resources will be sorted as specified
+	Sort *[]DevicesGetCollectionParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// FieldsDevices the fields to include for returned resources of type devices
+	FieldsDevices *[]DevicesGetCollectionParamsFieldsDevices `form:"fields[devices],omitempty" json:"fields[devices],omitempty"`
+
+	// Limit maximum resources per page
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+}
+
+// DevicesGetCollectionParamsFilterPlatform defines parameters for DevicesGetCollection.
+type DevicesGetCollectionParamsFilterPlatform string
+
+// DevicesGetCollectionParamsFilterStatus defines parameters for DevicesGetCollection.
+type DevicesGetCollectionParamsFilterStatus string
+
+// DevicesGetCollectionParamsSort defines parameters for DevicesGetCollection.
+type DevicesGetCollectionParamsSort string
+
+// DevicesGetCollectionParamsFieldsDevices defines parameters for DevicesGetCollection.
+type DevicesGetCollectionParamsFieldsDevices string
 
 // DevicesGetInstanceParams defines parameters for DevicesGetInstance.
 type DevicesGetInstanceParams struct {
@@ -2846,6 +3006,9 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// DevicesGetCollection request
+	DevicesGetCollection(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// DevicesCreateInstanceWithBody request with any body
 	DevicesCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -2886,6 +3049,18 @@ type ClientInterface interface {
 	UsersUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UsersUpdateInstance(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) DevicesGetCollection(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDevicesGetCollectionRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) DevicesCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3066,6 +3241,144 @@ func (c *Client) UsersUpdateInstance(ctx context.Context, id string, body UsersU
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewDevicesGetCollectionRequest generates requests for DevicesGetCollection
+func NewDevicesGetCollectionRequest(server string, params *DevicesGetCollectionParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/devices")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.FilterName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[name]", *params.FilterName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterPlatform != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[platform]", *params.FilterPlatform, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterUdid != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[udid]", *params.FilterUdid, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterStatus != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[status]", *params.FilterStatus, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[id]", *params.FilterId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsDevices != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[devices]", *params.FieldsDevices, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
 }
 
 // NewDevicesCreateInstanceRequest calls the generic DevicesCreateInstance builder with application/json body
@@ -3908,6 +4221,9 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// DevicesGetCollectionWithResponse request
+	DevicesGetCollectionWithResponse(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*DevicesGetCollectionResponse, error)
+
 	// DevicesCreateInstanceWithBodyWithResponse request with any body
 	DevicesCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DevicesCreateInstanceResponse, error)
 
@@ -3948,6 +4264,40 @@ type ClientWithResponsesInterface interface {
 	UsersUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
 
 	UsersUpdateInstanceWithResponse(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
+}
+
+type DevicesGetCollectionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *DevicesResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r DevicesGetCollectionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DevicesGetCollectionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DevicesGetCollectionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
 }
 
 type DevicesCreateInstanceResponse struct {
@@ -4337,6 +4687,15 @@ func (r UsersUpdateInstanceResponse) ContentType() string {
 	return ""
 }
 
+// DevicesGetCollectionWithResponse request returning *DevicesGetCollectionResponse
+func (c *ClientWithResponses) DevicesGetCollectionWithResponse(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*DevicesGetCollectionResponse, error) {
+	rsp, err := c.DevicesGetCollection(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDevicesGetCollectionResponse(rsp)
+}
+
 // DevicesCreateInstanceWithBodyWithResponse request with arbitrary body returning *DevicesCreateInstanceResponse
 func (c *ClientWithResponses) DevicesCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DevicesCreateInstanceResponse, error) {
 	rsp, err := c.DevicesCreateInstanceWithBody(ctx, contentType, body, reqEditors...)
@@ -4466,6 +4825,60 @@ func (c *ClientWithResponses) UsersUpdateInstanceWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseUsersUpdateInstanceResponse(rsp)
+}
+
+// ParseDevicesGetCollectionResponse parses an HTTP response from a DevicesGetCollectionWithResponse call
+func ParseDevicesGetCollectionResponse(rsp *http.Response) (*DevicesGetCollectionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DevicesGetCollectionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest DevicesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseDevicesCreateInstanceResponse parses an HTTP response from a DevicesCreateInstanceWithResponse call
