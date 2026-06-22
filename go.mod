@@ -10,7 +10,7 @@ require github.com/stretchr/testify v1.11.1
 
 require (
 	github.com/oapi-codegen/oapi-codegen/v2 v2.7.1
-	github.com/oapi-codegen/runtime v1.4.1
+	github.com/oapi-codegen/runtime v1.4.2
 )
 
 require github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
