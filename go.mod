@@ -9,7 +9,7 @@ require github.com/golang-jwt/jwt/v5 v5.3.1
 require github.com/stretchr/testify v1.11.1
 
 require (
-	github.com/oapi-codegen/oapi-codegen/v2 v2.7.1
+	github.com/oapi-codegen/oapi-codegen/v2 v2.7.2
 	github.com/oapi-codegen/runtime v1.4.1
 )
 
