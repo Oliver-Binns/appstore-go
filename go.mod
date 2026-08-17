@@ -6,16 +6,12 @@ toolchain go1.24.13
 
 require github.com/golang-jwt/jwt/v5 v5.3.1
 
-require github.com/stretchr/testify v1.11.1
+require github.com/stretchr/testify v1.12.0
 
 require (
 	github.com/oapi-codegen/oapi-codegen/v2 v2.7.1
 	github.com/oapi-codegen/runtime v1.4.1
 )
-
-require github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-
-require github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 
 require (
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
