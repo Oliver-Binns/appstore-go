@@ -60,6 +60,9 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 	if err != nil {
 		return nil, fmt.Errorf("failed to get user invitation: %w", err)
 	}
+	if resp.StatusCode() == 404 {
+		return nil, fmt.Errorf("%w: no user or invitation exists for id %q", ErrNotFound, id)
+	}
 	if resp.StatusCode() != 200 {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())
 	}

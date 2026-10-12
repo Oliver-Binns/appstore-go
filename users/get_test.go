@@ -2,6 +2,7 @@ package users
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"testing"
 
@@ -102,6 +103,24 @@ func TestGetUser_DecodesResponse(t *testing.T) {
 	assert.Equal(t, user.FirstName, "Oliver")
 	assert.Equal(t, user.LastName, "Binns")
 	assert.Equal(t, user.Username, "mail@oliverbinns.co.uk")
+}
+
+func TestGetUser_ReturnsErrNotFound_When404ReturnedFromBothUsersAndInvitations(t *testing.T) {
+	notFound := http.StatusNotFound
+
+	httpClient := mocknetworking.MockHTTPClient{
+		Responses: []mocknetworking.MockHTTPResponse{
+			{StatusCode: &notFound, Body: `{ }`},
+			{StatusCode: &notFound, Body: `{ }`},
+		},
+	}
+
+	user, err := Get(
+		&httpClient, context.Background(), "https://example.com", "abcd1234-5678-90ab-cdef-1234567890ab",
+	)
+
+	assert.Nil(t, user)
+	assert.True(t, errors.Is(err, ErrNotFound))
 }
 
 func TestGetUser_DecodesInvitationResponse_When404ReturnedFromUsers(t *testing.T) {
