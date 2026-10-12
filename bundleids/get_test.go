@@ -29,13 +29,22 @@ func TestGetBundleID_MakesRequest(t *testing.T) {
 	assert.Equal(t, "https://example.com/v1/bundleIds/ABC123", httpClient.Requests[0].URL.String())
 }
 
-func TestGetBundleID_ThrowsErrorIfNon200Returned(t *testing.T) {
+func TestGetBundleID_ReturnsErrNotFoundWhen404Returned(t *testing.T) {
 	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(http.StatusNotFound, `{}`)
 
 	result, err := Get(httpClient, context.Background(), "https://example.com", "ABC123")
 
 	assert.Nil(t, result)
-	assert.EqualError(t, err, "unexpected status code: 404")
+	assert.ErrorIs(t, err, ErrNotFound)
+}
+
+func TestGetBundleID_ThrowsErrorIfOtherNon200Returned(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(http.StatusInternalServerError, `{}`)
+
+	result, err := Get(httpClient, context.Background(), "https://example.com", "ABC123")
+
+	assert.Nil(t, result)
+	assert.EqualError(t, err, "unexpected status code: 500")
 }
 
 func TestGetBundleID_DecodesResponse(t *testing.T) {
