@@ -23,7 +23,7 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 		return nil, fmt.Errorf("failed to get bundle ID: %w", err)
 	}
 	if resp.StatusCode() == 404 {
-		return nil, fmt.Errorf("%w: no bundle ID exists for id %q", ErrNotFound, id)
+		return nil, fmt.Errorf("%w: no bundle ID exists for id %q", networking.ErrNotFound, id)
 	}
 	if resp.StatusCode() != 200 {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())

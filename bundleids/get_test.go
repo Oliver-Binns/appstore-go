@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/oliver-binns/appstore-go/mocknetworking"
+	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/stretchr/testify/assert"
 )
@@ -35,7 +36,7 @@ func TestGetBundleID_ReturnsErrNotFoundWhen404Returned(t *testing.T) {
 	result, err := Get(httpClient, context.Background(), "https://example.com", "ABC123")
 
 	assert.Nil(t, result)
-	assert.ErrorIs(t, err, ErrNotFound)
+	assert.ErrorIs(t, err, networking.ErrNotFound)
 }
 
 func TestGetBundleID_ThrowsErrorIfOtherNon200Returned(t *testing.T) {
