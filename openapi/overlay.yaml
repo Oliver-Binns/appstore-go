@@ -45,12 +45,6 @@ actions:
   - target: $.components.schemas.Device.properties.attributes.properties.deviceClass
     update:
       x-go-type-name: DeviceClass
-  - target: "$.paths['/v1/devices'].get.parameters[?(@.name=='filter[platform]')].schema.items"
-    update:
-      x-enum-varnames:
-        - FilterIOS
-        - FilterMacOS
-        - FilterUniversal
   - target: $.components.schemas.BundleIdPlatform
     update:
       x-enum-varnames:
@@ -70,6 +64,16 @@ actions:
     update:
       x-go-type-name: DeviceUpdateAttributes
   - target: "$.paths['/v1/devices/{id}'].get.parameters[?(@.name=='fields[devices]')].schema.items"
+    update:
+      x-enum-varnames:
+        - FieldName
+        - FieldPlatform
+        - FieldUdid
+        - FieldDeviceClass
+        - FieldStatus
+        - FieldModel
+        - FieldAddedDate
+  - target: "$.paths['/v1/devices'].get.parameters[?(@.name=='fields[devices]')].schema.items"
     update:
       x-enum-varnames:
         - FieldName

@@ -21,7 +21,7 @@ func Modify(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 
 	requestObject := openapi.DeviceUpdateRequest{}
 	requestObject.Data.Id = id
-	requestObject.Data.Type = openapi.Devices
+	requestObject.Data.Type = openapi.DeviceUpdateRequestDataTypeDevices
 	requestObject.Data.Attributes = &openapi.DeviceUpdateAttributes{
 		Name:   ptr.PtrOrNil(device.Name),
 		Status: ptr.PtrOrNil(device.Status),

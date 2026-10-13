@@ -18,7 +18,7 @@ type User struct {
 func visibleAppsRelationship(ids []string) *openapi.VisibleAppsRelationship {
 	refs := make([]openapi.AppReference, len(ids))
 	for i, id := range ids {
-		refs[i] = openapi.AppReference{Id: id, Type: openapi.AppReferenceTypeApps}
+		refs[i] = openapi.AppReference{Id: id, Type: openapi.Apps}
 	}
 	return &openapi.VisibleAppsRelationship{Data: &refs}
 }
