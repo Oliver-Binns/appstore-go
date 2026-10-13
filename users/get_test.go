@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/oliver-binns/appstore-go/mocknetworking"
+	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -120,7 +121,7 @@ func TestGetUser_ReturnsErrNotFound_When404ReturnedFromBothUsersAndInvitations(t
 	)
 
 	assert.Nil(t, user)
-	assert.True(t, errors.Is(err, ErrNotFound))
+	assert.True(t, errors.Is(err, networking.ErrNotFound))
 }
 
 func TestGetUser_DecodesInvitationResponse_When404ReturnedFromUsers(t *testing.T) {

@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/oliver-binns/appstore-go/mocknetworking"
+	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/oliver-binns/appstore-go/openapi"
 	"github.com/stretchr/testify/assert"
 )
@@ -34,6 +35,17 @@ func TestGetDevice_MakesRequest(t *testing.T) {
 }
 
 func TestGetDevice_ThrowsErrorForUnexpectedStatusCode(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(http.StatusInternalServerError, `{}`)
+
+	d, err := Get(
+		httpClient, context.Background(), "https://example.com", "abcd1234-5678-90ab-cdef-1234567890ab",
+	)
+
+	assert.Nil(t, d)
+	assert.EqualError(t, err, "unexpected status code: 500")
+}
+
+func TestGetDevice_ReturnsErrNotFound_When404(t *testing.T) {
 	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(http.StatusNotFound, `{}`)
 
 	d, err := Get(
@@ -41,7 +53,7 @@ func TestGetDevice_ThrowsErrorForUnexpectedStatusCode(t *testing.T) {
 	)
 
 	assert.Nil(t, d)
-	assert.EqualError(t, err, "unexpected status code: 404")
+	assert.ErrorIs(t, err, networking.ErrNotFound)
 }
 
 func TestGetDevice_DecodesResponse(t *testing.T) {

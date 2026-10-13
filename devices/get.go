@@ -3,6 +3,7 @@ package devices
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/oliver-binns/appstore-go/openapi"
@@ -21,6 +22,9 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 	resp, err := client.DevicesGetInstanceWithResponse(ctx, id, &openapi.DevicesGetInstanceParams{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to get device: %w", err)
+	}
+	if resp.StatusCode() == http.StatusNotFound {
+		return nil, fmt.Errorf("%w: no device exists for id %q", networking.ErrNotFound, id)
 	}
 	if resp.StatusCode() != 200 {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode())
