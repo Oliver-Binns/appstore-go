@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -102,13 +103,13 @@ func (e AppRelationshipsAppEncryptionDeclarationsDataType) Valid() bool {
 
 // Defines values for AppRelationshipsAppEventsDataType.
 const (
-	AppEvents AppRelationshipsAppEventsDataType = "appEvents"
+	AppRelationshipsAppEventsDataTypeAppEvents AppRelationshipsAppEventsDataType = "appEvents"
 )
 
 // Valid indicates whether the value is a known member of the AppRelationshipsAppEventsDataType enum.
 func (e AppRelationshipsAppEventsDataType) Valid() bool {
 	switch e {
-	case AppEvents:
+	case AppRelationshipsAppEventsDataTypeAppEvents:
 		return true
 	default:
 		return false
@@ -117,13 +118,13 @@ func (e AppRelationshipsAppEventsDataType) Valid() bool {
 
 // Defines values for AppRelationshipsAppInfosDataType.
 const (
-	AppInfos AppRelationshipsAppInfosDataType = "appInfos"
+	AppRelationshipsAppInfosDataTypeAppInfos AppRelationshipsAppInfosDataType = "appInfos"
 )
 
 // Valid indicates whether the value is a known member of the AppRelationshipsAppInfosDataType enum.
 func (e AppRelationshipsAppInfosDataType) Valid() bool {
 	switch e {
-	case AppInfos:
+	case AppRelationshipsAppInfosDataTypeAppInfos:
 		return true
 	default:
 		return false
@@ -430,6 +431,96 @@ func (e AppType) Valid() bool {
 	}
 }
 
+// Defines values for BundleIdRelationshipsAppDataType.
+const (
+	BundleIdRelationshipsAppDataTypeApps BundleIdRelationshipsAppDataType = "apps"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdRelationshipsAppDataType enum.
+func (e BundleIdRelationshipsAppDataType) Valid() bool {
+	switch e {
+	case BundleIdRelationshipsAppDataTypeApps:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdRelationshipsBundleIdCapabilitiesDataType.
+const (
+	BundleIdRelationshipsBundleIdCapabilitiesDataTypeBundleIdCapabilities BundleIdRelationshipsBundleIdCapabilitiesDataType = "bundleIdCapabilities"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdRelationshipsBundleIdCapabilitiesDataType enum.
+func (e BundleIdRelationshipsBundleIdCapabilitiesDataType) Valid() bool {
+	switch e {
+	case BundleIdRelationshipsBundleIdCapabilitiesDataTypeBundleIdCapabilities:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdRelationshipsProfilesDataType.
+const (
+	BundleIdRelationshipsProfilesDataTypeProfiles BundleIdRelationshipsProfilesDataType = "profiles"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdRelationshipsProfilesDataType enum.
+func (e BundleIdRelationshipsProfilesDataType) Valid() bool {
+	switch e {
+	case BundleIdRelationshipsProfilesDataTypeProfiles:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdType.
+const (
+	BundleIdTypeBundleIds BundleIdType = "bundleIds"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdType enum.
+func (e BundleIdType) Valid() bool {
+	switch e {
+	case BundleIdTypeBundleIds:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdCapabilityType.
+const (
+	BundleIdCapabilityTypeBundleIdCapabilities BundleIdCapabilityType = "bundleIdCapabilities"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdCapabilityType enum.
+func (e BundleIdCapabilityType) Valid() bool {
+	switch e {
+	case BundleIdCapabilityTypeBundleIdCapabilities:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdCreateRequestDataType.
+const (
+	BundleIdCreateRequestDataTypeBundleIds BundleIdCreateRequestDataType = "bundleIds"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdCreateRequestDataType enum.
+func (e BundleIdCreateRequestDataType) Valid() bool {
+	switch e {
+	case BundleIdCreateRequestDataTypeBundleIds:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for BundleIdPlatform.
 const (
 	IOS       BundleIdPlatform = "IOS"
@@ -445,6 +536,189 @@ func (e BundleIdPlatform) Valid() bool {
 	case MacOS:
 		return true
 	case Universal:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdUpdateRequestDataType.
+const (
+	BundleIdUpdateRequestDataTypeBundleIds BundleIdUpdateRequestDataType = "bundleIds"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdUpdateRequestDataType enum.
+func (e BundleIdUpdateRequestDataType) Valid() bool {
+	switch e {
+	case BundleIdUpdateRequestDataTypeBundleIds:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CapabilityOptionKey.
+const (
+	COMPLETEPROTECTION          CapabilityOptionKey = "COMPLETE_PROTECTION"
+	PRIMARYAPPCONSENT           CapabilityOptionKey = "PRIMARY_APP_CONSENT"
+	PROTECTEDUNLESSOPEN         CapabilityOptionKey = "PROTECTED_UNLESS_OPEN"
+	PROTECTEDUNTILFIRSTUSERAUTH CapabilityOptionKey = "PROTECTED_UNTIL_FIRST_USER_AUTH"
+	XCODE5                      CapabilityOptionKey = "XCODE_5"
+	XCODE6                      CapabilityOptionKey = "XCODE_6"
+)
+
+// Valid indicates whether the value is a known member of the CapabilityOptionKey enum.
+func (e CapabilityOptionKey) Valid() bool {
+	switch e {
+	case COMPLETEPROTECTION:
+		return true
+	case PRIMARYAPPCONSENT:
+		return true
+	case PROTECTEDUNLESSOPEN:
+		return true
+	case PROTECTEDUNTILFIRSTUSERAUTH:
+		return true
+	case XCODE5:
+		return true
+	case XCODE6:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CapabilitySettingAllowedInstances.
+const (
+	ENTRY    CapabilitySettingAllowedInstances = "ENTRY"
+	MULTIPLE CapabilitySettingAllowedInstances = "MULTIPLE"
+	SINGLE   CapabilitySettingAllowedInstances = "SINGLE"
+)
+
+// Valid indicates whether the value is a known member of the CapabilitySettingAllowedInstances enum.
+func (e CapabilitySettingAllowedInstances) Valid() bool {
+	switch e {
+	case ENTRY:
+		return true
+	case MULTIPLE:
+		return true
+	case SINGLE:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CapabilitySettingKey.
+const (
+	APPLEIDAUTHAPPCONSENT         CapabilitySettingKey = "APPLE_ID_AUTH_APP_CONSENT"
+	DATAPROTECTIONPERMISSIONLEVEL CapabilitySettingKey = "DATA_PROTECTION_PERMISSION_LEVEL"
+	ICLOUDVERSION                 CapabilitySettingKey = "ICLOUD_VERSION"
+)
+
+// Valid indicates whether the value is a known member of the CapabilitySettingKey enum.
+func (e CapabilitySettingKey) Valid() bool {
+	switch e {
+	case APPLEIDAUTHAPPCONSENT:
+		return true
+	case DATAPROTECTIONPERMISSIONLEVEL:
+		return true
+	case ICLOUDVERSION:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CapabilityType.
+const (
+	ACCESSWIFIINFORMATION          CapabilityType = "ACCESS_WIFI_INFORMATION"
+	APPGROUPS                      CapabilityType = "APP_GROUPS"
+	APPLEIDAUTH                    CapabilityType = "APPLE_ID_AUTH"
+	APPLEPAY                       CapabilityType = "APPLE_PAY"
+	ASSOCIATEDDOMAINS              CapabilityType = "ASSOCIATED_DOMAINS"
+	AUTOFILLCREDENTIALPROVIDER     CapabilityType = "AUTOFILL_CREDENTIAL_PROVIDER"
+	CLASSKIT                       CapabilityType = "CLASSKIT"
+	COREMEDIAHLSLOWLATENCY         CapabilityType = "COREMEDIA_HLS_LOW_LATENCY"
+	DATAPROTECTION                 CapabilityType = "DATA_PROTECTION"
+	GAMECENTER                     CapabilityType = "GAME_CENTER"
+	HEALTHKIT                      CapabilityType = "HEALTHKIT"
+	HOMEKIT                        CapabilityType = "HOMEKIT"
+	HOTSPOT                        CapabilityType = "HOT_SPOT"
+	ICLOUD                         CapabilityType = "ICLOUD"
+	INAPPPURCHASE                  CapabilityType = "IN_APP_PURCHASE"
+	INTERAPPAUDIO                  CapabilityType = "INTER_APP_AUDIO"
+	MAPS                           CapabilityType = "MAPS"
+	MULTIPATH                      CapabilityType = "MULTIPATH"
+	NETWORKCUSTOMPROTOCOL          CapabilityType = "NETWORK_CUSTOM_PROTOCOL"
+	NETWORKEXTENSIONS              CapabilityType = "NETWORK_EXTENSIONS"
+	NFCTAGREADING                  CapabilityType = "NFC_TAG_READING"
+	PERSONALVPN                    CapabilityType = "PERSONAL_VPN"
+	PUSHNOTIFICATIONS              CapabilityType = "PUSH_NOTIFICATIONS"
+	SIRIKIT                        CapabilityType = "SIRIKIT"
+	SYSTEMEXTENSIONINSTALL         CapabilityType = "SYSTEM_EXTENSION_INSTALL"
+	USERMANAGEMENT                 CapabilityType = "USER_MANAGEMENT"
+	WALLET                         CapabilityType = "WALLET"
+	WIRELESSACCESSORYCONFIGURATION CapabilityType = "WIRELESS_ACCESSORY_CONFIGURATION"
+)
+
+// Valid indicates whether the value is a known member of the CapabilityType enum.
+func (e CapabilityType) Valid() bool {
+	switch e {
+	case ACCESSWIFIINFORMATION:
+		return true
+	case APPGROUPS:
+		return true
+	case APPLEIDAUTH:
+		return true
+	case APPLEPAY:
+		return true
+	case ASSOCIATEDDOMAINS:
+		return true
+	case AUTOFILLCREDENTIALPROVIDER:
+		return true
+	case CLASSKIT:
+		return true
+	case COREMEDIAHLSLOWLATENCY:
+		return true
+	case DATAPROTECTION:
+		return true
+	case GAMECENTER:
+		return true
+	case HEALTHKIT:
+		return true
+	case HOMEKIT:
+		return true
+	case HOTSPOT:
+		return true
+	case ICLOUD:
+		return true
+	case INAPPPURCHASE:
+		return true
+	case INTERAPPAUDIO:
+		return true
+	case MAPS:
+		return true
+	case MULTIPATH:
+		return true
+	case NETWORKCUSTOMPROTOCOL:
+		return true
+	case NETWORKEXTENSIONS:
+		return true
+	case NFCTAGREADING:
+		return true
+	case PERSONALVPN:
+		return true
+	case PUSHNOTIFICATIONS:
+		return true
+	case SIRIKIT:
+		return true
+	case SYSTEMEXTENSIONINSTALL:
+		return true
+	case USERMANAGEMENT:
+		return true
+	case WALLET:
+		return true
+	case WIRELESSACCESSORYCONFIGURATION:
 		return true
 	default:
 		return false
@@ -534,13 +808,145 @@ func (e DeviceCreateRequestDataType) Valid() bool {
 
 // Defines values for DeviceUpdateRequestDataType.
 const (
-	Devices DeviceUpdateRequestDataType = "devices"
+	DeviceUpdateRequestDataTypeDevices DeviceUpdateRequestDataType = "devices"
 )
 
 // Valid indicates whether the value is a known member of the DeviceUpdateRequestDataType enum.
 func (e DeviceUpdateRequestDataType) Valid() bool {
 	switch e {
-	case Devices:
+	case DeviceUpdateRequestDataTypeDevices:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProfileAttributesProfileState.
+const (
+	ACTIVE  ProfileAttributesProfileState = "ACTIVE"
+	INVALID ProfileAttributesProfileState = "INVALID"
+)
+
+// Valid indicates whether the value is a known member of the ProfileAttributesProfileState enum.
+func (e ProfileAttributesProfileState) Valid() bool {
+	switch e {
+	case ACTIVE:
+		return true
+	case INVALID:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProfileAttributesProfileType.
+const (
+	IOSAPPADHOC               ProfileAttributesProfileType = "IOS_APP_ADHOC"
+	IOSAPPDEVELOPMENT         ProfileAttributesProfileType = "IOS_APP_DEVELOPMENT"
+	IOSAPPINHOUSE             ProfileAttributesProfileType = "IOS_APP_INHOUSE"
+	IOSAPPSTORE               ProfileAttributesProfileType = "IOS_APP_STORE"
+	MACAPPDEVELOPMENT         ProfileAttributesProfileType = "MAC_APP_DEVELOPMENT"
+	MACAPPDIRECT              ProfileAttributesProfileType = "MAC_APP_DIRECT"
+	MACAPPSTORE               ProfileAttributesProfileType = "MAC_APP_STORE"
+	MACCATALYSTAPPDEVELOPMENT ProfileAttributesProfileType = "MAC_CATALYST_APP_DEVELOPMENT"
+	MACCATALYSTAPPDIRECT      ProfileAttributesProfileType = "MAC_CATALYST_APP_DIRECT"
+	MACCATALYSTAPPSTORE       ProfileAttributesProfileType = "MAC_CATALYST_APP_STORE"
+	TVOSAPPADHOC              ProfileAttributesProfileType = "TVOS_APP_ADHOC"
+	TVOSAPPDEVELOPMENT        ProfileAttributesProfileType = "TVOS_APP_DEVELOPMENT"
+	TVOSAPPINHOUSE            ProfileAttributesProfileType = "TVOS_APP_INHOUSE"
+	TVOSAPPSTORE              ProfileAttributesProfileType = "TVOS_APP_STORE"
+)
+
+// Valid indicates whether the value is a known member of the ProfileAttributesProfileType enum.
+func (e ProfileAttributesProfileType) Valid() bool {
+	switch e {
+	case IOSAPPADHOC:
+		return true
+	case IOSAPPDEVELOPMENT:
+		return true
+	case IOSAPPINHOUSE:
+		return true
+	case IOSAPPSTORE:
+		return true
+	case MACAPPDEVELOPMENT:
+		return true
+	case MACAPPDIRECT:
+		return true
+	case MACAPPSTORE:
+		return true
+	case MACCATALYSTAPPDEVELOPMENT:
+		return true
+	case MACCATALYSTAPPDIRECT:
+		return true
+	case MACCATALYSTAPPSTORE:
+		return true
+	case TVOSAPPADHOC:
+		return true
+	case TVOSAPPDEVELOPMENT:
+		return true
+	case TVOSAPPINHOUSE:
+		return true
+	case TVOSAPPSTORE:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProfileRelationshipsBundleIdDataType.
+const (
+	ProfileRelationshipsBundleIdDataTypeBundleIds ProfileRelationshipsBundleIdDataType = "bundleIds"
+)
+
+// Valid indicates whether the value is a known member of the ProfileRelationshipsBundleIdDataType enum.
+func (e ProfileRelationshipsBundleIdDataType) Valid() bool {
+	switch e {
+	case ProfileRelationshipsBundleIdDataTypeBundleIds:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProfileRelationshipsCertificatesDataType.
+const (
+	ProfileRelationshipsCertificatesDataTypeCertificates ProfileRelationshipsCertificatesDataType = "certificates"
+)
+
+// Valid indicates whether the value is a known member of the ProfileRelationshipsCertificatesDataType enum.
+func (e ProfileRelationshipsCertificatesDataType) Valid() bool {
+	switch e {
+	case ProfileRelationshipsCertificatesDataTypeCertificates:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProfileRelationshipsDevicesDataType.
+const (
+	ProfileRelationshipsDevicesDataTypeDevices ProfileRelationshipsDevicesDataType = "devices"
+)
+
+// Valid indicates whether the value is a known member of the ProfileRelationshipsDevicesDataType enum.
+func (e ProfileRelationshipsDevicesDataType) Valid() bool {
+	switch e {
+	case ProfileRelationshipsDevicesDataTypeDevices:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ProfileType.
+const (
+	ProfileTypeProfiles ProfileType = "profiles"
+)
+
+// Valid indicates whether the value is a known member of the ProfileType enum.
+func (e ProfileType) Valid() bool {
+	switch e {
+	case ProfileTypeProfiles:
 		return true
 	default:
 		return false
@@ -627,13 +1033,13 @@ func (e UserInvitationType) Valid() bool {
 
 // Defines values for AppReferenceType.
 const (
-	AppReferenceTypeApps AppReferenceType = "apps"
+	Apps AppReferenceType = "apps"
 )
 
 // Valid indicates whether the value is a known member of the AppReferenceType enum.
 func (e AppReferenceType) Valid() bool {
 	switch e {
-	case AppReferenceTypeApps:
+	case Apps:
 		return true
 	default:
 		return false
@@ -721,21 +1127,630 @@ func (e UserUpdateRequestDataType) Valid() bool {
 	}
 }
 
-// Defines values for DevicesGetCollectionParamsFilterPlatform.
+// Defines values for BundleIdsGetCollectionParamsSort.
 const (
-	FilterIOS       DevicesGetCollectionParamsFilterPlatform = "IOS"
-	FilterMacOS     DevicesGetCollectionParamsFilterPlatform = "MAC_OS"
-	FilterUniversal DevicesGetCollectionParamsFilterPlatform = "UNIVERSAL"
+	BundleIdsGetCollectionParamsSortId              BundleIdsGetCollectionParamsSort = "id"
+	BundleIdsGetCollectionParamsSortIdentifier      BundleIdsGetCollectionParamsSort = "identifier"
+	BundleIdsGetCollectionParamsSortMinusId         BundleIdsGetCollectionParamsSort = "-id"
+	BundleIdsGetCollectionParamsSortMinusIdentifier BundleIdsGetCollectionParamsSort = "-identifier"
+	BundleIdsGetCollectionParamsSortMinusName       BundleIdsGetCollectionParamsSort = "-name"
+	BundleIdsGetCollectionParamsSortMinusPlatform   BundleIdsGetCollectionParamsSort = "-platform"
+	BundleIdsGetCollectionParamsSortMinusSeedId     BundleIdsGetCollectionParamsSort = "-seedId"
+	BundleIdsGetCollectionParamsSortName            BundleIdsGetCollectionParamsSort = "name"
+	BundleIdsGetCollectionParamsSortPlatform        BundleIdsGetCollectionParamsSort = "platform"
+	BundleIdsGetCollectionParamsSortSeedId          BundleIdsGetCollectionParamsSort = "seedId"
 )
 
-// Valid indicates whether the value is a known member of the DevicesGetCollectionParamsFilterPlatform enum.
-func (e DevicesGetCollectionParamsFilterPlatform) Valid() bool {
+// Valid indicates whether the value is a known member of the BundleIdsGetCollectionParamsSort enum.
+func (e BundleIdsGetCollectionParamsSort) Valid() bool {
 	switch e {
-	case FilterIOS:
+	case BundleIdsGetCollectionParamsSortId:
 		return true
-	case FilterMacOS:
+	case BundleIdsGetCollectionParamsSortIdentifier:
 		return true
-	case FilterUniversal:
+	case BundleIdsGetCollectionParamsSortMinusId:
+		return true
+	case BundleIdsGetCollectionParamsSortMinusIdentifier:
+		return true
+	case BundleIdsGetCollectionParamsSortMinusName:
+		return true
+	case BundleIdsGetCollectionParamsSortMinusPlatform:
+		return true
+	case BundleIdsGetCollectionParamsSortMinusSeedId:
+		return true
+	case BundleIdsGetCollectionParamsSortName:
+		return true
+	case BundleIdsGetCollectionParamsSortPlatform:
+		return true
+	case BundleIdsGetCollectionParamsSortSeedId:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetCollectionParamsFieldsBundleIds.
+const (
+	BundleIdsGetCollectionParamsFieldsBundleIdsApp                  BundleIdsGetCollectionParamsFieldsBundleIds = "app"
+	BundleIdsGetCollectionParamsFieldsBundleIdsBundleIdCapabilities BundleIdsGetCollectionParamsFieldsBundleIds = "bundleIdCapabilities"
+	BundleIdsGetCollectionParamsFieldsBundleIdsIdentifier           BundleIdsGetCollectionParamsFieldsBundleIds = "identifier"
+	BundleIdsGetCollectionParamsFieldsBundleIdsName                 BundleIdsGetCollectionParamsFieldsBundleIds = "name"
+	BundleIdsGetCollectionParamsFieldsBundleIdsPlatform             BundleIdsGetCollectionParamsFieldsBundleIds = "platform"
+	BundleIdsGetCollectionParamsFieldsBundleIdsProfiles             BundleIdsGetCollectionParamsFieldsBundleIds = "profiles"
+	BundleIdsGetCollectionParamsFieldsBundleIdsSeedId               BundleIdsGetCollectionParamsFieldsBundleIds = "seedId"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetCollectionParamsFieldsBundleIds enum.
+func (e BundleIdsGetCollectionParamsFieldsBundleIds) Valid() bool {
+	switch e {
+	case BundleIdsGetCollectionParamsFieldsBundleIdsApp:
+		return true
+	case BundleIdsGetCollectionParamsFieldsBundleIdsBundleIdCapabilities:
+		return true
+	case BundleIdsGetCollectionParamsFieldsBundleIdsIdentifier:
+		return true
+	case BundleIdsGetCollectionParamsFieldsBundleIdsName:
+		return true
+	case BundleIdsGetCollectionParamsFieldsBundleIdsPlatform:
+		return true
+	case BundleIdsGetCollectionParamsFieldsBundleIdsProfiles:
+		return true
+	case BundleIdsGetCollectionParamsFieldsBundleIdsSeedId:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetCollectionParamsFieldsProfiles.
+const (
+	BundleIdsGetCollectionParamsFieldsProfilesBundleId       BundleIdsGetCollectionParamsFieldsProfiles = "bundleId"
+	BundleIdsGetCollectionParamsFieldsProfilesCertificates   BundleIdsGetCollectionParamsFieldsProfiles = "certificates"
+	BundleIdsGetCollectionParamsFieldsProfilesCreatedDate    BundleIdsGetCollectionParamsFieldsProfiles = "createdDate"
+	BundleIdsGetCollectionParamsFieldsProfilesDevices        BundleIdsGetCollectionParamsFieldsProfiles = "devices"
+	BundleIdsGetCollectionParamsFieldsProfilesExpirationDate BundleIdsGetCollectionParamsFieldsProfiles = "expirationDate"
+	BundleIdsGetCollectionParamsFieldsProfilesName           BundleIdsGetCollectionParamsFieldsProfiles = "name"
+	BundleIdsGetCollectionParamsFieldsProfilesPlatform       BundleIdsGetCollectionParamsFieldsProfiles = "platform"
+	BundleIdsGetCollectionParamsFieldsProfilesProfileContent BundleIdsGetCollectionParamsFieldsProfiles = "profileContent"
+	BundleIdsGetCollectionParamsFieldsProfilesProfileState   BundleIdsGetCollectionParamsFieldsProfiles = "profileState"
+	BundleIdsGetCollectionParamsFieldsProfilesProfileType    BundleIdsGetCollectionParamsFieldsProfiles = "profileType"
+	BundleIdsGetCollectionParamsFieldsProfilesUuid           BundleIdsGetCollectionParamsFieldsProfiles = "uuid"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetCollectionParamsFieldsProfiles enum.
+func (e BundleIdsGetCollectionParamsFieldsProfiles) Valid() bool {
+	switch e {
+	case BundleIdsGetCollectionParamsFieldsProfilesBundleId:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesCertificates:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesCreatedDate:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesDevices:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesExpirationDate:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesName:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesPlatform:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesProfileContent:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesProfileState:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesProfileType:
+		return true
+	case BundleIdsGetCollectionParamsFieldsProfilesUuid:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetCollectionParamsFieldsBundleIdCapabilities.
+const (
+	BundleIdsGetCollectionParamsFieldsBundleIdCapabilitiesCapabilityType BundleIdsGetCollectionParamsFieldsBundleIdCapabilities = "capabilityType"
+	BundleIdsGetCollectionParamsFieldsBundleIdCapabilitiesSettings       BundleIdsGetCollectionParamsFieldsBundleIdCapabilities = "settings"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetCollectionParamsFieldsBundleIdCapabilities enum.
+func (e BundleIdsGetCollectionParamsFieldsBundleIdCapabilities) Valid() bool {
+	switch e {
+	case BundleIdsGetCollectionParamsFieldsBundleIdCapabilitiesCapabilityType:
+		return true
+	case BundleIdsGetCollectionParamsFieldsBundleIdCapabilitiesSettings:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetCollectionParamsFieldsApps.
+const (
+	BundleIdsGetCollectionParamsFieldsAppsAccessibilityDeclarations              BundleIdsGetCollectionParamsFieldsApps = "accessibilityDeclarations"
+	BundleIdsGetCollectionParamsFieldsAppsAccessibilityUrl                       BundleIdsGetCollectionParamsFieldsApps = "accessibilityUrl"
+	BundleIdsGetCollectionParamsFieldsAppsAlternativeDistributionKey             BundleIdsGetCollectionParamsFieldsApps = "alternativeDistributionKey"
+	BundleIdsGetCollectionParamsFieldsAppsAnalyticsReportRequests                BundleIdsGetCollectionParamsFieldsApps = "analyticsReportRequests"
+	BundleIdsGetCollectionParamsFieldsAppsAndroidToIosAppMappingDetails          BundleIdsGetCollectionParamsFieldsApps = "androidToIosAppMappingDetails"
+	BundleIdsGetCollectionParamsFieldsAppsAppAvailabilityV2                      BundleIdsGetCollectionParamsFieldsApps = "appAvailabilityV2"
+	BundleIdsGetCollectionParamsFieldsAppsAppClips                               BundleIdsGetCollectionParamsFieldsApps = "appClips"
+	BundleIdsGetCollectionParamsFieldsAppsAppCustomProductPages                  BundleIdsGetCollectionParamsFieldsApps = "appCustomProductPages"
+	BundleIdsGetCollectionParamsFieldsAppsAppEncryptionDeclarations              BundleIdsGetCollectionParamsFieldsApps = "appEncryptionDeclarations"
+	BundleIdsGetCollectionParamsFieldsAppsAppEvents                              BundleIdsGetCollectionParamsFieldsApps = "appEvents"
+	BundleIdsGetCollectionParamsFieldsAppsAppInfos                               BundleIdsGetCollectionParamsFieldsApps = "appInfos"
+	BundleIdsGetCollectionParamsFieldsAppsAppPricePoints                         BundleIdsGetCollectionParamsFieldsApps = "appPricePoints"
+	BundleIdsGetCollectionParamsFieldsAppsAppPriceSchedule                       BundleIdsGetCollectionParamsFieldsApps = "appPriceSchedule"
+	BundleIdsGetCollectionParamsFieldsAppsAppStoreIcon                           BundleIdsGetCollectionParamsFieldsApps = "appStoreIcon"
+	BundleIdsGetCollectionParamsFieldsAppsAppStoreVersionExperimentsV2           BundleIdsGetCollectionParamsFieldsApps = "appStoreVersionExperimentsV2"
+	BundleIdsGetCollectionParamsFieldsAppsAppStoreVersions                       BundleIdsGetCollectionParamsFieldsApps = "appStoreVersions"
+	BundleIdsGetCollectionParamsFieldsAppsAppTags                                BundleIdsGetCollectionParamsFieldsApps = "appTags"
+	BundleIdsGetCollectionParamsFieldsAppsBackgroundAssets                       BundleIdsGetCollectionParamsFieldsApps = "backgroundAssets"
+	BundleIdsGetCollectionParamsFieldsAppsBetaAppLocalizations                   BundleIdsGetCollectionParamsFieldsApps = "betaAppLocalizations"
+	BundleIdsGetCollectionParamsFieldsAppsBetaAppReviewDetail                    BundleIdsGetCollectionParamsFieldsApps = "betaAppReviewDetail"
+	BundleIdsGetCollectionParamsFieldsAppsBetaFeedbackCrashSubmissions           BundleIdsGetCollectionParamsFieldsApps = "betaFeedbackCrashSubmissions"
+	BundleIdsGetCollectionParamsFieldsAppsBetaFeedbackScreenshotSubmissions      BundleIdsGetCollectionParamsFieldsApps = "betaFeedbackScreenshotSubmissions"
+	BundleIdsGetCollectionParamsFieldsAppsBetaGroups                             BundleIdsGetCollectionParamsFieldsApps = "betaGroups"
+	BundleIdsGetCollectionParamsFieldsAppsBetaLicenseAgreement                   BundleIdsGetCollectionParamsFieldsApps = "betaLicenseAgreement"
+	BundleIdsGetCollectionParamsFieldsAppsBetaTesters                            BundleIdsGetCollectionParamsFieldsApps = "betaTesters"
+	BundleIdsGetCollectionParamsFieldsAppsBuildUploads                           BundleIdsGetCollectionParamsFieldsApps = "buildUploads"
+	BundleIdsGetCollectionParamsFieldsAppsBuilds                                 BundleIdsGetCollectionParamsFieldsApps = "builds"
+	BundleIdsGetCollectionParamsFieldsAppsBundleId                               BundleIdsGetCollectionParamsFieldsApps = "bundleId"
+	BundleIdsGetCollectionParamsFieldsAppsCiProduct                              BundleIdsGetCollectionParamsFieldsApps = "ciProduct"
+	BundleIdsGetCollectionParamsFieldsAppsContentRightsDeclaration               BundleIdsGetCollectionParamsFieldsApps = "contentRightsDeclaration"
+	BundleIdsGetCollectionParamsFieldsAppsCustomerReviewSummarizations           BundleIdsGetCollectionParamsFieldsApps = "customerReviewSummarizations"
+	BundleIdsGetCollectionParamsFieldsAppsCustomerReviews                        BundleIdsGetCollectionParamsFieldsApps = "customerReviews"
+	BundleIdsGetCollectionParamsFieldsAppsEndUserLicenseAgreement                BundleIdsGetCollectionParamsFieldsApps = "endUserLicenseAgreement"
+	BundleIdsGetCollectionParamsFieldsAppsGameCenterDetail                       BundleIdsGetCollectionParamsFieldsApps = "gameCenterDetail"
+	BundleIdsGetCollectionParamsFieldsAppsGameCenterEnabledVersions              BundleIdsGetCollectionParamsFieldsApps = "gameCenterEnabledVersions"
+	BundleIdsGetCollectionParamsFieldsAppsInAppPurchases                         BundleIdsGetCollectionParamsFieldsApps = "inAppPurchases"
+	BundleIdsGetCollectionParamsFieldsAppsInAppPurchasesV2                       BundleIdsGetCollectionParamsFieldsApps = "inAppPurchasesV2"
+	BundleIdsGetCollectionParamsFieldsAppsIsOrEverWasMadeForKids                 BundleIdsGetCollectionParamsFieldsApps = "isOrEverWasMadeForKids"
+	BundleIdsGetCollectionParamsFieldsAppsMarketplaceSearchDetail                BundleIdsGetCollectionParamsFieldsApps = "marketplaceSearchDetail"
+	BundleIdsGetCollectionParamsFieldsAppsName                                   BundleIdsGetCollectionParamsFieldsApps = "name"
+	BundleIdsGetCollectionParamsFieldsAppsPerfPowerMetrics                       BundleIdsGetCollectionParamsFieldsApps = "perfPowerMetrics"
+	BundleIdsGetCollectionParamsFieldsAppsPreReleaseVersions                     BundleIdsGetCollectionParamsFieldsApps = "preReleaseVersions"
+	BundleIdsGetCollectionParamsFieldsAppsPrimaryLocale                          BundleIdsGetCollectionParamsFieldsApps = "primaryLocale"
+	BundleIdsGetCollectionParamsFieldsAppsPromotedPurchases                      BundleIdsGetCollectionParamsFieldsApps = "promotedPurchases"
+	BundleIdsGetCollectionParamsFieldsAppsReviewSubmissions                      BundleIdsGetCollectionParamsFieldsApps = "reviewSubmissions"
+	BundleIdsGetCollectionParamsFieldsAppsSearchKeywords                         BundleIdsGetCollectionParamsFieldsApps = "searchKeywords"
+	BundleIdsGetCollectionParamsFieldsAppsSku                                    BundleIdsGetCollectionParamsFieldsApps = "sku"
+	BundleIdsGetCollectionParamsFieldsAppsStreamlinedPurchasingEnabled           BundleIdsGetCollectionParamsFieldsApps = "streamlinedPurchasingEnabled"
+	BundleIdsGetCollectionParamsFieldsAppsSubscriptionGracePeriod                BundleIdsGetCollectionParamsFieldsApps = "subscriptionGracePeriod"
+	BundleIdsGetCollectionParamsFieldsAppsSubscriptionGroups                     BundleIdsGetCollectionParamsFieldsApps = "subscriptionGroups"
+	BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrl                  BundleIdsGetCollectionParamsFieldsApps = "subscriptionStatusUrl"
+	BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrlForSandbox        BundleIdsGetCollectionParamsFieldsApps = "subscriptionStatusUrlForSandbox"
+	BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersion           BundleIdsGetCollectionParamsFieldsApps = "subscriptionStatusUrlVersion"
+	BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox BundleIdsGetCollectionParamsFieldsApps = "subscriptionStatusUrlVersionForSandbox"
+	BundleIdsGetCollectionParamsFieldsAppsWebhooks                               BundleIdsGetCollectionParamsFieldsApps = "webhooks"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetCollectionParamsFieldsApps enum.
+func (e BundleIdsGetCollectionParamsFieldsApps) Valid() bool {
+	switch e {
+	case BundleIdsGetCollectionParamsFieldsAppsAccessibilityDeclarations:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAccessibilityUrl:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAlternativeDistributionKey:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAnalyticsReportRequests:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAndroidToIosAppMappingDetails:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppAvailabilityV2:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppClips:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppCustomProductPages:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppEncryptionDeclarations:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppEvents:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppInfos:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppPricePoints:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppPriceSchedule:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppStoreIcon:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppStoreVersionExperimentsV2:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppStoreVersions:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsAppTags:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBackgroundAssets:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBetaAppLocalizations:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBetaAppReviewDetail:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBetaFeedbackCrashSubmissions:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBetaFeedbackScreenshotSubmissions:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBetaGroups:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBetaLicenseAgreement:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBetaTesters:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBuildUploads:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBuilds:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsBundleId:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsCiProduct:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsContentRightsDeclaration:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsCustomerReviewSummarizations:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsCustomerReviews:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsEndUserLicenseAgreement:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsGameCenterDetail:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsGameCenterEnabledVersions:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsInAppPurchases:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsInAppPurchasesV2:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsIsOrEverWasMadeForKids:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsMarketplaceSearchDetail:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsName:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsPerfPowerMetrics:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsPreReleaseVersions:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsPrimaryLocale:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsPromotedPurchases:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsReviewSubmissions:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSearchKeywords:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSku:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsStreamlinedPurchasingEnabled:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSubscriptionGracePeriod:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSubscriptionGroups:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrl:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrlForSandbox:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersion:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox:
+		return true
+	case BundleIdsGetCollectionParamsFieldsAppsWebhooks:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetCollectionParamsInclude.
+const (
+	BundleIdsGetCollectionParamsIncludeApp                  BundleIdsGetCollectionParamsInclude = "app"
+	BundleIdsGetCollectionParamsIncludeBundleIdCapabilities BundleIdsGetCollectionParamsInclude = "bundleIdCapabilities"
+	BundleIdsGetCollectionParamsIncludeProfiles             BundleIdsGetCollectionParamsInclude = "profiles"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetCollectionParamsInclude enum.
+func (e BundleIdsGetCollectionParamsInclude) Valid() bool {
+	switch e {
+	case BundleIdsGetCollectionParamsIncludeApp:
+		return true
+	case BundleIdsGetCollectionParamsIncludeBundleIdCapabilities:
+		return true
+	case BundleIdsGetCollectionParamsIncludeProfiles:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetInstanceParamsFieldsBundleIds.
+const (
+	BundleIdsGetInstanceParamsFieldsBundleIdsApp                  BundleIdsGetInstanceParamsFieldsBundleIds = "app"
+	BundleIdsGetInstanceParamsFieldsBundleIdsBundleIdCapabilities BundleIdsGetInstanceParamsFieldsBundleIds = "bundleIdCapabilities"
+	BundleIdsGetInstanceParamsFieldsBundleIdsIdentifier           BundleIdsGetInstanceParamsFieldsBundleIds = "identifier"
+	BundleIdsGetInstanceParamsFieldsBundleIdsName                 BundleIdsGetInstanceParamsFieldsBundleIds = "name"
+	BundleIdsGetInstanceParamsFieldsBundleIdsPlatform             BundleIdsGetInstanceParamsFieldsBundleIds = "platform"
+	BundleIdsGetInstanceParamsFieldsBundleIdsProfiles             BundleIdsGetInstanceParamsFieldsBundleIds = "profiles"
+	BundleIdsGetInstanceParamsFieldsBundleIdsSeedId               BundleIdsGetInstanceParamsFieldsBundleIds = "seedId"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetInstanceParamsFieldsBundleIds enum.
+func (e BundleIdsGetInstanceParamsFieldsBundleIds) Valid() bool {
+	switch e {
+	case BundleIdsGetInstanceParamsFieldsBundleIdsApp:
+		return true
+	case BundleIdsGetInstanceParamsFieldsBundleIdsBundleIdCapabilities:
+		return true
+	case BundleIdsGetInstanceParamsFieldsBundleIdsIdentifier:
+		return true
+	case BundleIdsGetInstanceParamsFieldsBundleIdsName:
+		return true
+	case BundleIdsGetInstanceParamsFieldsBundleIdsPlatform:
+		return true
+	case BundleIdsGetInstanceParamsFieldsBundleIdsProfiles:
+		return true
+	case BundleIdsGetInstanceParamsFieldsBundleIdsSeedId:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetInstanceParamsFieldsProfiles.
+const (
+	BundleIdsGetInstanceParamsFieldsProfilesBundleId       BundleIdsGetInstanceParamsFieldsProfiles = "bundleId"
+	BundleIdsGetInstanceParamsFieldsProfilesCertificates   BundleIdsGetInstanceParamsFieldsProfiles = "certificates"
+	BundleIdsGetInstanceParamsFieldsProfilesCreatedDate    BundleIdsGetInstanceParamsFieldsProfiles = "createdDate"
+	BundleIdsGetInstanceParamsFieldsProfilesDevices        BundleIdsGetInstanceParamsFieldsProfiles = "devices"
+	BundleIdsGetInstanceParamsFieldsProfilesExpirationDate BundleIdsGetInstanceParamsFieldsProfiles = "expirationDate"
+	BundleIdsGetInstanceParamsFieldsProfilesName           BundleIdsGetInstanceParamsFieldsProfiles = "name"
+	BundleIdsGetInstanceParamsFieldsProfilesPlatform       BundleIdsGetInstanceParamsFieldsProfiles = "platform"
+	BundleIdsGetInstanceParamsFieldsProfilesProfileContent BundleIdsGetInstanceParamsFieldsProfiles = "profileContent"
+	BundleIdsGetInstanceParamsFieldsProfilesProfileState   BundleIdsGetInstanceParamsFieldsProfiles = "profileState"
+	BundleIdsGetInstanceParamsFieldsProfilesProfileType    BundleIdsGetInstanceParamsFieldsProfiles = "profileType"
+	BundleIdsGetInstanceParamsFieldsProfilesUuid           BundleIdsGetInstanceParamsFieldsProfiles = "uuid"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetInstanceParamsFieldsProfiles enum.
+func (e BundleIdsGetInstanceParamsFieldsProfiles) Valid() bool {
+	switch e {
+	case BundleIdsGetInstanceParamsFieldsProfilesBundleId:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesCertificates:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesCreatedDate:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesDevices:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesExpirationDate:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesName:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesPlatform:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesProfileContent:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesProfileState:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesProfileType:
+		return true
+	case BundleIdsGetInstanceParamsFieldsProfilesUuid:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetInstanceParamsFieldsBundleIdCapabilities.
+const (
+	BundleIdsGetInstanceParamsFieldsBundleIdCapabilitiesCapabilityType BundleIdsGetInstanceParamsFieldsBundleIdCapabilities = "capabilityType"
+	BundleIdsGetInstanceParamsFieldsBundleIdCapabilitiesSettings       BundleIdsGetInstanceParamsFieldsBundleIdCapabilities = "settings"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetInstanceParamsFieldsBundleIdCapabilities enum.
+func (e BundleIdsGetInstanceParamsFieldsBundleIdCapabilities) Valid() bool {
+	switch e {
+	case BundleIdsGetInstanceParamsFieldsBundleIdCapabilitiesCapabilityType:
+		return true
+	case BundleIdsGetInstanceParamsFieldsBundleIdCapabilitiesSettings:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetInstanceParamsFieldsApps.
+const (
+	BundleIdsGetInstanceParamsFieldsAppsAccessibilityDeclarations              BundleIdsGetInstanceParamsFieldsApps = "accessibilityDeclarations"
+	BundleIdsGetInstanceParamsFieldsAppsAccessibilityUrl                       BundleIdsGetInstanceParamsFieldsApps = "accessibilityUrl"
+	BundleIdsGetInstanceParamsFieldsAppsAlternativeDistributionKey             BundleIdsGetInstanceParamsFieldsApps = "alternativeDistributionKey"
+	BundleIdsGetInstanceParamsFieldsAppsAnalyticsReportRequests                BundleIdsGetInstanceParamsFieldsApps = "analyticsReportRequests"
+	BundleIdsGetInstanceParamsFieldsAppsAndroidToIosAppMappingDetails          BundleIdsGetInstanceParamsFieldsApps = "androidToIosAppMappingDetails"
+	BundleIdsGetInstanceParamsFieldsAppsAppAvailabilityV2                      BundleIdsGetInstanceParamsFieldsApps = "appAvailabilityV2"
+	BundleIdsGetInstanceParamsFieldsAppsAppClips                               BundleIdsGetInstanceParamsFieldsApps = "appClips"
+	BundleIdsGetInstanceParamsFieldsAppsAppCustomProductPages                  BundleIdsGetInstanceParamsFieldsApps = "appCustomProductPages"
+	BundleIdsGetInstanceParamsFieldsAppsAppEncryptionDeclarations              BundleIdsGetInstanceParamsFieldsApps = "appEncryptionDeclarations"
+	BundleIdsGetInstanceParamsFieldsAppsAppEvents                              BundleIdsGetInstanceParamsFieldsApps = "appEvents"
+	BundleIdsGetInstanceParamsFieldsAppsAppInfos                               BundleIdsGetInstanceParamsFieldsApps = "appInfos"
+	BundleIdsGetInstanceParamsFieldsAppsAppPricePoints                         BundleIdsGetInstanceParamsFieldsApps = "appPricePoints"
+	BundleIdsGetInstanceParamsFieldsAppsAppPriceSchedule                       BundleIdsGetInstanceParamsFieldsApps = "appPriceSchedule"
+	BundleIdsGetInstanceParamsFieldsAppsAppStoreIcon                           BundleIdsGetInstanceParamsFieldsApps = "appStoreIcon"
+	BundleIdsGetInstanceParamsFieldsAppsAppStoreVersionExperimentsV2           BundleIdsGetInstanceParamsFieldsApps = "appStoreVersionExperimentsV2"
+	BundleIdsGetInstanceParamsFieldsAppsAppStoreVersions                       BundleIdsGetInstanceParamsFieldsApps = "appStoreVersions"
+	BundleIdsGetInstanceParamsFieldsAppsAppTags                                BundleIdsGetInstanceParamsFieldsApps = "appTags"
+	BundleIdsGetInstanceParamsFieldsAppsBackgroundAssets                       BundleIdsGetInstanceParamsFieldsApps = "backgroundAssets"
+	BundleIdsGetInstanceParamsFieldsAppsBetaAppLocalizations                   BundleIdsGetInstanceParamsFieldsApps = "betaAppLocalizations"
+	BundleIdsGetInstanceParamsFieldsAppsBetaAppReviewDetail                    BundleIdsGetInstanceParamsFieldsApps = "betaAppReviewDetail"
+	BundleIdsGetInstanceParamsFieldsAppsBetaFeedbackCrashSubmissions           BundleIdsGetInstanceParamsFieldsApps = "betaFeedbackCrashSubmissions"
+	BundleIdsGetInstanceParamsFieldsAppsBetaFeedbackScreenshotSubmissions      BundleIdsGetInstanceParamsFieldsApps = "betaFeedbackScreenshotSubmissions"
+	BundleIdsGetInstanceParamsFieldsAppsBetaGroups                             BundleIdsGetInstanceParamsFieldsApps = "betaGroups"
+	BundleIdsGetInstanceParamsFieldsAppsBetaLicenseAgreement                   BundleIdsGetInstanceParamsFieldsApps = "betaLicenseAgreement"
+	BundleIdsGetInstanceParamsFieldsAppsBetaTesters                            BundleIdsGetInstanceParamsFieldsApps = "betaTesters"
+	BundleIdsGetInstanceParamsFieldsAppsBuildUploads                           BundleIdsGetInstanceParamsFieldsApps = "buildUploads"
+	BundleIdsGetInstanceParamsFieldsAppsBuilds                                 BundleIdsGetInstanceParamsFieldsApps = "builds"
+	BundleIdsGetInstanceParamsFieldsAppsBundleId                               BundleIdsGetInstanceParamsFieldsApps = "bundleId"
+	BundleIdsGetInstanceParamsFieldsAppsCiProduct                              BundleIdsGetInstanceParamsFieldsApps = "ciProduct"
+	BundleIdsGetInstanceParamsFieldsAppsContentRightsDeclaration               BundleIdsGetInstanceParamsFieldsApps = "contentRightsDeclaration"
+	BundleIdsGetInstanceParamsFieldsAppsCustomerReviewSummarizations           BundleIdsGetInstanceParamsFieldsApps = "customerReviewSummarizations"
+	BundleIdsGetInstanceParamsFieldsAppsCustomerReviews                        BundleIdsGetInstanceParamsFieldsApps = "customerReviews"
+	BundleIdsGetInstanceParamsFieldsAppsEndUserLicenseAgreement                BundleIdsGetInstanceParamsFieldsApps = "endUserLicenseAgreement"
+	BundleIdsGetInstanceParamsFieldsAppsGameCenterDetail                       BundleIdsGetInstanceParamsFieldsApps = "gameCenterDetail"
+	BundleIdsGetInstanceParamsFieldsAppsGameCenterEnabledVersions              BundleIdsGetInstanceParamsFieldsApps = "gameCenterEnabledVersions"
+	BundleIdsGetInstanceParamsFieldsAppsInAppPurchases                         BundleIdsGetInstanceParamsFieldsApps = "inAppPurchases"
+	BundleIdsGetInstanceParamsFieldsAppsInAppPurchasesV2                       BundleIdsGetInstanceParamsFieldsApps = "inAppPurchasesV2"
+	BundleIdsGetInstanceParamsFieldsAppsIsOrEverWasMadeForKids                 BundleIdsGetInstanceParamsFieldsApps = "isOrEverWasMadeForKids"
+	BundleIdsGetInstanceParamsFieldsAppsMarketplaceSearchDetail                BundleIdsGetInstanceParamsFieldsApps = "marketplaceSearchDetail"
+	BundleIdsGetInstanceParamsFieldsAppsName                                   BundleIdsGetInstanceParamsFieldsApps = "name"
+	BundleIdsGetInstanceParamsFieldsAppsPerfPowerMetrics                       BundleIdsGetInstanceParamsFieldsApps = "perfPowerMetrics"
+	BundleIdsGetInstanceParamsFieldsAppsPreReleaseVersions                     BundleIdsGetInstanceParamsFieldsApps = "preReleaseVersions"
+	BundleIdsGetInstanceParamsFieldsAppsPrimaryLocale                          BundleIdsGetInstanceParamsFieldsApps = "primaryLocale"
+	BundleIdsGetInstanceParamsFieldsAppsPromotedPurchases                      BundleIdsGetInstanceParamsFieldsApps = "promotedPurchases"
+	BundleIdsGetInstanceParamsFieldsAppsReviewSubmissions                      BundleIdsGetInstanceParamsFieldsApps = "reviewSubmissions"
+	BundleIdsGetInstanceParamsFieldsAppsSearchKeywords                         BundleIdsGetInstanceParamsFieldsApps = "searchKeywords"
+	BundleIdsGetInstanceParamsFieldsAppsSku                                    BundleIdsGetInstanceParamsFieldsApps = "sku"
+	BundleIdsGetInstanceParamsFieldsAppsStreamlinedPurchasingEnabled           BundleIdsGetInstanceParamsFieldsApps = "streamlinedPurchasingEnabled"
+	BundleIdsGetInstanceParamsFieldsAppsSubscriptionGracePeriod                BundleIdsGetInstanceParamsFieldsApps = "subscriptionGracePeriod"
+	BundleIdsGetInstanceParamsFieldsAppsSubscriptionGroups                     BundleIdsGetInstanceParamsFieldsApps = "subscriptionGroups"
+	BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrl                  BundleIdsGetInstanceParamsFieldsApps = "subscriptionStatusUrl"
+	BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrlForSandbox        BundleIdsGetInstanceParamsFieldsApps = "subscriptionStatusUrlForSandbox"
+	BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrlVersion           BundleIdsGetInstanceParamsFieldsApps = "subscriptionStatusUrlVersion"
+	BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox BundleIdsGetInstanceParamsFieldsApps = "subscriptionStatusUrlVersionForSandbox"
+	BundleIdsGetInstanceParamsFieldsAppsWebhooks                               BundleIdsGetInstanceParamsFieldsApps = "webhooks"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetInstanceParamsFieldsApps enum.
+func (e BundleIdsGetInstanceParamsFieldsApps) Valid() bool {
+	switch e {
+	case BundleIdsGetInstanceParamsFieldsAppsAccessibilityDeclarations:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAccessibilityUrl:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAlternativeDistributionKey:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAnalyticsReportRequests:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAndroidToIosAppMappingDetails:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppAvailabilityV2:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppClips:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppCustomProductPages:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppEncryptionDeclarations:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppEvents:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppInfos:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppPricePoints:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppPriceSchedule:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppStoreIcon:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppStoreVersionExperimentsV2:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppStoreVersions:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsAppTags:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBackgroundAssets:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBetaAppLocalizations:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBetaAppReviewDetail:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBetaFeedbackCrashSubmissions:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBetaFeedbackScreenshotSubmissions:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBetaGroups:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBetaLicenseAgreement:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBetaTesters:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBuildUploads:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBuilds:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsBundleId:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsCiProduct:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsContentRightsDeclaration:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsCustomerReviewSummarizations:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsCustomerReviews:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsEndUserLicenseAgreement:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsGameCenterDetail:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsGameCenterEnabledVersions:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsInAppPurchases:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsInAppPurchasesV2:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsIsOrEverWasMadeForKids:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsMarketplaceSearchDetail:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsName:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsPerfPowerMetrics:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsPreReleaseVersions:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsPrimaryLocale:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsPromotedPurchases:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsReviewSubmissions:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSearchKeywords:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSku:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsStreamlinedPurchasingEnabled:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSubscriptionGracePeriod:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSubscriptionGroups:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrl:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrlForSandbox:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrlVersion:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsSubscriptionStatusUrlVersionForSandbox:
+		return true
+	case BundleIdsGetInstanceParamsFieldsAppsWebhooks:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BundleIdsGetInstanceParamsInclude.
+const (
+	BundleIdsGetInstanceParamsIncludeApp                  BundleIdsGetInstanceParamsInclude = "app"
+	BundleIdsGetInstanceParamsIncludeBundleIdCapabilities BundleIdsGetInstanceParamsInclude = "bundleIdCapabilities"
+	BundleIdsGetInstanceParamsIncludeProfiles             BundleIdsGetInstanceParamsInclude = "profiles"
+)
+
+// Valid indicates whether the value is a known member of the BundleIdsGetInstanceParamsInclude enum.
+func (e BundleIdsGetInstanceParamsInclude) Valid() bool {
+	switch e {
+	case BundleIdsGetInstanceParamsIncludeApp:
+		return true
+	case BundleIdsGetInstanceParamsIncludeBundleIdCapabilities:
+		return true
+	case BundleIdsGetInstanceParamsIncludeProfiles:
 		return true
 	default:
 		return false
@@ -804,31 +1819,31 @@ func (e DevicesGetCollectionParamsSort) Valid() bool {
 
 // Defines values for DevicesGetCollectionParamsFieldsDevices.
 const (
-	DevicesGetCollectionParamsFieldsDevicesAddedDate   DevicesGetCollectionParamsFieldsDevices = "addedDate"
-	DevicesGetCollectionParamsFieldsDevicesDeviceClass DevicesGetCollectionParamsFieldsDevices = "deviceClass"
-	DevicesGetCollectionParamsFieldsDevicesModel       DevicesGetCollectionParamsFieldsDevices = "model"
-	DevicesGetCollectionParamsFieldsDevicesName        DevicesGetCollectionParamsFieldsDevices = "name"
-	DevicesGetCollectionParamsFieldsDevicesPlatform    DevicesGetCollectionParamsFieldsDevices = "platform"
-	DevicesGetCollectionParamsFieldsDevicesStatus      DevicesGetCollectionParamsFieldsDevices = "status"
-	DevicesGetCollectionParamsFieldsDevicesUdid        DevicesGetCollectionParamsFieldsDevices = "udid"
+	DevicesGetCollectionParamsFieldsDevicesFieldAddedDate   DevicesGetCollectionParamsFieldsDevices = "addedDate"
+	DevicesGetCollectionParamsFieldsDevicesFieldDeviceClass DevicesGetCollectionParamsFieldsDevices = "deviceClass"
+	DevicesGetCollectionParamsFieldsDevicesFieldModel       DevicesGetCollectionParamsFieldsDevices = "model"
+	DevicesGetCollectionParamsFieldsDevicesFieldName        DevicesGetCollectionParamsFieldsDevices = "name"
+	DevicesGetCollectionParamsFieldsDevicesFieldPlatform    DevicesGetCollectionParamsFieldsDevices = "platform"
+	DevicesGetCollectionParamsFieldsDevicesFieldStatus      DevicesGetCollectionParamsFieldsDevices = "status"
+	DevicesGetCollectionParamsFieldsDevicesFieldUdid        DevicesGetCollectionParamsFieldsDevices = "udid"
 )
 
 // Valid indicates whether the value is a known member of the DevicesGetCollectionParamsFieldsDevices enum.
 func (e DevicesGetCollectionParamsFieldsDevices) Valid() bool {
 	switch e {
-	case DevicesGetCollectionParamsFieldsDevicesAddedDate:
+	case DevicesGetCollectionParamsFieldsDevicesFieldAddedDate:
 		return true
-	case DevicesGetCollectionParamsFieldsDevicesDeviceClass:
+	case DevicesGetCollectionParamsFieldsDevicesFieldDeviceClass:
 		return true
-	case DevicesGetCollectionParamsFieldsDevicesModel:
+	case DevicesGetCollectionParamsFieldsDevicesFieldModel:
 		return true
-	case DevicesGetCollectionParamsFieldsDevicesName:
+	case DevicesGetCollectionParamsFieldsDevicesFieldName:
 		return true
-	case DevicesGetCollectionParamsFieldsDevicesPlatform:
+	case DevicesGetCollectionParamsFieldsDevicesFieldPlatform:
 		return true
-	case DevicesGetCollectionParamsFieldsDevicesStatus:
+	case DevicesGetCollectionParamsFieldsDevicesFieldStatus:
 		return true
-	case DevicesGetCollectionParamsFieldsDevicesUdid:
+	case DevicesGetCollectionParamsFieldsDevicesFieldUdid:
 		return true
 	default:
 		return false
@@ -837,31 +1852,31 @@ func (e DevicesGetCollectionParamsFieldsDevices) Valid() bool {
 
 // Defines values for DevicesGetInstanceParamsFieldsDevices.
 const (
-	FieldAddedDate   DevicesGetInstanceParamsFieldsDevices = "addedDate"
-	FieldDeviceClass DevicesGetInstanceParamsFieldsDevices = "deviceClass"
-	FieldModel       DevicesGetInstanceParamsFieldsDevices = "model"
-	FieldName        DevicesGetInstanceParamsFieldsDevices = "name"
-	FieldPlatform    DevicesGetInstanceParamsFieldsDevices = "platform"
-	FieldStatus      DevicesGetInstanceParamsFieldsDevices = "status"
-	FieldUdid        DevicesGetInstanceParamsFieldsDevices = "udid"
+	DevicesGetInstanceParamsFieldsDevicesFieldAddedDate   DevicesGetInstanceParamsFieldsDevices = "addedDate"
+	DevicesGetInstanceParamsFieldsDevicesFieldDeviceClass DevicesGetInstanceParamsFieldsDevices = "deviceClass"
+	DevicesGetInstanceParamsFieldsDevicesFieldModel       DevicesGetInstanceParamsFieldsDevices = "model"
+	DevicesGetInstanceParamsFieldsDevicesFieldName        DevicesGetInstanceParamsFieldsDevices = "name"
+	DevicesGetInstanceParamsFieldsDevicesFieldPlatform    DevicesGetInstanceParamsFieldsDevices = "platform"
+	DevicesGetInstanceParamsFieldsDevicesFieldStatus      DevicesGetInstanceParamsFieldsDevices = "status"
+	DevicesGetInstanceParamsFieldsDevicesFieldUdid        DevicesGetInstanceParamsFieldsDevices = "udid"
 )
 
 // Valid indicates whether the value is a known member of the DevicesGetInstanceParamsFieldsDevices enum.
 func (e DevicesGetInstanceParamsFieldsDevices) Valid() bool {
 	switch e {
-	case FieldAddedDate:
+	case DevicesGetInstanceParamsFieldsDevicesFieldAddedDate:
 		return true
-	case FieldDeviceClass:
+	case DevicesGetInstanceParamsFieldsDevicesFieldDeviceClass:
 		return true
-	case FieldModel:
+	case DevicesGetInstanceParamsFieldsDevicesFieldModel:
 		return true
-	case FieldName:
+	case DevicesGetInstanceParamsFieldsDevicesFieldName:
 		return true
-	case FieldPlatform:
+	case DevicesGetInstanceParamsFieldsDevicesFieldPlatform:
 		return true
-	case FieldStatus:
+	case DevicesGetInstanceParamsFieldsDevicesFieldStatus:
 		return true
-	case FieldUdid:
+	case DevicesGetInstanceParamsFieldsDevicesFieldUdid:
 		return true
 	default:
 		return false
@@ -2275,8 +3290,161 @@ type AppRelationshipsSubscriptionGroupsDataType string
 // AppType defines model for App.Type.
 type AppType string
 
+// BundleId defines model for BundleId.
+type BundleId struct {
+	Attributes *struct {
+		Identifier *string           `json:"identifier,omitempty"`
+		Name       *string           `json:"name,omitempty"`
+		Platform   *BundleIdPlatform `json:"platform,omitempty"`
+		SeedId     *string           `json:"seedId,omitempty"`
+	} `json:"attributes,omitempty"`
+	Id            string         `json:"id"`
+	Links         *ResourceLinks `json:"links,omitempty"`
+	Relationships *struct {
+		App *struct {
+			Data *struct {
+				Id   string                           `json:"id"`
+				Type BundleIdRelationshipsAppDataType `json:"type"`
+			} `json:"data,omitempty"`
+			Links *RelationshipLinks `json:"links,omitempty"`
+		} `json:"app,omitempty"`
+		BundleIdCapabilities *struct {
+			Data *[]struct {
+				Id   string                                            `json:"id"`
+				Type BundleIdRelationshipsBundleIdCapabilitiesDataType `json:"type"`
+			} `json:"data,omitempty"`
+			Links *RelationshipLinks `json:"links,omitempty"`
+			Meta  *PagingInformation `json:"meta,omitempty"`
+		} `json:"bundleIdCapabilities,omitempty"`
+		Profiles *struct {
+			Data *[]struct {
+				Id   string                                `json:"id"`
+				Type BundleIdRelationshipsProfilesDataType `json:"type"`
+			} `json:"data,omitempty"`
+			Links *RelationshipLinks `json:"links,omitempty"`
+			Meta  *PagingInformation `json:"meta,omitempty"`
+		} `json:"profiles,omitempty"`
+	} `json:"relationships,omitempty"`
+	Type BundleIdType `json:"type"`
+}
+
+// BundleIdRelationshipsAppDataType defines model for BundleId.Relationships.App.Data.Type.
+type BundleIdRelationshipsAppDataType string
+
+// BundleIdRelationshipsBundleIdCapabilitiesDataType defines model for BundleId.Relationships.BundleIdCapabilities.Data.Type.
+type BundleIdRelationshipsBundleIdCapabilitiesDataType string
+
+// BundleIdRelationshipsProfilesDataType defines model for BundleId.Relationships.Profiles.Data.Type.
+type BundleIdRelationshipsProfilesDataType string
+
+// BundleIdType defines model for BundleId.Type.
+type BundleIdType string
+
+// BundleIdCapability defines model for BundleIdCapability.
+type BundleIdCapability struct {
+	Attributes *struct {
+		CapabilityType *CapabilityType      `json:"capabilityType,omitempty"`
+		Settings       *[]CapabilitySetting `json:"settings,omitempty"`
+	} `json:"attributes,omitempty"`
+	Id    string                 `json:"id"`
+	Links *ResourceLinks         `json:"links,omitempty"`
+	Type  BundleIdCapabilityType `json:"type"`
+}
+
+// BundleIdCapabilityType defines model for BundleIdCapability.Type.
+type BundleIdCapabilityType string
+
+// BundleIdCreateRequest defines model for BundleIdCreateRequest.
+type BundleIdCreateRequest struct {
+	Data struct {
+		Attributes struct {
+			Identifier string           `json:"identifier"`
+			Name       string           `json:"name"`
+			Platform   BundleIdPlatform `json:"platform"`
+			SeedId     *string          `json:"seedId,omitempty"`
+		} `json:"attributes"`
+		Type BundleIdCreateRequestDataType `json:"type"`
+	} `json:"data"`
+}
+
+// BundleIdCreateRequestDataType defines model for BundleIdCreateRequest.Data.Type.
+type BundleIdCreateRequestDataType string
+
 // BundleIdPlatform defines model for BundleIdPlatform.
 type BundleIdPlatform string
+
+// BundleIdResponse defines model for BundleIdResponse.
+type BundleIdResponse struct {
+	Data     BundleId                          `json:"data"`
+	Included *[]BundleIdResponse_Included_Item `json:"included,omitempty"`
+	Links    DocumentLinks                     `json:"links"`
+}
+
+// BundleIdResponse_Included_Item defines model for BundleIdResponse.included.Item.
+type BundleIdResponse_Included_Item struct {
+	union json.RawMessage
+}
+
+// BundleIdUpdateRequest defines model for BundleIdUpdateRequest.
+type BundleIdUpdateRequest struct {
+	Data struct {
+		Attributes *struct {
+			Name *string `json:"name,omitempty"`
+		} `json:"attributes,omitempty"`
+		Id   string                        `json:"id"`
+		Type BundleIdUpdateRequestDataType `json:"type"`
+	} `json:"data"`
+}
+
+// BundleIdUpdateRequestDataType defines model for BundleIdUpdateRequest.Data.Type.
+type BundleIdUpdateRequestDataType string
+
+// BundleIdsResponse defines model for BundleIdsResponse.
+type BundleIdsResponse struct {
+	Data     []BundleId                         `json:"data"`
+	Included *[]BundleIdsResponse_Included_Item `json:"included,omitempty"`
+	Links    PagedDocumentLinks                 `json:"links"`
+	Meta     *PagingInformation                 `json:"meta,omitempty"`
+}
+
+// BundleIdsResponse_Included_Item defines model for BundleIdsResponse.included.Item.
+type BundleIdsResponse_Included_Item struct {
+	union json.RawMessage
+}
+
+// CapabilityOption defines model for CapabilityOption.
+type CapabilityOption struct {
+	Description      *string              `json:"description,omitempty"`
+	Enabled          *bool                `json:"enabled,omitempty"`
+	EnabledByDefault *bool                `json:"enabledByDefault,omitempty"`
+	Key              *CapabilityOptionKey `json:"key,omitempty"`
+	Name             *string              `json:"name,omitempty"`
+	SupportsWildcard *bool                `json:"supportsWildcard,omitempty"`
+}
+
+// CapabilityOptionKey defines model for CapabilityOption.Key.
+type CapabilityOptionKey string
+
+// CapabilitySetting defines model for CapabilitySetting.
+type CapabilitySetting struct {
+	AllowedInstances *CapabilitySettingAllowedInstances `json:"allowedInstances,omitempty"`
+	Description      *string                            `json:"description,omitempty"`
+	EnabledByDefault *bool                              `json:"enabledByDefault,omitempty"`
+	Key              *CapabilitySettingKey              `json:"key,omitempty"`
+	MinInstances     *int                               `json:"minInstances,omitempty"`
+	Name             *string                            `json:"name,omitempty"`
+	Options          *[]CapabilityOption                `json:"options,omitempty"`
+	Visible          *bool                              `json:"visible,omitempty"`
+}
+
+// CapabilitySettingAllowedInstances defines model for CapabilitySetting.AllowedInstances.
+type CapabilitySettingAllowedInstances string
+
+// CapabilitySettingKey defines model for CapabilitySetting.Key.
+type CapabilitySettingKey string
+
+// CapabilityType defines model for CapabilityType.
+type CapabilityType string
 
 // Device defines model for Device.
 type Device struct {
@@ -2437,6 +3605,66 @@ type PagingInformation struct {
 		Total      *int    `json:"total,omitempty"`
 	} `json:"paging"`
 }
+
+// Profile defines model for Profile.
+type Profile struct {
+	Attributes *struct {
+		CreatedDate    *time.Time                     `json:"createdDate,omitempty"`
+		ExpirationDate *time.Time                     `json:"expirationDate,omitempty"`
+		Name           *string                        `json:"name,omitempty"`
+		Platform       *BundleIdPlatform              `json:"platform,omitempty"`
+		ProfileContent *string                        `json:"profileContent,omitempty"`
+		ProfileState   *ProfileAttributesProfileState `json:"profileState,omitempty"`
+		ProfileType    *ProfileAttributesProfileType  `json:"profileType,omitempty"`
+		Uuid           *string                        `json:"uuid,omitempty"`
+	} `json:"attributes,omitempty"`
+	Id            string         `json:"id"`
+	Links         *ResourceLinks `json:"links,omitempty"`
+	Relationships *struct {
+		BundleId *struct {
+			Data *struct {
+				Id   string                               `json:"id"`
+				Type ProfileRelationshipsBundleIdDataType `json:"type"`
+			} `json:"data,omitempty"`
+			Links *RelationshipLinks `json:"links,omitempty"`
+		} `json:"bundleId,omitempty"`
+		Certificates *struct {
+			Data *[]struct {
+				Id   string                                   `json:"id"`
+				Type ProfileRelationshipsCertificatesDataType `json:"type"`
+			} `json:"data,omitempty"`
+			Links *RelationshipLinks `json:"links,omitempty"`
+			Meta  *PagingInformation `json:"meta,omitempty"`
+		} `json:"certificates,omitempty"`
+		Devices *struct {
+			Data *[]struct {
+				Id   string                              `json:"id"`
+				Type ProfileRelationshipsDevicesDataType `json:"type"`
+			} `json:"data,omitempty"`
+			Links *RelationshipLinks `json:"links,omitempty"`
+			Meta  *PagingInformation `json:"meta,omitempty"`
+		} `json:"devices,omitempty"`
+	} `json:"relationships,omitempty"`
+	Type ProfileType `json:"type"`
+}
+
+// ProfileAttributesProfileState defines model for Profile.Attributes.ProfileState.
+type ProfileAttributesProfileState string
+
+// ProfileAttributesProfileType defines model for Profile.Attributes.ProfileType.
+type ProfileAttributesProfileType string
+
+// ProfileRelationshipsBundleIdDataType defines model for Profile.Relationships.BundleId.Data.Type.
+type ProfileRelationshipsBundleIdDataType string
+
+// ProfileRelationshipsCertificatesDataType defines model for Profile.Relationships.Certificates.Data.Type.
+type ProfileRelationshipsCertificatesDataType string
+
+// ProfileRelationshipsDevicesDataType defines model for Profile.Relationships.Devices.Data.Type.
+type ProfileRelationshipsDevicesDataType string
+
+// ProfileType defines model for Profile.Type.
+type ProfileType string
 
 // RelationshipLinks defines model for RelationshipLinks.
 type RelationshipLinks struct {
@@ -2611,13 +3839,115 @@ type UsersResponse struct {
 // itcBearerTokenContextKey is the context key for itc-bearer-token security scheme
 type itcBearerTokenContextKey string
 
+// BundleIdsGetCollectionParams defines parameters for BundleIdsGetCollection.
+type BundleIdsGetCollectionParams struct {
+	// FilterName filter by attribute 'name'
+	FilterName *[]string `form:"filter[name],omitempty" json:"filter[name],omitempty"`
+
+	// FilterPlatform filter by attribute 'platform'
+	FilterPlatform *[]BundleIdPlatform `form:"filter[platform],omitempty" json:"filter[platform],omitempty"`
+
+	// FilterIdentifier filter by attribute 'identifier'
+	FilterIdentifier *[]string `form:"filter[identifier],omitempty" json:"filter[identifier],omitempty"`
+
+	// FilterSeedId filter by attribute 'seedId'
+	FilterSeedId *[]string `form:"filter[seedId],omitempty" json:"filter[seedId],omitempty"`
+
+	// FilterId filter by id(s)
+	FilterId *[]string `form:"filter[id],omitempty" json:"filter[id],omitempty"`
+
+	// Sort comma-separated list of sort expressions; resources will be sorted as specified
+	Sort *[]BundleIdsGetCollectionParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
+
+	// FieldsBundleIds the fields to include for returned resources of type bundleIds
+	FieldsBundleIds *[]BundleIdsGetCollectionParamsFieldsBundleIds `form:"fields[bundleIds],omitempty" json:"fields[bundleIds],omitempty"`
+
+	// FieldsProfiles the fields to include for returned resources of type profiles
+	FieldsProfiles *[]BundleIdsGetCollectionParamsFieldsProfiles `form:"fields[profiles],omitempty" json:"fields[profiles],omitempty"`
+
+	// FieldsBundleIdCapabilities the fields to include for returned resources of type bundleIdCapabilities
+	FieldsBundleIdCapabilities *[]BundleIdsGetCollectionParamsFieldsBundleIdCapabilities `form:"fields[bundleIdCapabilities],omitempty" json:"fields[bundleIdCapabilities],omitempty"`
+
+	// FieldsApps the fields to include for returned resources of type apps
+	FieldsApps *[]BundleIdsGetCollectionParamsFieldsApps `form:"fields[apps],omitempty" json:"fields[apps],omitempty"`
+
+	// Limit maximum resources per page
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Include comma-separated list of relationships to include
+	Include *[]BundleIdsGetCollectionParamsInclude `form:"include,omitempty" json:"include,omitempty"`
+
+	// LimitBundleIdCapabilities maximum number of related bundleIdCapabilities returned (when they are included)
+	LimitBundleIdCapabilities *int `form:"limit[bundleIdCapabilities],omitempty" json:"limit[bundleIdCapabilities],omitempty"`
+
+	// LimitProfiles maximum number of related profiles returned (when they are included)
+	LimitProfiles *int `form:"limit[profiles],omitempty" json:"limit[profiles],omitempty"`
+}
+
+// BundleIdsGetCollectionParamsSort defines parameters for BundleIdsGetCollection.
+type BundleIdsGetCollectionParamsSort string
+
+// BundleIdsGetCollectionParamsFieldsBundleIds defines parameters for BundleIdsGetCollection.
+type BundleIdsGetCollectionParamsFieldsBundleIds string
+
+// BundleIdsGetCollectionParamsFieldsProfiles defines parameters for BundleIdsGetCollection.
+type BundleIdsGetCollectionParamsFieldsProfiles string
+
+// BundleIdsGetCollectionParamsFieldsBundleIdCapabilities defines parameters for BundleIdsGetCollection.
+type BundleIdsGetCollectionParamsFieldsBundleIdCapabilities string
+
+// BundleIdsGetCollectionParamsFieldsApps defines parameters for BundleIdsGetCollection.
+type BundleIdsGetCollectionParamsFieldsApps string
+
+// BundleIdsGetCollectionParamsInclude defines parameters for BundleIdsGetCollection.
+type BundleIdsGetCollectionParamsInclude string
+
+// BundleIdsGetInstanceParams defines parameters for BundleIdsGetInstance.
+type BundleIdsGetInstanceParams struct {
+	// FieldsBundleIds the fields to include for returned resources of type bundleIds
+	FieldsBundleIds *[]BundleIdsGetInstanceParamsFieldsBundleIds `form:"fields[bundleIds],omitempty" json:"fields[bundleIds],omitempty"`
+
+	// FieldsProfiles the fields to include for returned resources of type profiles
+	FieldsProfiles *[]BundleIdsGetInstanceParamsFieldsProfiles `form:"fields[profiles],omitempty" json:"fields[profiles],omitempty"`
+
+	// FieldsBundleIdCapabilities the fields to include for returned resources of type bundleIdCapabilities
+	FieldsBundleIdCapabilities *[]BundleIdsGetInstanceParamsFieldsBundleIdCapabilities `form:"fields[bundleIdCapabilities],omitempty" json:"fields[bundleIdCapabilities],omitempty"`
+
+	// FieldsApps the fields to include for returned resources of type apps
+	FieldsApps *[]BundleIdsGetInstanceParamsFieldsApps `form:"fields[apps],omitempty" json:"fields[apps],omitempty"`
+
+	// Include comma-separated list of relationships to include
+	Include *[]BundleIdsGetInstanceParamsInclude `form:"include,omitempty" json:"include,omitempty"`
+
+	// LimitBundleIdCapabilities maximum number of related bundleIdCapabilities returned (when they are included)
+	LimitBundleIdCapabilities *int `form:"limit[bundleIdCapabilities],omitempty" json:"limit[bundleIdCapabilities],omitempty"`
+
+	// LimitProfiles maximum number of related profiles returned (when they are included)
+	LimitProfiles *int `form:"limit[profiles],omitempty" json:"limit[profiles],omitempty"`
+}
+
+// BundleIdsGetInstanceParamsFieldsBundleIds defines parameters for BundleIdsGetInstance.
+type BundleIdsGetInstanceParamsFieldsBundleIds string
+
+// BundleIdsGetInstanceParamsFieldsProfiles defines parameters for BundleIdsGetInstance.
+type BundleIdsGetInstanceParamsFieldsProfiles string
+
+// BundleIdsGetInstanceParamsFieldsBundleIdCapabilities defines parameters for BundleIdsGetInstance.
+type BundleIdsGetInstanceParamsFieldsBundleIdCapabilities string
+
+// BundleIdsGetInstanceParamsFieldsApps defines parameters for BundleIdsGetInstance.
+type BundleIdsGetInstanceParamsFieldsApps string
+
+// BundleIdsGetInstanceParamsInclude defines parameters for BundleIdsGetInstance.
+type BundleIdsGetInstanceParamsInclude string
+
 // DevicesGetCollectionParams defines parameters for DevicesGetCollection.
 type DevicesGetCollectionParams struct {
 	// FilterName filter by attribute 'name'
 	FilterName *[]string `form:"filter[name],omitempty" json:"filter[name],omitempty"`
 
 	// FilterPlatform filter by attribute 'platform'
-	FilterPlatform *[]DevicesGetCollectionParamsFilterPlatform `form:"filter[platform],omitempty" json:"filter[platform],omitempty"`
+	FilterPlatform *[]BundleIdPlatform `form:"filter[platform],omitempty" json:"filter[platform],omitempty"`
 
 	// FilterUdid filter by attribute 'udid'
 	FilterUdid *[]string `form:"filter[udid],omitempty" json:"filter[udid],omitempty"`
@@ -2637,9 +3967,6 @@ type DevicesGetCollectionParams struct {
 	// Limit maximum resources per page
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 }
-
-// DevicesGetCollectionParamsFilterPlatform defines parameters for DevicesGetCollection.
-type DevicesGetCollectionParamsFilterPlatform string
 
 // DevicesGetCollectionParamsFilterStatus defines parameters for DevicesGetCollection.
 type DevicesGetCollectionParamsFilterStatus string
@@ -2797,6 +4124,12 @@ type UsersGetInstanceParamsFieldsApps string
 // UsersGetInstanceParamsInclude defines parameters for UsersGetInstance.
 type UsersGetInstanceParamsInclude string
 
+// BundleIdsCreateInstanceJSONRequestBody defines body for BundleIdsCreateInstance for application/json ContentType.
+type BundleIdsCreateInstanceJSONRequestBody = BundleIdCreateRequest
+
+// BundleIdsUpdateInstanceJSONRequestBody defines body for BundleIdsUpdateInstance for application/json ContentType.
+type BundleIdsUpdateInstanceJSONRequestBody = BundleIdUpdateRequest
+
 // DevicesCreateInstanceJSONRequestBody defines body for DevicesCreateInstance for application/json ContentType.
 type DevicesCreateInstanceJSONRequestBody = DeviceCreateRequest
 
@@ -2808,6 +4141,244 @@ type UserInvitationsCreateInstanceJSONRequestBody = UserInvitationCreateRequest
 
 // UsersUpdateInstanceJSONRequestBody defines body for UsersUpdateInstance for application/json ContentType.
 type UsersUpdateInstanceJSONRequestBody = UserUpdateRequest
+
+// AsApp returns the union data inside the BundleIdResponse_Included_Item as a App
+func (t BundleIdResponse_Included_Item) AsApp() (App, error) {
+	var body App
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromApp overwrites any union data inside the BundleIdResponse_Included_Item as the provided App
+func (t *BundleIdResponse_Included_Item) FromApp(v App) error {
+	v.Type = "apps"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeApp performs a merge with any union data inside the BundleIdResponse_Included_Item, using the provided App
+func (t *BundleIdResponse_Included_Item) MergeApp(v App) error {
+	v.Type = "apps"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBundleIdCapability returns the union data inside the BundleIdResponse_Included_Item as a BundleIdCapability
+func (t BundleIdResponse_Included_Item) AsBundleIdCapability() (BundleIdCapability, error) {
+	var body BundleIdCapability
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBundleIdCapability overwrites any union data inside the BundleIdResponse_Included_Item as the provided BundleIdCapability
+func (t *BundleIdResponse_Included_Item) FromBundleIdCapability(v BundleIdCapability) error {
+	v.Type = "bundleIdCapabilities"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBundleIdCapability performs a merge with any union data inside the BundleIdResponse_Included_Item, using the provided BundleIdCapability
+func (t *BundleIdResponse_Included_Item) MergeBundleIdCapability(v BundleIdCapability) error {
+	v.Type = "bundleIdCapabilities"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsProfile returns the union data inside the BundleIdResponse_Included_Item as a Profile
+func (t BundleIdResponse_Included_Item) AsProfile() (Profile, error) {
+	var body Profile
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromProfile overwrites any union data inside the BundleIdResponse_Included_Item as the provided Profile
+func (t *BundleIdResponse_Included_Item) FromProfile(v Profile) error {
+	v.Type = "profiles"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeProfile performs a merge with any union data inside the BundleIdResponse_Included_Item, using the provided Profile
+func (t *BundleIdResponse_Included_Item) MergeProfile(v Profile) error {
+	v.Type = "profiles"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t BundleIdResponse_Included_Item) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t BundleIdResponse_Included_Item) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "apps":
+		return t.AsApp()
+	case "bundleIdCapabilities":
+		return t.AsBundleIdCapability()
+	case "profiles":
+		return t.AsProfile()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t BundleIdResponse_Included_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *BundleIdResponse_Included_Item) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsApp returns the union data inside the BundleIdsResponse_Included_Item as a App
+func (t BundleIdsResponse_Included_Item) AsApp() (App, error) {
+	var body App
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromApp overwrites any union data inside the BundleIdsResponse_Included_Item as the provided App
+func (t *BundleIdsResponse_Included_Item) FromApp(v App) error {
+	v.Type = "apps"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeApp performs a merge with any union data inside the BundleIdsResponse_Included_Item, using the provided App
+func (t *BundleIdsResponse_Included_Item) MergeApp(v App) error {
+	v.Type = "apps"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBundleIdCapability returns the union data inside the BundleIdsResponse_Included_Item as a BundleIdCapability
+func (t BundleIdsResponse_Included_Item) AsBundleIdCapability() (BundleIdCapability, error) {
+	var body BundleIdCapability
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBundleIdCapability overwrites any union data inside the BundleIdsResponse_Included_Item as the provided BundleIdCapability
+func (t *BundleIdsResponse_Included_Item) FromBundleIdCapability(v BundleIdCapability) error {
+	v.Type = "bundleIdCapabilities"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBundleIdCapability performs a merge with any union data inside the BundleIdsResponse_Included_Item, using the provided BundleIdCapability
+func (t *BundleIdsResponse_Included_Item) MergeBundleIdCapability(v BundleIdCapability) error {
+	v.Type = "bundleIdCapabilities"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsProfile returns the union data inside the BundleIdsResponse_Included_Item as a Profile
+func (t BundleIdsResponse_Included_Item) AsProfile() (Profile, error) {
+	var body Profile
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromProfile overwrites any union data inside the BundleIdsResponse_Included_Item as the provided Profile
+func (t *BundleIdsResponse_Included_Item) FromProfile(v Profile) error {
+	v.Type = "profiles"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeProfile performs a merge with any union data inside the BundleIdsResponse_Included_Item, using the provided Profile
+func (t *BundleIdsResponse_Included_Item) MergeProfile(v Profile) error {
+	v.Type = "profiles"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t BundleIdsResponse_Included_Item) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t BundleIdsResponse_Included_Item) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "apps":
+		return t.AsApp()
+	case "bundleIdCapabilities":
+		return t.AsBundleIdCapability()
+	case "profiles":
+		return t.AsProfile()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t BundleIdsResponse_Included_Item) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *BundleIdsResponse_Included_Item) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
 
 // AsErrorLinksAssociated0 returns the union data inside the ErrorLinks_Associated as a ErrorLinksAssociated0
 func (t ErrorLinks_Associated) AsErrorLinksAssociated0() (ErrorLinksAssociated0, error) {
@@ -3006,6 +4577,25 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// BundleIdsGetCollection request
+	BundleIdsGetCollection(ctx context.Context, params *BundleIdsGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BundleIdsCreateInstanceWithBody request with any body
+	BundleIdsCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	BundleIdsCreateInstance(ctx context.Context, body BundleIdsCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BundleIdsDeleteInstance request
+	BundleIdsDeleteInstance(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BundleIdsGetInstance request
+	BundleIdsGetInstance(ctx context.Context, id string, params *BundleIdsGetInstanceParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BundleIdsUpdateInstanceWithBody request with any body
+	BundleIdsUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	BundleIdsUpdateInstance(ctx context.Context, id string, body BundleIdsUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// DevicesGetCollection request
 	DevicesGetCollection(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -3049,6 +4639,90 @@ type ClientInterface interface {
 	UsersUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UsersUpdateInstance(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) BundleIdsGetCollection(ctx context.Context, params *BundleIdsGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBundleIdsGetCollectionRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BundleIdsCreateInstanceWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBundleIdsCreateInstanceRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BundleIdsCreateInstance(ctx context.Context, body BundleIdsCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBundleIdsCreateInstanceRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BundleIdsDeleteInstance(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBundleIdsDeleteInstanceRequest(c.Server, id)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BundleIdsGetInstance(ctx context.Context, id string, params *BundleIdsGetInstanceParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBundleIdsGetInstanceRequest(c.Server, id, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BundleIdsUpdateInstanceWithBody(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBundleIdsUpdateInstanceRequestWithBody(c.Server, id, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) BundleIdsUpdateInstance(ctx context.Context, id string, body BundleIdsUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBundleIdsUpdateInstanceRequest(c.Server, id, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) DevicesGetCollection(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -3241,6 +4915,470 @@ func (c *Client) UsersUpdateInstance(ctx context.Context, id string, body UsersU
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewBundleIdsGetCollectionRequest generates requests for BundleIdsGetCollection
+func NewBundleIdsGetCollectionRequest(server string, params *BundleIdsGetCollectionParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/bundleIds")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.FilterName != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[name]", *params.FilterName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterPlatform != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[platform]", *params.FilterPlatform, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterIdentifier != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[identifier]", *params.FilterIdentifier, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterSeedId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[seedId]", *params.FilterSeedId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FilterId != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "filter[id]", *params.FilterId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sort != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "sort", *params.Sort, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsBundleIds != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[bundleIds]", *params.FieldsBundleIds, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsProfiles != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[profiles]", *params.FieldsProfiles, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsBundleIdCapabilities != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[bundleIdCapabilities]", *params.FieldsBundleIdCapabilities, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[apps]", *params.FieldsApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Limit != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit", *params.Limit, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Include != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "include", *params.Include, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.LimitBundleIdCapabilities != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit[bundleIdCapabilities]", *params.LimitBundleIdCapabilities, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.LimitProfiles != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit[profiles]", *params.LimitProfiles, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewBundleIdsCreateInstanceRequest calls the generic BundleIdsCreateInstance builder with application/json body
+func NewBundleIdsCreateInstanceRequest(server string, body BundleIdsCreateInstanceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewBundleIdsCreateInstanceRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewBundleIdsCreateInstanceRequestWithBody generates requests for BundleIdsCreateInstance with any type of body
+func NewBundleIdsCreateInstanceRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/bundleIds")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewBundleIdsDeleteInstanceRequest generates requests for BundleIdsDeleteInstance
+func NewBundleIdsDeleteInstanceRequest(server string, id string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/bundleIds/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewBundleIdsGetInstanceRequest generates requests for BundleIdsGetInstance
+func NewBundleIdsGetInstanceRequest(server string, id string, params *BundleIdsGetInstanceParams) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/bundleIds/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.FieldsBundleIds != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[bundleIds]", *params.FieldsBundleIds, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsProfiles != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[profiles]", *params.FieldsProfiles, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsBundleIdCapabilities != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[bundleIdCapabilities]", *params.FieldsBundleIdCapabilities, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.FieldsApps != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "fields[apps]", *params.FieldsApps, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Include != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", false, "include", *params.Include, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "array", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.LimitBundleIdCapabilities != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit[bundleIdCapabilities]", *params.LimitBundleIdCapabilities, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.LimitProfiles != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "limit[profiles]", *params.LimitProfiles, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewBundleIdsUpdateInstanceRequest calls the generic BundleIdsUpdateInstance builder with application/json body
+func NewBundleIdsUpdateInstanceRequest(server string, id string, body BundleIdsUpdateInstanceJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewBundleIdsUpdateInstanceRequestWithBody(server, id, "application/json", bodyReader)
+}
+
+// NewBundleIdsUpdateInstanceRequestWithBody generates requests for BundleIdsUpdateInstance with any type of body
+func NewBundleIdsUpdateInstanceRequestWithBody(server string, id string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "id", id, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/v1/bundleIds/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
 }
 
 // NewDevicesGetCollectionRequest generates requests for DevicesGetCollection
@@ -4221,6 +6359,25 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// BundleIdsGetCollectionWithResponse request
+	BundleIdsGetCollectionWithResponse(ctx context.Context, params *BundleIdsGetCollectionParams, reqEditors ...RequestEditorFn) (*BundleIdsGetCollectionResponse, error)
+
+	// BundleIdsCreateInstanceWithBodyWithResponse request with any body
+	BundleIdsCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BundleIdsCreateInstanceResponse, error)
+
+	BundleIdsCreateInstanceWithResponse(ctx context.Context, body BundleIdsCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*BundleIdsCreateInstanceResponse, error)
+
+	// BundleIdsDeleteInstanceWithResponse request
+	BundleIdsDeleteInstanceWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*BundleIdsDeleteInstanceResponse, error)
+
+	// BundleIdsGetInstanceWithResponse request
+	BundleIdsGetInstanceWithResponse(ctx context.Context, id string, params *BundleIdsGetInstanceParams, reqEditors ...RequestEditorFn) (*BundleIdsGetInstanceResponse, error)
+
+	// BundleIdsUpdateInstanceWithBodyWithResponse request with any body
+	BundleIdsUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BundleIdsUpdateInstanceResponse, error)
+
+	BundleIdsUpdateInstanceWithResponse(ctx context.Context, id string, body BundleIdsUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*BundleIdsUpdateInstanceResponse, error)
+
 	// DevicesGetCollectionWithResponse request
 	DevicesGetCollectionWithResponse(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*DevicesGetCollectionResponse, error)
 
@@ -4264,6 +6421,182 @@ type ClientWithResponsesInterface interface {
 	UsersUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
 
 	UsersUpdateInstanceWithResponse(ctx context.Context, id string, body UsersUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*UsersUpdateInstanceResponse, error)
+}
+
+type BundleIdsGetCollectionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *BundleIdsResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r BundleIdsGetCollectionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BundleIdsGetCollectionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r BundleIdsGetCollectionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type BundleIdsCreateInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON201      *BundleIdResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r BundleIdsCreateInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BundleIdsCreateInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r BundleIdsCreateInstanceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type BundleIdsDeleteInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r BundleIdsDeleteInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BundleIdsDeleteInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r BundleIdsDeleteInstanceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type BundleIdsGetInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *BundleIdResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r BundleIdsGetInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BundleIdsGetInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r BundleIdsGetInstanceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type BundleIdsUpdateInstanceResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *BundleIdResponse
+	JSON400      *ErrorResponse
+	JSON401      *ErrorResponse
+	JSON403      *ErrorResponse
+	JSON404      *ErrorResponse
+	JSON409      *ErrorResponse
+	JSON422      *ErrorResponse
+	JSON429      *ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r BundleIdsUpdateInstanceResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BundleIdsUpdateInstanceResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r BundleIdsUpdateInstanceResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
 }
 
 type DevicesGetCollectionResponse struct {
@@ -4687,6 +7020,67 @@ func (r UsersUpdateInstanceResponse) ContentType() string {
 	return ""
 }
 
+// BundleIdsGetCollectionWithResponse request returning *BundleIdsGetCollectionResponse
+func (c *ClientWithResponses) BundleIdsGetCollectionWithResponse(ctx context.Context, params *BundleIdsGetCollectionParams, reqEditors ...RequestEditorFn) (*BundleIdsGetCollectionResponse, error) {
+	rsp, err := c.BundleIdsGetCollection(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBundleIdsGetCollectionResponse(rsp)
+}
+
+// BundleIdsCreateInstanceWithBodyWithResponse request with arbitrary body returning *BundleIdsCreateInstanceResponse
+func (c *ClientWithResponses) BundleIdsCreateInstanceWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BundleIdsCreateInstanceResponse, error) {
+	rsp, err := c.BundleIdsCreateInstanceWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBundleIdsCreateInstanceResponse(rsp)
+}
+
+func (c *ClientWithResponses) BundleIdsCreateInstanceWithResponse(ctx context.Context, body BundleIdsCreateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*BundleIdsCreateInstanceResponse, error) {
+	rsp, err := c.BundleIdsCreateInstance(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBundleIdsCreateInstanceResponse(rsp)
+}
+
+// BundleIdsDeleteInstanceWithResponse request returning *BundleIdsDeleteInstanceResponse
+func (c *ClientWithResponses) BundleIdsDeleteInstanceWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*BundleIdsDeleteInstanceResponse, error) {
+	rsp, err := c.BundleIdsDeleteInstance(ctx, id, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBundleIdsDeleteInstanceResponse(rsp)
+}
+
+// BundleIdsGetInstanceWithResponse request returning *BundleIdsGetInstanceResponse
+func (c *ClientWithResponses) BundleIdsGetInstanceWithResponse(ctx context.Context, id string, params *BundleIdsGetInstanceParams, reqEditors ...RequestEditorFn) (*BundleIdsGetInstanceResponse, error) {
+	rsp, err := c.BundleIdsGetInstance(ctx, id, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBundleIdsGetInstanceResponse(rsp)
+}
+
+// BundleIdsUpdateInstanceWithBodyWithResponse request with arbitrary body returning *BundleIdsUpdateInstanceResponse
+func (c *ClientWithResponses) BundleIdsUpdateInstanceWithBodyWithResponse(ctx context.Context, id string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BundleIdsUpdateInstanceResponse, error) {
+	rsp, err := c.BundleIdsUpdateInstanceWithBody(ctx, id, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBundleIdsUpdateInstanceResponse(rsp)
+}
+
+func (c *ClientWithResponses) BundleIdsUpdateInstanceWithResponse(ctx context.Context, id string, body BundleIdsUpdateInstanceJSONRequestBody, reqEditors ...RequestEditorFn) (*BundleIdsUpdateInstanceResponse, error) {
+	rsp, err := c.BundleIdsUpdateInstance(ctx, id, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBundleIdsUpdateInstanceResponse(rsp)
+}
+
 // DevicesGetCollectionWithResponse request returning *DevicesGetCollectionResponse
 func (c *ClientWithResponses) DevicesGetCollectionWithResponse(ctx context.Context, params *DevicesGetCollectionParams, reqEditors ...RequestEditorFn) (*DevicesGetCollectionResponse, error) {
 	rsp, err := c.DevicesGetCollection(ctx, params, reqEditors...)
@@ -4825,6 +7219,318 @@ func (c *ClientWithResponses) UsersUpdateInstanceWithResponse(ctx context.Contex
 		return nil, err
 	}
 	return ParseUsersUpdateInstanceResponse(rsp)
+}
+
+// ParseBundleIdsGetCollectionResponse parses an HTTP response from a BundleIdsGetCollectionWithResponse call
+func ParseBundleIdsGetCollectionResponse(rsp *http.Response) (*BundleIdsGetCollectionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BundleIdsGetCollectionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest BundleIdsResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseBundleIdsCreateInstanceResponse parses an HTTP response from a BundleIdsCreateInstanceWithResponse call
+func ParseBundleIdsCreateInstanceResponse(rsp *http.Response) (*BundleIdsCreateInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BundleIdsCreateInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest BundleIdResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseBundleIdsDeleteInstanceResponse parses an HTTP response from a BundleIdsDeleteInstanceWithResponse call
+func ParseBundleIdsDeleteInstanceResponse(rsp *http.Response) (*BundleIdsDeleteInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BundleIdsDeleteInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseBundleIdsGetInstanceResponse parses an HTTP response from a BundleIdsGetInstanceWithResponse call
+func ParseBundleIdsGetInstanceResponse(rsp *http.Response) (*BundleIdsGetInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BundleIdsGetInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest BundleIdResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseBundleIdsUpdateInstanceResponse parses an HTTP response from a BundleIdsUpdateInstanceWithResponse call
+func ParseBundleIdsUpdateInstanceResponse(rsp *http.Response) (*BundleIdsUpdateInstanceResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BundleIdsUpdateInstanceResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest BundleIdResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 403:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON403 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON409 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 429:
+		var dest ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON429 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParseDevicesGetCollectionResponse parses an HTTP response from a DevicesGetCollectionWithResponse call

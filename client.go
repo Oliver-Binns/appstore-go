@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/oliver-binns/appstore-go/authorization"
+	"github.com/oliver-binns/appstore-go/bundleids"
 	"github.com/oliver-binns/appstore-go/devices"
 	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/oliver-binns/appstore-go/users"
@@ -71,6 +72,26 @@ func (c *Client) RegisterDevice(ctx context.Context, device devices.Device) (*de
 
 func (c *Client) ModifyDevice(ctx context.Context, id string, device devices.Device) (*devices.Device, error) {
 	return devices.Modify(*c.client, ctx, c.baseURL, id, device)
+}
+
+func (c *Client) GetBundleID(ctx context.Context, id string) (*bundleids.BundleID, error) {
+	return bundleids.Get(*c.client, ctx, c.baseURL, id)
+}
+
+func (c *Client) FindBundleIDByIdentifier(ctx context.Context, identifier string) (*bundleids.BundleID, error) {
+	return bundleids.FindByIdentifier(*c.client, ctx, c.baseURL, identifier)
+}
+
+func (c *Client) CreateBundleID(ctx context.Context, bundleID bundleids.BundleID) (*bundleids.BundleID, error) {
+	return bundleids.Create(*c.client, ctx, c.baseURL, bundleID)
+}
+
+func (c *Client) ModifyBundleID(ctx context.Context, id string, bundleID bundleids.BundleID) (*bundleids.BundleID, error) {
+	return bundleids.Modify(*c.client, ctx, c.baseURL, id, bundleID)
+}
+
+func (c *Client) DeleteBundleID(ctx context.Context, id string) error {
+	return bundleids.Delete(*c.client, ctx, c.baseURL, id)
 }
 
 func check(e error) {
