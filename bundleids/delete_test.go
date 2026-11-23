@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/oliver-binns/appstore-go/mocknetworking"
+	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -28,9 +29,17 @@ func TestDeleteBundleID_ReturnsNilOnSuccess(t *testing.T) {
 }
 
 func TestDeleteBundleID_ThrowsErrorIfNon204Returned(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(http.StatusConflict, `{}`)
+
+	err := Delete(httpClient, context.Background(), "https://example.com", "ABC123")
+
+	assert.EqualError(t, err, "unexpected response code: 409")
+}
+
+func TestDeleteBundleID_ReturnsErrNotFoundOn404(t *testing.T) {
 	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(http.StatusNotFound, `{}`)
 
 	err := Delete(httpClient, context.Background(), "https://example.com", "ABC123")
 
-	assert.EqualError(t, err, "unexpected response code: 404")
+	assert.ErrorIs(t, err, networking.ErrNotFound)
 }

@@ -23,5 +23,8 @@ func Delete(c networking.HTTPClient, ctx context.Context, rawURL string, id stri
 	if resp.StatusCode() == http.StatusNoContent {
 		return nil
 	}
+	if resp.StatusCode() == http.StatusNotFound {
+		return fmt.Errorf("%w: no bundle ID exists for id %q", networking.ErrNotFound, id)
+	}
 	return fmt.Errorf("unexpected response code: %d", resp.StatusCode())
 }
