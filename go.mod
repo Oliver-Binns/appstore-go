@@ -8,7 +8,7 @@ require github.com/stretchr/testify v1.12.1
 
 require (
 	github.com/oapi-codegen/oapi-codegen/v2 v2.8.2
-	github.com/oapi-codegen/runtime v1.9.0
+	github.com/oapi-codegen/runtime v1.9.1
 )
 
 require (
