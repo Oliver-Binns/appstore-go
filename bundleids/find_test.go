@@ -95,3 +95,22 @@ func TestFindByIdentifier_ReturnsNilWhenOnlyLongerIdentifiersMatch(t *testing.T)
 	assert.Nil(t, err)
 	assert.Nil(t, result)
 }
+
+func TestFindByIdentifier_MatchesIdentifierCaseInsensitively(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(
+		http.StatusOK,
+		`{
+			"data": [
+				{"type": "bundleIds", "id": "WIDGET1", "attributes": {"name": "Widget", "identifier": "com.Example.MyApp.widget", "platform": "IOS", "seedId": "SEED001"}},
+				{"type": "bundleIds", "id": "ABC123", "attributes": {"name": "My App", "identifier": "com.Example.MyApp", "platform": "IOS", "seedId": "SEED001"}}
+			]
+		}`,
+	)
+
+	result, err := FindByIdentifier(httpClient, context.Background(), "https://example.com", "com.example.myapp")
+
+	assert.Nil(t, err)
+	if assert.NotNil(t, result) {
+		assert.Equal(t, "ABC123", result.ID)
+	}
+}

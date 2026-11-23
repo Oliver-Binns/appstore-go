@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/oliver-binns/appstore-go/networking"
 	"github.com/oliver-binns/appstore-go/openapi"
@@ -12,7 +13,7 @@ import (
 // maxPageSize is the largest page size App Store Connect accepts for collection requests.
 const maxPageSize = 200
 
-// FindByIdentifier returns the bundle ID whose identifier exactly matches identifier, or nil if none does.
+// FindByIdentifier returns the bundle ID whose identifier matches identifier (ignoring case, as Apple does), or nil if none does.
 func FindByIdentifier(c networking.HTTPClient, ctx context.Context, rawURL string, identifier string) (*BundleID, error) {
 	client, err := openapi.NewClientWithResponses(rawURL, openapi.WithHTTPClient(c))
 	if err != nil {
@@ -38,7 +39,7 @@ func FindByIdentifier(c networking.HTTPClient, ctx context.Context, rawURL strin
 	}
 
 	for _, data := range resp.JSON200.Data {
-		if bundleID := fromResponse(data); bundleID.Identifier == identifier {
+		if bundleID := fromResponse(data); strings.EqualFold(bundleID.Identifier, identifier) {
 			return bundleID, nil
 		}
 	}
