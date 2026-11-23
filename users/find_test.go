@@ -2,7 +2,9 @@ package users
 
 import (
 	"context"
+	"fmt"
 	"net/http"
+	"strings"
 	"testing"
 
 	"github.com/oliver-binns/appstore-go/mocknetworking"
@@ -21,9 +23,9 @@ func TestFindByEmail_MakesRequest(t *testing.T) {
 
 	assert.Equal(t, 2, len(httpClient.Requests))
 	assert.Equal(t, "GET", httpClient.Requests[0].Method)
-	assert.Equal(t, "https://example.com/v1/users?filter%5Busername%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[0].URL.String())
+	assert.Equal(t, "https://example.com/v1/users?filter%5Busername%5D=mail%40oliverbinns.co.uk&include=visibleApps&limit%5BvisibleApps%5D=50", httpClient.Requests[0].URL.String())
 	assert.Equal(t, "GET", httpClient.Requests[1].Method)
-	assert.Equal(t, "https://example.com/v1/userInvitations?filter%5Bemail%5D=mail%40oliverbinns.co.uk&include=visibleApps", httpClient.Requests[1].URL.String())
+	assert.Equal(t, "https://example.com/v1/userInvitations?filter%5Bemail%5D=mail%40oliverbinns.co.uk&include=visibleApps&limit%5BvisibleApps%5D=50", httpClient.Requests[1].URL.String())
 }
 
 func TestFindByEmail_ReturnsErrorIfNon200Returned(t *testing.T) {
@@ -124,4 +126,26 @@ func TestFindByEmail_DecodesInvitationResponse(t *testing.T) {
 	assert.Equal(t, "mail@oliverbinns.co.uk", user.Username)
 	assert.False(t, user.HasAcceptedInvite)
 	assert.Equal(t, []string{"123456"}, user.VisibleAppIDs)
+}
+
+func TestFindByEmail_ReturnsAllVisibleAppsBeyondDefaultPageSize(t *testing.T) {
+	var refs []string
+	for i := 0; i < 12; i++ {
+		refs = append(refs, fmt.Sprintf(`{"type":"apps","id":"app%d"}`, i))
+	}
+	httpClient := mocknetworking.MockHTTPClientWith200Response(`{
+		"data": [{
+			"type": "users",
+			"id": "abcd",
+			"attributes": {},
+			"relationships": {"visibleApps": {"data": [` + strings.Join(refs, ",") + `]}}
+		}],
+		"links": {}
+	}`)
+
+	user, err := FindByEmail(httpClient, context.Background(), "https://example.com", "mail@oliverbinns.co.uk")
+
+	assert.NoError(t, err)
+	assert.Len(t, user.VisibleAppIDs, 12)
+	assert.Contains(t, httpClient.Requests[0].URL.RawQuery, "limit%5BvisibleApps%5D=50")
 }

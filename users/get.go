@@ -20,7 +20,7 @@ func Get(c networking.HTTPClient, ctx context.Context, rawURL string, id string)
 	}
 
 	include := []openapi.UsersGetInstanceParamsInclude{openapi.UsersGetInstanceParamsIncludeVisibleApps}
-	resp, err := client.UsersGetInstanceWithResponse(ctx, id, &openapi.UsersGetInstanceParams{Include: &include})
+	resp, err := client.UsersGetInstanceWithResponse(ctx, id, &openapi.UsersGetInstanceParams{Include: &include, LimitVisibleApps: ptr.PtrOrNil(maxVisibleApps)})
 	if err != nil {
 		return nil, fmt.Errorf("failed to get user: %w", err)
 	}
@@ -56,7 +56,7 @@ func getInvitations(c networking.HTTPClient, ctx context.Context, rawURL string,
 	}
 
 	include := []openapi.UserInvitationsGetInstanceParamsInclude{openapi.UserInvitationsGetInstanceParamsIncludeVisibleApps}
-	resp, err := client.UserInvitationsGetInstanceWithResponse(ctx, id, &openapi.UserInvitationsGetInstanceParams{Include: &include})
+	resp, err := client.UserInvitationsGetInstanceWithResponse(ctx, id, &openapi.UserInvitationsGetInstanceParams{Include: &include, LimitVisibleApps: ptr.PtrOrNil(maxVisibleApps)})
 	if err != nil {
 		return nil, fmt.Errorf("failed to get user invitation: %w", err)
 	}
