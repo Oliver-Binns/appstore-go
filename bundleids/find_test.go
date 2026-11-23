@@ -17,7 +17,7 @@ func TestFindByIdentifier_MakesRequest(t *testing.T) {
 
 	assert.Equal(t, 1, len(httpClient.Requests))
 	assert.Equal(t, "GET", httpClient.Requests[0].Method)
-	assert.Equal(t, "https://example.com/v1/bundleIds?filter%5Bidentifier%5D=com.example.myapp", httpClient.Requests[0].URL.String())
+	assert.Equal(t, "https://example.com/v1/bundleIds?filter%5Bidentifier%5D=com.example.myapp&limit=200", httpClient.Requests[0].URL.String())
 }
 
 func TestFindByIdentifier_ThrowsErrorIfNon200Returned(t *testing.T) {
@@ -63,4 +63,35 @@ func TestFindByIdentifier_DecodesResponse(t *testing.T) {
 	assert.Equal(t, "com.example.myapp", result.Identifier)
 	assert.Equal(t, openapi.IOS, result.Platform)
 	assert.Equal(t, "SEED001", result.SeedID)
+}
+
+func TestFindByIdentifier_ReturnsExactMatchWhenFilterMatchesLongerIdentifiers(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(
+		http.StatusOK,
+		`{
+			"data": [
+				{"type": "bundleIds", "id": "WIDGET1", "attributes": {"name": "Widget", "identifier": "com.example.myapp.widget", "platform": "IOS", "seedId": "SEED001"}},
+				{"type": "bundleIds", "id": "ABC123", "attributes": {"name": "My App", "identifier": "com.example.myapp", "platform": "IOS", "seedId": "SEED001"}}
+			]
+		}`,
+	)
+
+	result, err := FindByIdentifier(httpClient, context.Background(), "https://example.com", "com.example.myapp")
+
+	assert.Nil(t, err)
+	if assert.NotNil(t, result) {
+		assert.Equal(t, "ABC123", result.ID)
+	}
+}
+
+func TestFindByIdentifier_ReturnsNilWhenOnlyLongerIdentifiersMatch(t *testing.T) {
+	httpClient := mocknetworking.MockHTTPClientWithSingleResponse(
+		http.StatusOK,
+		`{"data": [{"type": "bundleIds", "id": "WIDGET1", "attributes": {"name": "Widget", "identifier": "com.example.myapp.widget", "platform": "IOS", "seedId": "SEED001"}}]}`,
+	)
+
+	result, err := FindByIdentifier(httpClient, context.Background(), "https://example.com", "com.example.myapp")
+
+	assert.Nil(t, err)
+	assert.Nil(t, result)
 }
