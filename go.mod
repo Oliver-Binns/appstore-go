@@ -1,6 +1,6 @@
 module github.com/oliver-binns/appstore-go
 
-go 1.25.0
+go 1.26.0
 
 require github.com/golang-jwt/jwt/v5 v5.3.1
 
@@ -8,7 +8,7 @@ require github.com/stretchr/testify v1.12.1
 
 require (
 	github.com/oapi-codegen/oapi-codegen/v2 v2.8.2
-	github.com/oapi-codegen/runtime v1.8.0
+	github.com/oapi-codegen/runtime v1.9.0
 )
 
 require (
