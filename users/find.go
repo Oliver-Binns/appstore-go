@@ -10,6 +10,9 @@ import (
 	"github.com/oliver-binns/appstore-go/openapi"
 )
 
+// maxVisibleApps is the largest page size the API allows for included visibleApps.
+const maxVisibleApps = 50
+
 func FindByEmail(c networking.HTTPClient, ctx context.Context, rawURL string, email string) (*User, error) {
 	user, err := findActiveUserByEmail(c, ctx, rawURL, email)
 	if err != nil || user != nil {
@@ -27,8 +30,9 @@ func findActiveUserByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 	filters := []string{email}
 	include := []openapi.UsersGetCollectionParamsInclude{openapi.UsersGetCollectionParamsIncludeVisibleApps}
 	resp, err := client.UsersGetCollectionWithResponse(ctx, &openapi.UsersGetCollectionParams{
-		FilterUsername: &filters,
-		Include:        &include,
+		FilterUsername:   &filters,
+		Include:          &include,
+		LimitVisibleApps: ptr.PtrOrNil(maxVisibleApps),
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to find user by email: %w", err)
@@ -67,8 +71,9 @@ func findInvitationByEmail(c networking.HTTPClient, ctx context.Context, rawURL 
 	filters := []string{email}
 	include := []openapi.UserInvitationsGetCollectionParamsInclude{openapi.UserInvitationsGetCollectionParamsIncludeVisibleApps}
 	resp, err := client.UserInvitationsGetCollectionWithResponse(ctx, &openapi.UserInvitationsGetCollectionParams{
-		FilterEmail: &filters,
-		Include:     &include,
+		FilterEmail:      &filters,
+		Include:          &include,
+		LimitVisibleApps: ptr.PtrOrNil(maxVisibleApps),
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to find invitation by email: %w", err)
